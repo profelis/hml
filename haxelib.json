@@ -1,0 +1,13 @@
+{
+    "name": "hml",
+    "url" : "https://bitbucket.org/profelis/hml",
+    "license": "MIT",
+    "tags": ["mxml", "ui", "cross"],
+    "description": "Haxe macro-based mxml replacement",
+    "classPath": "src",
+    "version": "0.0.1-alpha",
+    "releasenote": "first release",
+    "contributors": [
+        "deep"
+    ]
+}
