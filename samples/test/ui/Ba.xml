@@ -1,0 +1,7 @@
+<B xmlns="test" xmlns:ui="">
+	<ui:Ab id="test2">
+		<ui:name>'foo'</ui:name>
+	</ui:Ab>
+
+	<!-- <ui:String id="cool">'test'</ui:String> -->
+</B>

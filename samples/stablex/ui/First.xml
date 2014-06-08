@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Box xmlns="ru.stablex.ui.widgets" xmlns:skin="ru.stablex.ui.skins">
+	<Button left="50" top="100" text="'My first widget!'">
+		<skin>
+			<skin:Paint color="0xFF0000" border="2" corners="[20]"/>
+		</skin>
+	</Button>
+	<Text left="50" top="150" text="'My second widget!'"/>
+</Box>

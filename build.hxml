@@ -1,0 +1,6 @@
+# -cmd cd samples/stablex
+# -cmd haxe build.hxml
+
+-cmd cd samples/test
+-cmd haxe build.hxml
+-cmd open bin/hml.swf

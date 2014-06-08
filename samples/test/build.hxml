@@ -1,0 +1,18 @@
+-cp ../../src
+-cp src
+-js bin/empty.js
+--no-output
+-main GenHx
+--macro allowPackage('flash')
+#-D hml_debug
+
+--next
+
+-cp src
+-cp gen
+-swf bin/hml.swf
+-main Main
+-debug
+# -D fdb
+#-D dump=pretty
+--times
