@@ -30,13 +30,13 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 		}
 		node.cData = data.cData;
 		
-		parseAttributes(node, data, parent, parser);
-		parseNodes(node, data, parent, parser);
+		parseAttributes(node, data, parser);
+		parseNodes(node, data, parser);
 		
 		return node;
 	}
 
-	function parseAttributes(node:Node, data:XMLData, parent:Node, parser:IXMLDataParser<XMLData, Node>) {
+	function parseAttributes(node:Node, data:XMLData, parser:IXMLDataParser<XMLData, Node>) {
 		for (a in data.attributes.keys()) {
 			if (node.model.resolveNamespace(a.ns) == "http://haxe.org/") {
 				switch (a.name) {
@@ -47,12 +47,25 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 				node.id = data.attributes.get(a);
 				if (!~/^[^\d\W]\w*$/.match(node.id))
 					Context.error('id error "${node.id}" in file "${node.root.file}"', node.root.pos);
-			} else node.attributes.set(a, data.attributes.get(a));
+			} else {
+				var n:Node = new Node();
+				n.name = new XMLQName(a.name, node.name.ns);
+				n.root = node.root;
+				n.parent = node;
+				n.superType = data.resolveType(n.name);
+				n.cData = data.attributes.get(a);
+
+				n.model = new XMLData();
+				n.model.name = n.name;
+				n.model.cData = n.cData;
+				
+				node.unresolvedNodes.push(n);
+			}
 		}
 	}
 
-	function parseNodes(node:Node, data:XMLData, parent:Node, parser:IXMLDataParser<XMLData, Node>) {
-		for (n in data.nodes) node.unresolvedNodes.push(parser.parse(n, parent));
+	function parseNodes(node:Node, data:XMLData, parser:IXMLDataParser<XMLData, Node>) {
+		for (n in data.nodes) node.unresolvedNodes.push(parser.parse(n, node));
 	}
 }
 
@@ -90,8 +103,8 @@ class DefaultHaxeTypeResolver implements IHaxeTypeResolver<Node, Type> {
 	}
 
 	public function hasField(node:Node, qName:XMLQName):Bool {
-		var type;
 		if (node.name.ns != qName.ns) return false;
+		var type;
 		if ((type = types[node.superType]) != null) {
 			for (n in type.children) if (qName.name == n.id) return true;
 			for (n in type.nodes) if (qName.name == n.id) return true;
@@ -105,8 +118,8 @@ class DefaultHaxeTypeResolver implements IHaxeTypeResolver<Node, Type> {
 	public function getFieldNativeType(node:Node, qName:XMLQName):haxe.macro.Type {
 		var type;
 		if ((type = types[node.superType]) != null) {
-			for (n in type.children) if (qName.name == n.id) return null;
-			for (n in type.nodes) if (qName.name == n.id) return null;
+			for (n in type.children) if (qName.name == n.id) return n.nativeType;
+			for (n in type.nodes) if (qName.name == n.id) return n.nativeType;
 			return getFieldNativeType(type, qName);
 		}
 		return try {
@@ -152,10 +165,12 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 
 		parseXMLDataRoots(data);
 
+
 		if (!(resolveTypes(resolveNode) && resolveTypes(recursiveResolve)))
 			types.iter(throwResolveError);
 
-		types.iter(postResolve);
+		if (!resolveTypes(postResolve))
+			Context.error('can\'t resolve node native types. Please send error report to author.', Context.currentPos());
 
 		return [for (t in types) t];
 	}
@@ -192,6 +207,7 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 					t.nodes.push(n);
 				} else if (isType(n)) {
 					removeItem(i);
+					if (n.nativeType == null) n.nativeType = getNativeType(n);
 					t.children.push(n);
 				} else i++;
 			}
@@ -201,12 +217,6 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 
 	function recursiveResolve(n:Node):Bool {
 		if (resolveNode(n)) {
-			if (!n.attributesChecked) {
-				for (a in n.attributes.keys())
-					if (!hasField(n, new XMLQName(a.name, n.name.ns)))
-						Context.error('can\'t resolve attribute "${a.name}" in file "${n.root.file}"', n.root.pos);
-				n.attributesChecked = true;
-			}
 			var res = true;
 			inline function iterNode(c) res = res && recursiveResolve(c);
 			for (c in n.children) iterNode(c);
@@ -219,25 +229,26 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 	var nodeIds:Map<Node, Int> = new Map();
 
 	function postResolve(n:Node):Bool {
+		if (n.nativeType == null) n.nativeType = getNativeType(n);
+		if (n.nativeType == null) return false;
+		var res = true;
+
 		if (n.id == null) {
 			var i:Int = nodeIds.exists(n.root) ? nodeIds.get(n.root) : 0;
 			n.id = "field" + (i++);
 			nodeIds[n.root] = i;
 		}
-		if (n.nativeType == null) n.nativeType = getNativeType(n);
+		
 		for (c in n.children) {
 			if (c.id == null) c.oneInstance = true;
-			postResolve(c);
+			res = res && postResolve(c);
 		}
-		var clazz = n.nativeType.getClass();
 		for (c in n.nodes) {
-			c.nativeType = clazz.findField(c.name.name, false).type;
-			c.superType = c.nativeType.getClass().module;
 			if (c.id == null) c.oneInstance = true;
-			postResolve(c);
+			res = res && postResolve(c);
 		}
 		
-		return true;
+		return res;
 	}
 
 	function getNativeType(node:Node):haxe.macro.Type {

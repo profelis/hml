@@ -94,8 +94,6 @@ class Node {
 	public var nativeType:haxe.macro.Type;
 	public var id:Null<String>;
 
-	public var attributesChecked = false;
-	public var attributes:HashMap<XMLQName, String> = new HashMap();
 	public var nodes:Array<Node> = [];
 
 	public var children:Array<Node> = [];
@@ -121,7 +119,6 @@ class Node {
 			superType: superType,
 			nativeType: Std.string(nativeType),
 			id: id,
-			attributes: [for (a in attributes.keys()) a.toString() => attributes.get(a)],
 			nodes: [for (n in nodes) n.toValue()],
 			children: [for (n in children) n.toValue()],
 			unresolved: [for (n in unresolvedNodes) n.toValue()],

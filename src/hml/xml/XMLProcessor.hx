@@ -34,9 +34,9 @@ interface IXMLDataNodeParser<B, T, R> {
 interface IHaxeTypeResolver<N, T> {
 	public var types:Map<String, T>;
 	public function getNativeType(node:N):haxe.macro.Type;
-	public function isType(node:Node):Bool;
-	public function hasField(node:Node, qName:XMLQName):Bool;
-	public function getFieldNativeType(node:Node, qName:XMLQName):haxe.macro.Type;
+	public function isType(node:N):Bool;
+	public function hasField(node:N, qName:XMLQName):Bool;
+	public function getFieldNativeType(node:N, qName:XMLQName):haxe.macro.Type;
 }
 
 // writer
@@ -81,7 +81,7 @@ class DefaultXMLAdapter implements IAdapter<XMLData, Node, Type> {
 	public function getXmlNodeParsers():Array<IXMLNodeParser<XMLData>> return [new DefaultXMLNodeParser()];
 	public function getXmlDataNodeParsers():Array<IXMLDataNodeParser<XMLData, Node, Node>> return [new DefaultXMLDataParser()];
 	public function getTypeResolvers():Array<IHaxeTypeResolver<Node, Type>> return [new DefaultHaxeTypeResolver()];
-	public function getNodeWriters():Array<IHaxeNodeWriter<Node>> return [new DefaultArrayWriter(), new DefaultNodeWriter(), new DefaultStringWriter()];
+	public function getNodeWriters():Array<IHaxeNodeWriter<Node>> return [new DefaultArrayWriter(), new DefaultNodeWriter(), new DefaultStringWriter(), new DefaultFunctionWriter()];
 }
 
 class SpriteXMLAdapter extends BaseXMLAdapter {

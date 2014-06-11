@@ -43,9 +43,8 @@ class MethodNodeWriter extends StringNode {
 }
 
 class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
-	var printer:Printer;
+	static var printer:Printer = new Printer("");
 	public function new() {
-		printer = new Printer("");
 	}
 
 	public function match(node:Node):MatchLevel return GlobalLevel;
@@ -58,18 +57,8 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 
 	@:expose inline function nativeTypeString(node:Node) return printer.printComplexType(node.nativeType.toComplexType());
 
-	function isChildOf(node:Node, type:String) {
-		var clazz:haxe.macro.Type.ClassType = node.nativeType.follow().getClass();
-		
-		while (clazz != null) {
-			if (clazz != null && clazz.module + "." + clazz.name == type) return true;
-			clazz = clazz.superClass != null ? clazz.superClass.t.get() : null;
-		}
-		return  false;
-	}
-
-	function writeAttributes(node:Node, scope:String, method:Array<String>) {
-		for (a in node.attributes.keys()) method.push('$scope.${a.name} = ${node.attributes.get(a)};');
+	@:expose inline function isChildOf(node:Node, type:String) {
+		return hml.base.MacroTools.isChildOf(node.nativeType, type);
 	}
 
 	function writeNodes(node:Node, scope:String, writer:IHaxeWriter<Node>, method:Array<String>) {
@@ -101,12 +90,14 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 	}
 
 	@:expose inline function defaultWrite(node:Node, scope:String, writer:IHaxeWriter<Node>, method:Array<String>, assign = false) {
-		writeAttributes(node, scope, method);
 		writeNodes(node, scope, writer, method);
   		writeChildren(node, scope, writer, method, assign);
 	}
 
 	public function writeAttribute(node:Node, scope:String, child:Node, writer:IHaxeWriter<Node>, method:Array<String>):Void {
+		if (child.cData != null) {
+			method.push('$scope.${child.name.name} = ${child.cData};');	
+		}
 		defaultWrite(child, '$scope.${child.name.name}', writer, method, true);
 	}
 
@@ -148,6 +139,15 @@ class DefaultStringWriter extends DefaultNodeWriter {
 		writer.writeNode(child);
 		method.push('$scope.${child.name.name} = ${universalGet(child)};');
 	}
+}
+
+class DefaultFunctionWriter extends DefaultNodeWriter {
+	override public function match(node:Node):MatchLevel return switch (node.nativeType) {
+		case TFun(_): ClassLevel;
+		case _: None;
+	};
+
+	override function writeFieldCtor(node:Node) return node.cData;
 }
 
 class DefaultArrayWriter extends DefaultNodeWriter {
