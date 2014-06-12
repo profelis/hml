@@ -43,21 +43,23 @@ class MethodNodeWriter extends StringNode {
 }
 
 class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
-	static var printer:Printer = new Printer("");
+	public var printer:Printer = new Printer("");
 	public function new() {
 	}
 
 	public function match(node:Node):MatchLevel return GlobalLevel;
 
-	@:expose inline function getFieldName(fieldName:String) return 'get_$fieldName';
-	@:expose inline function setFieldName(fieldName:String) return 'set_$fieldName';
-	@:expose inline function initedFieldName(fieldName:String) return '${fieldName}_initialized';
+	@:expose public inline function getFieldName(fieldName:String) return 'get_$fieldName';
+	@:expose public inline function setFieldName(fieldName:String) return 'set_$fieldName';
+	@:expose public inline function initedFieldName(fieldName:String) return '${fieldName}_initialized';
 
-	@:expose inline function universalGet(node:Node) return node.oneInstance ? '${getFieldName(node.id)}()' : node.id;
+	@:expose public inline function universalGet(node:Node) return node.oneInstance ? '${getFieldName(node.id)}()' : node.id;
 
-	@:expose inline function nativeTypeString(node:Node) return printer.printComplexType(node.nativeType.toComplexType());
+	@:expose public inline function nativeTypeString(node:Node) {
+		return printer.printComplexType(node.nativeType.toComplexType());
+	}
 
-	@:expose inline function isChildOf(node:Node, type:String) {
+	@:expose public inline function isChildOf(node:Node, type:haxe.macro.Expr.ComplexType) {
 		return hml.base.MacroTools.isChildOf(node.nativeType, type);
 	}
 
@@ -131,7 +133,7 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 }
 
 class DefaultStringWriter extends DefaultNodeWriter {
-	override public function match(node:Node):MatchLevel return isChildOf(node, "String.String") ? ClassLevel : None;
+	override public function match(node:Node):MatchLevel return isChildOf(node, macro : String) ? ClassLevel : None;
 
 	override function writeFieldCtor(node:Node) return node.cData;
 
@@ -151,16 +153,9 @@ class DefaultFunctionWriter extends DefaultNodeWriter {
 }
 
 class DefaultArrayWriter extends DefaultNodeWriter {
-	override public function match(node:Node):MatchLevel return isChildOf(node, "Array.Array") ? ClassLevel : None;
+	override public function match(node:Node):MatchLevel return isChildOf(node, macro : Array) ? ClassLevel : None;
 
 	override function child(node:Node, scope:String, child:Node, method:Array<String>, assign = false) method.push('$scope.push(${universalGet(child)});');
-}
-
-class DefaultSpriteWriter extends DefaultNodeWriter {
-	
-	override public function match(node:Node):MatchLevel return isChildOf(node, "flash.display.DisplayObject.DisplayObject") ? ModuleLevel : None;
-
-	override function child(node:Node, scope:String, child:Node, method:Array<String>, assign = false) method.push('$scope.addChild(${universalGet(child)});');
 }
 
 class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {

@@ -6,7 +6,7 @@
 	<list><ui:String>'as'</ui:String><ui:String id="str2">null</ui:String></list>
 	
 	<s:Sprite xmlns:s="flash.display" id="sprite" xmlns:text="flash.text.*">
-		<text:TextField id="child1" x="100" y="200" alpha="0.78" text="'tada'" textColor="0xFF0000"/>
+		<text:TextField id="child1" x="100" y="200" alpha="0.78" text="'tada'" textColor="0xFF0000" click="trace('click')"/>
 		<s:Sprite id="child2" visible="false" x="100"/>
 		<s:Sprite id="child3" visible="false" x="100"/>
 	</s:Sprite>

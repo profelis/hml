@@ -5,11 +5,13 @@ import hml.base.BaseFileProcessor;
 import hml.xml.Data;
 import hml.xml.XMLProcessor;
 import hml.base.MatchLevel;
+import hml.base.MacroTools;
 
 using haxe.macro.Tools;
 using hml.base.MatchLevel;
 using Lambda;
 using Reflect;
+using StringTools;
 
 class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 	public function new() {}
@@ -84,10 +86,9 @@ class DefaultHaxeTypeResolver implements IHaxeTypeResolver<Node, Type> {
 			var type = Context.getType(node.superType);
 			if (node.generic != null) {
 				switch (type) {
-					case TInst(_, params):
-						// TODO: support complex generic params
-						params.pop();
-						params.push(Context.getType(node.generic));
+					case TAbstract(_, params) | TInst(_, params) | TEnum(_, params) | TType(_, params):
+						while (params.length > 0) params.pop();
+						for (s in MacroTools.parseTypeString(node.generic)) params.push(s);
 					case _:
 				}
 			}

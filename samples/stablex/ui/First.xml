@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Box xmlns="ru.stablex.ui.widgets" xmlns:skin="ru.stablex.ui.skins">
-	<Button left="50" top="100" text="'My first widget!'">
-		<click id="clickHandler">trace('magic: ${event.localX}')</click>
+<Widget xmlns="ru.stablex.ui.widgets" xmlns:skin="ru.stablex.ui.skins" w="400" h="300">
+	<skin>
+		<skin:Paint color="0xDDDDDD" border="2" corners="[5]"/>
+	</skin>
+	<Button left="50" top="100" w="70%" text="'My first widget!'">
+		<click id="clickHandler">trace('Magic: ${text2.text}')</click>
 		<skin>
 			<skin:Paint color="0xFF0000" border="2" corners="[20]"/>
 		</skin>
 	</Button>
-	<Text left="50" top="150" text="'My second widget!'"/>
-</Box>
+	<Text id="text2" left="50" top="45%" text="'My second widget!'"/>
+</Widget>

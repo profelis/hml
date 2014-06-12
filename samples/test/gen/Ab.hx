@@ -22,12 +22,12 @@ class Ab extends test.A {
 
     @:isVar public var child3(get, set):flash.display.Sprite;
 
-    @:expose inline function get_field9():String {
+    @:expose inline function get_field10():String {
         var res = 'testName';
         return res;
     }
 
-    @:expose inline function get_field11():String {
+    @:expose inline function get_field12():String {
         var res = 'as';
         return res;
     }
@@ -57,6 +57,11 @@ class Ab extends test.A {
         return res;
     }
 
+    @:expose inline function get_field3():flash.events.MouseEvent -> StdTypes.Void {
+        var res = function (event:flash.events.MouseEvent):StdTypes.Void { trace('click'); };
+        return res;
+    }
+
     function get_child1():flash.text.TextField {
         if (child1_initialized) return child1;
         child1_initialized = true;
@@ -65,6 +70,7 @@ class Ab extends test.A {
         res.alpha = 0.78;
         res.textColor = 0xFF0000;
         res.text = get_field2();
+        res.addEventListener(flash.events.MouseEvent.CLICK, get_field3());
         res.x = 100;
         res.y = 200;
         return res;
@@ -111,8 +117,8 @@ class Ab extends test.A {
 
     public function new() {
         super();
-        this.name = get_field9();
-        this.list.push(get_field11());
+        this.name = get_field10();
+        this.list.push(get_field12());
         this.list.push(str2);
         get_sprite();
     }

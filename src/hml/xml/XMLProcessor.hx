@@ -84,10 +84,6 @@ class DefaultXMLAdapter implements IAdapter<XMLData, Node, Type> {
 	public function getNodeWriters():Array<IHaxeNodeWriter<Node>> return [new DefaultArrayWriter(), new DefaultNodeWriter(), new DefaultStringWriter(), new DefaultFunctionWriter()];
 }
 
-class SpriteXMLAdapter extends BaseXMLAdapter {
-	override public function getNodeWriters():Array<IHaxeNodeWriter<Node>> return [new DefaultSpriteWriter()];
-}
-
 class XMLProcessor extends BaseFileProcessor<XMLDataRoot, Type> {
 
 	public function new(adapters:Array<IAdapter<XMLData, Node, Type>>) {
