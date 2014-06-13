@@ -61,16 +61,15 @@ class StablexXMLAdapter extends FlashAdapter {
 class DefaultWidgetWriter extends DisplayObjectMetaWriter {
 	override function writeNodes(node:Node, scope:String, writer:IHaxeWriter<Node>, method:Array<String>) {
 		for (n in node.nodes) {
-			if (n.cData != null) {
-				if (n.cData.rtrim().endsWith("%")) {
-					n.cData = n.cData.rtrim().substr(0, -1);
-					n.name.name = switch (n.name.name) {
-						case "w": "widthPt";
-						case "h": "heightPt";
-						case "left" | "top" | "right" | "bottom" : '${n.name.name}Pt';
-						case n: n;
-					}
+			if (n.cData != null && n.cData.rtrim().endsWith("%")) {
+				var percentFlag = true;
+				n.name.name = switch (n.name.name) {
+					case "w": "widthPt";
+					case "h": "heightPt";
+					case "left" | "top" | "right" | "bottom" : '${n.name.name}Pt';
+					case n: percentFlag = false; n;
 				}
+				if (percentFlag) n.cData = n.cData.rtrim().substr(0, -1);
 			}
 		}
 		super.writeNodes(node, scope, writer, method);
