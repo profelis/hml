@@ -12,6 +12,7 @@ using hml.base.MatchLevel;
 using Lambda;
 using Reflect;
 using StringTools;
+using hml.base.MacroTools;
 
 class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 	public function new() {}
@@ -42,7 +43,8 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 		for (a in data.attributes.keys()) {
 			if (node.model.resolveNamespace(a.ns) == "http://haxe.org/") {
 				switch (a.name) {
-					case "generic": node.generic = data.attributes.get(a);
+					case "generic": node.generic = data.attributes.get(a).stringToTypes();
+					case "implements": node.implementsList = data.attributes.get(a).stringToTypes();
 				}
 			}
 			else if (isID(a)) {
@@ -87,8 +89,15 @@ class DefaultHaxeTypeResolver implements IHaxeTypeResolver<Node, Type> {
 			if (node.generic != null) {
 				switch (type) {
 					case TAbstract(_, params) | TInst(_, params) | TEnum(_, params) | TType(_, params):
-						while (params.length > 0) params.pop();
-						for (s in MacroTools.parseTypeString(node.generic)) params.push(s);
+						var types = null;
+						try {
+							types = node.generic.toTypeArray();
+						} catch (e:Dynamic) {}
+						if (types != null) {
+							while (params.length > 0) params.pop();
+							for (s in types) params.push(s);
+							node.generic = null;
+						}
 					case _:
 				}
 			}

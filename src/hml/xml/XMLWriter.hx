@@ -16,6 +16,7 @@ using StringTools;
 using Lambda;
 using haxe.macro.Printer;
 using haxe.macro.Context;
+using hml.base.MacroTools;
 
 class StringNode extends WriteNode<Node> {
 	var str:String;
@@ -56,7 +57,9 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 	@:expose public inline function universalGet(node:Node) return node.oneInstance ? '${getFieldName(node.id)}()' : node.id;
 
 	@:expose public inline function nativeTypeString(node:Node) {
-		return node.superType != null ? '${node.superType}${node.generic != null ? "<" + node.generic + ">" : ""}' : printer.printComplexType(node.nativeType.toComplexType());
+		return if (node.superType != null)
+			'${node.superType}${node.generic != null ? "<" + node.generic.typesToString() + ">" : ""}' 
+			else printer.printComplexType(node.nativeType.toComplexType()) + (node.generic != null ? '<${node.generic.typesToString()}>' : "");
 	}
 
 	@:expose public inline function isChildOf(node:Node, type:haxe.macro.Expr.ComplexType) {
@@ -187,7 +190,12 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 			var name = pos > -1 ? type.type.substr(pos + 1) : type.type;
 			res += 'package $pack;\n';
 			res += '\n';
-			res += 'class $name extends ${type.superType} {\n';
+			res += 'class $name extends ${type.superType}';
+			if (type.implementsList != null) {
+				for (i in type.implementsList)
+					res += ' implements ${[i].typesToString()}';
+			}
+			res += ' {\n';
 			inline function writeNode(f:WriteNode<Dynamic>) {
 				var s = f.toString();
 				s = '\n${TAB}${s.split("\n").join("\n" + TAB)}\n';

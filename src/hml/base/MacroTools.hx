@@ -8,36 +8,64 @@ using haxe.macro.Tools;
 
 using StringTools;
 
-class MacroTools {
+typedef TypeString = {
+	type:String,
+	params:Array<TypeString>
+}
 
-	static public function parseTypeString(str:String):Array<haxe.macro.Type> {
-		function map(str):Array<haxe.macro.Type> {
-			var reg = ~/\s*(\w*)\s*<(([^<>]*|(?R))*)>/g;
+class TypeStringTools {
+	static public function stringToTypes(str:String):Array<TypeString> {
+		function map(str):Array<TypeString> {
+			var reg = ~/\s*([\.\w]*)\s*<(([^<>]*|(?R))*)>/g;
 			var res = [];
 			
 			while (reg.match(str)) {
 				for (t in reg.matchedLeft().split(",")) 
-					if (t.trim().length > 0) res.push(Context.getType(t.trim()));
+					if (t.trim().length > 0) res.push({type:t.trim(), params:[]});
 
-				var type = Context.getType(reg.matched(1));
-				switch (type) {
-					case TAbstract(_, params) | TInst(_, params) | TEnum(_, params) | TType(_, params):
-						while (params.length > 0) params.pop();
-						for (s in map(reg.matched(2))) params.push(s);
-					case _:
-				}
-				res.push(type);
+				res.push({type:reg.matched(1), params:map(reg.matched(2))});
 				
 				str = reg.matchedRight();
 			}
 			if (res.length == 0) {
 				var types = str.split(",");
-				for (t in types) res.push(Context.getType(t.trim()));
+				for (t in types) res.push({type:t.trim(), params:[]});
 			}
 			return res;
 		}
 		return map(str);
 	}
+
+	static public function typesToString(types:Array<TypeString>, sep = ", "):String {
+		function map(types:Array<TypeString>) {
+			return [for (t in types) t.type + (t.params.length == 0 ? "" : '<${map(t.params)}>')].join(sep);
+		}
+		return map(types);
+	}
+
+	static public function toTypeArray(types:Array<TypeString>):Array<haxe.macro.Type> {
+		function map(data:Array<TypeString>):Array<haxe.macro.Type> {
+			var res = [];
+
+			for (t in data) {
+				var type = Context.getType(t.type);
+				if (t.params.length > 0) {
+					switch (type) {
+						case TAbstract(_, params) | TInst(_, params) | TEnum(_, params) | TType(_, params):
+							while (params.length > 0) params.pop();
+							for (s in map(t.params)) params.push(s);
+						case _:
+					}
+				}
+				res.push(type);
+			}
+			return res;
+		}
+		return map(types);
+	}
+}
+
+class MacroTools {
 
 	static public function isChildOf(type:Type, baseType:ComplexType) {
 		var name = getComplexTypeName(baseType);

@@ -1,6 +1,6 @@
 package ;
 
-class Ab extends test.A {
+class Ab extends test.A implements test.ITools<Map<String, String>> {
 
     var str2_initialized:Bool = false;
 

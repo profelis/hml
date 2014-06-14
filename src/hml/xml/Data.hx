@@ -4,6 +4,7 @@ import haxe.ds.HashMap;
 import haxe.macro.Expr.Position;
 import haxe.macro.Context;
 import hml.base.Strings;
+import hml.base.MacroTools;
 
 using Reflect;
 using haxe.Json;
@@ -90,8 +91,9 @@ class Type extends Node {
 class Node {
 	public var name:XMLQName;
 	public var superType:String;
-	public var generic:Null<String>;
+	public var generic:Array<TypeString> = null;
 	public var nativeType:haxe.macro.Type;
+	public var implementsList:Array<TypeString> = null;
 	public var id:Null<String>;
 
 	public var nodes:Array<Node> = [];
@@ -117,6 +119,7 @@ class Node {
 		return {
 			name: name.toString(),
 			superType: superType,
+			implementsList: implementsList,
 			nativeType: Std.string(nativeType),
 			id: id,
 			nodes: [for (n in nodes) n.toValue()],

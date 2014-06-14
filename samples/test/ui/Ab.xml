@@ -1,4 +1,4 @@
-<A xmlns="test" xmlns:ui="" xmlns:haxe="http://haxe.org/">
+<A xmlns="test" xmlns:ui="" xmlns:haxe="http://haxe.org/" haxe:implements="test.ITools<Map<String, String>>">
 	<!-- <ui:Ba id="fa" /> -->
 	<name>'testName'</name>
 
