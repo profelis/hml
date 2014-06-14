@@ -11,4 +11,5 @@
 		</skin>
 	</Button>
 	<Text id="text2" left="50" top="45%" text="'My second widget!'"/>
+	<ui:GreenButton xmlns:ui="" right="10" bottom="10" w="200" text="'Green Button'" click="trace('green button click')"/>
 </Widget>

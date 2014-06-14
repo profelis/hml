@@ -90,7 +90,7 @@ class Type extends Node {
 class Node {
 	public var name:XMLQName;
 	public var superType:String;
-	public var generic:String = null;
+	public var generic:Null<String>;
 	public var nativeType:haxe.macro.Type;
 	public var id:Null<String>;
 

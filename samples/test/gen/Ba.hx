@@ -4,9 +4,9 @@ class Ba extends test.B {
 
     var test2_initialized:Bool = false;
 
-    @:isVar public var test2(get, set):test.A;
+    @:isVar public var test2(get, set):Ab;
 
-    function set_test2(value:test.A):test.A {
+    function set_test2(value:Ab):Ab {
         return test2 = value;
     }
 
@@ -15,10 +15,10 @@ class Ba extends test.B {
         return res;
     }
 
-    function get_test2():test.A {
+    function get_test2():Ab {
         if (test2_initialized) return test2;
         test2_initialized = true;
-        var res = new test.A();
+        var res = new Ab();
         this.test2 = res;
         res.name = get_field0();
         return res;

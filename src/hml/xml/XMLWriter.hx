@@ -56,11 +56,11 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 	@:expose public inline function universalGet(node:Node) return node.oneInstance ? '${getFieldName(node.id)}()' : node.id;
 
 	@:expose public inline function nativeTypeString(node:Node) {
-		return printer.printComplexType(node.nativeType.toComplexType());
+		return node.superType != null ? '${node.superType}${node.generic != null ? "<" + node.generic + ">" : ""}' : printer.printComplexType(node.nativeType.toComplexType());
 	}
 
 	@:expose public inline function isChildOf(node:Node, type:haxe.macro.Expr.ComplexType) {
-		return hml.base.MacroTools.isChildOf(node.nativeType, type);
+		return node.nativeType != null ? hml.base.MacroTools.isChildOf(node.nativeType, type) : false;
 	}
 
 	function writeNodes(node:Node, scope:String, writer:IHaxeWriter<Node>, method:Array<String>) {
@@ -135,19 +135,21 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 class DefaultStringWriter extends DefaultNodeWriter {
 	override public function match(node:Node):MatchLevel return isChildOf(node, macro : String) ? ClassLevel : None;
 
-	override function writeFieldCtor(node:Node) return node.cData;
-
 	override public function writeAttribute(node:Node, scope:String, child:Node, writer:IHaxeWriter<Node>, method:Array<String>):Void {
 		writer.writeNode(child);
 		method.push('$scope.${child.name.name} = ${universalGet(child)};');
 	}
+
+	override function writeFieldCtor(node:Node) return node.cData != null ? node.cData : '""';
 }
 
 class DefaultFunctionWriter extends DefaultNodeWriter {
-	override public function match(node:Node):MatchLevel return switch (node.nativeType) {
-		case TFun(_): ClassLevel;
-		case _: None;
-	};
+	override public function match(node:Node):MatchLevel {
+		return switch (node.nativeType) {
+			case TFun(_): ClassLevel;
+			case _: None;
+		}
+	}
 
 	override function writeFieldCtor(node:Node) return node.cData;
 }
@@ -193,7 +195,7 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 			}
 			for (f in fields) writeNode(f);
 			for (f in methods) writeNode(f);
-			res += '}';
+			res += '}\n';
 
 			var path = '${output.path}/${type.type.replace(".", "/")}';
 			var p = new Path(path);

@@ -10,7 +10,7 @@ class First extends ru.stablex.ui.widgets.Widget {
 
     @:isVar public var text2(get, set):ru.stablex.ui.widgets.Text;
 
-    @:expose inline function get_field16():ru.stablex.ui.skins.Paint {
+    @:expose inline function get_field22():ru.stablex.ui.skins.Paint {
         var res = new ru.stablex.ui.skins.Paint();
         res.color = 0xDDDDDD;
         res.border = 2;
@@ -78,14 +78,37 @@ class First extends ru.stablex.ui.widgets.Widget {
         return res;
     }
 
+    @:expose inline function get_field15():String {
+        var res = 'Green Button';
+        return res;
+    }
+
+    @:expose inline function get_field17():flash.events.MouseEvent -> StdTypes.Void {
+        var res = function (event:flash.events.MouseEvent):StdTypes.Void { trace('green button click'); };
+        return res;
+    }
+
+    @:expose inline function get_field13():GreenButton {
+        var res = new GreenButton();
+        res.right = 10;
+        res.text = get_field15();
+        res.bottom = 10;
+        res.addEventListener(flash.events.MouseEvent.CLICK, get_field17());
+        res.w = 200;
+        res._onInitialize();
+        res._onCreate();
+        return res;
+    }
+
     public function new() {
         super();
         this.h = 300;
         this.w = 400;
-        this.skin = get_field16();
+        this.skin = get_field22();
         this._onInitialize();
         this.addChild(get_field0());
         this.addChild(text2);
+        this.addChild(get_field13());
         this._onCreate();
     }
 }

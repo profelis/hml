@@ -28,7 +28,7 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 		node.name = data.name;
 		node.superType = data.resolveType(data.name);
 		if (node.superType == null) {
-			Context.fatalError('can\'t resolve namespace for node ${data.name}', data.root.pos);
+			Context.fatalError('can\'t resolve namespace for node ${data.name}', data.root != null ? data.root.pos : Context.currentPos());
 		}
 		node.cData = data.cData;
 		
@@ -83,7 +83,7 @@ class DefaultHaxeTypeResolver implements IHaxeTypeResolver<Node, Type> {
 			type = node.superType;
 		}
 		return try {
-			var type = Context.getType(node.superType);
+			var type = Context.getType(type);
 			if (node.generic != null) {
 				switch (type) {
 					case TAbstract(_, params) | TInst(_, params) | TEnum(_, params) | TType(_, params):
@@ -153,6 +153,7 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 			type.type = i.type;
 			type.root = type;
 			type.id = "this";
+
 			var node = parse(i, type);
 			for (n in node.fields()) type.setField(n, node.field(n));
 
@@ -165,7 +166,6 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 		for (r in resolvers) r.types = types;
 
 		parseXMLDataRoots(data);
-
 
 		if (!(resolveTypes(resolveNode) && resolveTypes(recursiveResolve)))
 			types.iter(throwResolveError);
@@ -235,7 +235,7 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 		var res = true;
 
 		if (n.id == null) {
-			var i:Int = nodeIds.exists(n.root) ? nodeIds.get(n.root) : 0;
+			var i = nodeIds.exists(n.root) ? nodeIds.get(n.root) : 0;
 			n.id = "field" + (i++);
 			nodeIds[n.root] = i;
 		}
@@ -247,6 +247,7 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 		for (c in n.nodes) {
 			if (c.id == null) c.oneInstance = true;
 			res = res && postResolve(c);
+			c.superType = null; // node supertype incorrect
 		}
 		
 		return res;

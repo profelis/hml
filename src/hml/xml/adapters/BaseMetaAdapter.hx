@@ -52,29 +52,18 @@ class MetaResolver implements IHaxeTypeResolver<Node, Type> {
 	public function hasField(node:Node, qName:XMLQName):Bool {
 		if (qName.ns != node.name.ns || !meta.exists(qName.name)) return false;
 
-		var type = node.nativeType;
-		if (type == null) try {
-			type = Context.getType(node.superType);
-		} catch (e:Dynamic) { return false; }
-		if (type == null) return false;
-
-		if (MacroTools.isChildOf(type, baseType)) {
+		return if (MacroTools.isChildOf(node.nativeType, baseType)) {
 			var key = metaKey(qName);
 			var events:Map<XMLQName, MetaData> = node.extra[key];
 			if (events == null) node.extra[key] = events = new Map();
 			events.set(qName, meta.get(qName.name));
 			return true;
-		}
-
-		return false;
+		} else false;
 	}
 	
 	public function getFieldNativeType(node:Node, qName:XMLQName):haxe.macro.Type {
 		var events:Map<XMLQName, MetaData> = node.extra[metaKey(qName)];
-		if (events != null && events.exists(qName)) {
-			return meta[qName.name].type;
-		}
-		return null;
+		return events != null && events.exists(qName) ? meta[qName.name].type : null;
 	}
 }
 

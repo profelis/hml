@@ -78,7 +78,6 @@ class EventDispatcherMetaWriter implements IMetaWriter {
 					'${metaWriter.printer.printComplexType(ret.toComplexType())} { ${node.cData}; }';
 			case _:
 		}
-		
 		writer.writeNode(node);
 	}
 }
