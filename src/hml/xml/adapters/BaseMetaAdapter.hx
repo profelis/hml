@@ -18,18 +18,20 @@ interface IMetaWriter {
 }
 
 class BaseMetaAdapter extends BaseXMLAdapter {
-	public function new(baseType:ComplexType, meta:Map<String, MetaData>, metaWriter:IMetaWriter) {
+	public function new(baseType:ComplexType, meta:Map<String, MetaData>, metaWriter:IMetaWriter, matchLevel:MatchLevel) {
 		super();
 		this.baseType = baseType;
 		this.meta = meta;
 		this.metaWriter = metaWriter;
+		this.matchLevel = matchLevel;
 	}
 	var baseType:ComplexType;
 	var meta:Map<String, MetaData>;
 	var metaWriter:IMetaWriter;
+	var matchLevel:MatchLevel;
 
 	override public function getTypeResolvers():Array<IHaxeTypeResolver<Node, Type>> return [new MetaResolver(baseType, meta)];
-	override public function getNodeWriters():Array<IHaxeNodeWriter<Node>> return [new MetaWriter(baseType, meta, metaWriter)];
+	override public function getNodeWriters():Array<IHaxeNodeWriter<Node>> return [new MetaWriter(baseType, meta, metaWriter, matchLevel)];
 }
 
 class MetaResolver implements IHaxeTypeResolver<Node, Type> {
@@ -68,17 +70,19 @@ class MetaResolver implements IHaxeTypeResolver<Node, Type> {
 }
 
 class MetaWriter extends DefaultNodeWriter {
-	public function new(baseType:ComplexType, meta:Map<String, MetaData>, metaWriter:IMetaWriter) {
+	public function new(baseType:ComplexType, meta:Map<String, MetaData>, metaWriter:IMetaWriter, matchLevel:MatchLevel) {
 		super();
 		this.baseType = baseType;
 		this.meta = meta;
 		this.metaWriter = metaWriter;
+		this.matchLevel = matchLevel;
 	}
 	var baseType:ComplexType;
 	var meta:Map<String, MetaData>;
 	var metaWriter:IMetaWriter;
+	var matchLevel:MatchLevel;
 
-	override public function match(node:Node):MatchLevel return isChildOf(node, baseType) ? ClassLevel : None;
+	override public function match(node:Node):MatchLevel return isChildOf(node, baseType) ? matchLevel : None;
 
 	override function writeNodes(node:Node, scope:String, writer:IHaxeWriter<Node>, method:Array<String>) {
 		for (a in node.nodes) {

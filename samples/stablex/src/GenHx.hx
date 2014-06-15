@@ -23,7 +23,7 @@ class GenHx {
 	static function main() initHML();
 
 	static macro function initHML() {
-		hml.Hml.registerProcessor(new hml.xml.XMLProcessor([new StablexXMLAdapter(), new hml.xml.XMLProcessor.DefaultXMLAdapter()]));
+		hml.Hml.registerProcessor(new hml.xml.XMLProcessor([new StablexXMLAdapter(), new FlashAdapter(), new hml.xml.XMLProcessor.DefaultXMLAdapter()]));
 		return macro hml.Hml.parse({path:"gen", autoCreate:true}, "ui");
 	}
 }
@@ -33,6 +33,7 @@ class StablexXMLAdapter extends FlashAdapter {
 		var eventType = (macro : flash.events.Event -> Void).toType();
 		var widgetEvent = (macro : ru.stablex.ui.events.WidgetEvent -> Void).toType();
 		var dndEvent = (macro : ru.stablex.ui.events.DndEvent -> Void).toType();
+		var scrollEvent = (macro : ru.stablex.ui.events.ScrollEvent -> Void).toType();
 
 		var events:Map<String, EventMetaData> = new Map();
 		events.set('display', new EventMetaData(eventType, macro flash.events.Event.ADDED_TO_STAGE));
@@ -52,10 +53,12 @@ class StablexXMLAdapter extends FlashAdapter {
 		events.set('dndReceive', new EventMetaData(dndEvent, macro ru.stablex.ui.events.DndEvent.RECEIVE));
 		events.set('dndReturn', new EventMetaData(dndEvent, macro ru.stablex.ui.events.DndEvent.RETURN));
 
-		super(macro : ru.stablex.ui.widgets.Widget, events);
+		events.set('scrollBefore', new EventMetaData(scrollEvent, macro ru.stablex.ui.events.ScrollEvent.BEFORE_SCROLL));
+
+		super(macro : ru.stablex.ui.widgets.Widget, events, CustomLevel(ClassLevel, 1));
 	}
 
-	override public function getNodeWriters():Array<IHaxeNodeWriter<Node>> return [new DefaultWidgetWriter(baseType, meta, metaWriter), new DefaultSkinWriter()];
+	override public function getNodeWriters():Array<IHaxeNodeWriter<Node>> return [new DefaultWidgetWriter(baseType, meta, metaWriter, matchLevel), new DefaultSkinWriter()];
 }
 
 class DefaultWidgetWriter extends DisplayObjectMetaWriter {

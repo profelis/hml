@@ -22,12 +22,12 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
 
     @:isVar public var child3(get, set):flash.display.Sprite;
 
-    @:extern inline function get_field10():String {
+    inline function get_field10():String {
         var res = 'testName';
         return res;
     }
 
-    @:extern inline function get_field12():String {
+    inline function get_field12():String {
         var res = 'as';
         return res;
     }
@@ -52,12 +52,12 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
         return child1 = value;
     }
 
-    @:extern inline function get_field2():String {
+    inline function get_field2():String {
         var res = 'tada';
         return res;
     }
 
-    @:extern inline function get_field3():flash.events.MouseEvent -> StdTypes.Void {
+    inline function get_field3():flash.events.MouseEvent -> StdTypes.Void {
         var res = function (event:flash.events.MouseEvent):StdTypes.Void { trace('click'); };
         return res;
     }

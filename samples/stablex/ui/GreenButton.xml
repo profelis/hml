@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Button xmlns="ru.stablex.ui.widgets" xmlns:skin="ru.stablex.ui.skins" h="15%">
-	<skin>
+<stablex:Button xmlns:stablex="ru.stablex.ui.widgets" xmlns:skin="ru.stablex.ui.skins" h="15%" stablex:id="'testId'">
+	<stablex:skin>
 		<skin:Paint color="0x00FF00" border="2" corners="[5]"/>
-	</skin>
-</Button>
+	</stablex:skin>
+</stablex:Button>

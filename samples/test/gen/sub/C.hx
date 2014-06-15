@@ -2,7 +2,7 @@ package sub;
 
 class C extends Ab {
 
-    @:extern inline function get_field0():String {
+    inline function get_field0():String {
         var res = 'cName2';
         return res;
     }

@@ -23,8 +23,9 @@ class EventMetaData extends MetaData {
 }
 
 class FlashAdapter extends EventDispatcherAdapter {
-	public function new(?baseType:ComplexType, ?events:Map<String, EventMetaData>) {
+	public function new(?baseType:ComplexType, ?events:Map<String, EventMetaData>, ?matchLevel:MatchLevel) {
 		if (baseType == null) baseType = macro : flash.display.DisplayObject;
+		if (matchLevel == null) matchLevel = ClassLevel;
 
 		var mouseEventType = (macro : flash.events.MouseEvent -> Void).toType();
 		var eventType = (macro : flash.events.Event -> Void).toType();
@@ -47,14 +48,14 @@ class FlashAdapter extends EventDispatcherAdapter {
 		events.set('removed', new EventMetaData(eventType, macro flash.events.Event.REMOVED));
 		events.set('removedFromStage', new EventMetaData(eventType, macro flash.events.Event.REMOVED_FROM_STAGE));
 
-		super(baseType, events);
+		super(baseType, events, matchLevel);
 	}
-	override public function getNodeWriters():Array<IHaxeNodeWriter<Node>> return [new DisplayObjectMetaWriter(baseType, meta, metaWriter)];
+	override public function getNodeWriters():Array<IHaxeNodeWriter<Node>> return [new DisplayObjectMetaWriter(baseType, meta, metaWriter, matchLevel)];
 }
 
 class EventDispatcherAdapter extends BaseMetaAdapter {
-	public function new(baseType:ComplexType, events:Map<String, MetaData>) {
-		super(baseType, events, new EventDispatcherMetaWriter(events));
+	public function new(baseType:ComplexType, events:Map<String, MetaData>, matchLevel:MatchLevel) {
+		super(baseType, events, new EventDispatcherMetaWriter(events), matchLevel);
 	}
 }
 
