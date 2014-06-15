@@ -2,7 +2,7 @@ package ;
 
 class GreenButton extends ru.stablex.ui.widgets.Button {
 
-    @:expose inline function get_field2():ru.stablex.ui.skins.Paint {
+    inline function get_field2():ru.stablex.ui.skins.Paint {
         var res = new ru.stablex.ui.skins.Paint();
         res.color = 0x00FF00;
         res.border = 2;

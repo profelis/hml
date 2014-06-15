@@ -1,6 +1,6 @@
 package ;
 
-class Ab extends test.A implements test.ITools<Map<String, String>> {
+class Ab extends test.A implements test.ITools<flash.display.Sprite> {
 
     var str2_initialized:Bool = false;
 
@@ -22,12 +22,12 @@ class Ab extends test.A implements test.ITools<Map<String, String>> {
 
     @:isVar public var child3(get, set):flash.display.Sprite;
 
-    @:expose inline function get_field10():String {
+    @:extern inline function get_field10():String {
         var res = 'testName';
         return res;
     }
 
-    @:expose inline function get_field12():String {
+    @:extern inline function get_field12():String {
         var res = 'as';
         return res;
     }
@@ -52,12 +52,12 @@ class Ab extends test.A implements test.ITools<Map<String, String>> {
         return child1 = value;
     }
 
-    @:expose inline function get_field2():String {
+    @:extern inline function get_field2():String {
         var res = 'tada';
         return res;
     }
 
-    @:expose inline function get_field3():flash.events.MouseEvent -> StdTypes.Void {
+    @:extern inline function get_field3():flash.events.MouseEvent -> StdTypes.Void {
         var res = function (event:flash.events.MouseEvent):StdTypes.Void { trace('click'); };
         return res;
     }

@@ -36,9 +36,9 @@ class TypeStringTools {
 		return map(str);
 	}
 
-	static public function typesToString(types:Array<TypeString>, sep = ", "):String {
+	static public function typesToString(types:Array<TypeString>):String {
 		function map(types:Array<TypeString>) {
-			return [for (t in types) t.type + (t.params.length == 0 ? "" : '<${map(t.params)}>')].join(sep);
+			return [for (t in types) t.type + (t.params.length == 0 ? "" : '<${map(t.params)}>')].join(", ");
 		}
 		return map(types);
 	}
@@ -82,7 +82,7 @@ class MacroTools {
 		return  false;
 	}
 
-	@:expose static inline function typeName(type:{pack:Array<String>, name:String}):String 
+	@:extern static inline function typeName(type:{pack:Array<String>, name:String}):String 
 		return (type.pack != null ? type.pack.join(".") + ":" : "") + type.name;
 
 	static function getComplexTypeName(baseType:ComplexType) {

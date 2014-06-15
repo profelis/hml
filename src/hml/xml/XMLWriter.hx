@@ -50,19 +50,19 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 
 	public function match(node:Node):MatchLevel return GlobalLevel;
 
-	@:expose public inline function getFieldName(fieldName:String) return 'get_$fieldName';
-	@:expose public inline function setFieldName(fieldName:String) return 'set_$fieldName';
-	@:expose public inline function initedFieldName(fieldName:String) return '${fieldName}_initialized';
+	@:extern public inline function getFieldName(fieldName:String) return 'get_$fieldName';
+	@:extern public inline function setFieldName(fieldName:String) return 'set_$fieldName';
+	@:extern public inline function initedFieldName(fieldName:String) return '${fieldName}_initialized';
 
-	@:expose public inline function universalGet(node:Node) return node.oneInstance ? '${getFieldName(node.id)}()' : node.id;
+	@:extern public inline function universalGet(node:Node) return node.oneInstance ? '${getFieldName(node.id)}()' : node.id;
 
-	@:expose public inline function nativeTypeString(node:Node) {
+	@:extern public inline function nativeTypeString(node:Node) {
 		return if (node.superType != null)
 			'${node.superType}${node.generic != null ? "<" + node.generic.typesToString() + ">" : ""}' 
 			else printer.printComplexType(node.nativeType.toComplexType()) + (node.generic != null ? '<${node.generic.typesToString()}>' : "");
 	}
 
-	@:expose public inline function isChildOf(node:Node, type:haxe.macro.Expr.ComplexType) {
+	@:extern public inline function isChildOf(node:Node, type:haxe.macro.Expr.ComplexType) {
 		return node.nativeType != null ? hml.base.MacroTools.isChildOf(node.nativeType, type) : false;
 	}
 
@@ -94,7 +94,7 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
   		}
 	}
 
-	@:expose inline function defaultWrite(node:Node, scope:String, writer:IHaxeWriter<Node>, method:Array<String>, assign = false) {
+	@:extern inline function defaultWrite(node:Node, scope:String, writer:IHaxeWriter<Node>, method:Array<String>, assign = false) {
 		writeNodes(node, scope, writer, method);
   		writeChildren(node, scope, writer, method, assign);
 	}
@@ -122,7 +122,7 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 			defaultWrite(node, "res", writer, method);
 			postInit(node, method);
 			method.push('return res;');
-			writer.methods.push(new MethodNodeWriter(node, node.oneInstance ? "@:expose inline" : null, getFieldName(node.id), null, nativeTypeString(node), method));
+			writer.methods.push(new MethodNodeWriter(node, node.oneInstance ? "inline" : null, getFieldName(node.id), null, nativeTypeString(node), method));
 		}
   	}
 

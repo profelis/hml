@@ -10,6 +10,9 @@ class Main{
 		var c = new sub.C();
 		trace(c.name);
 
+		var tools:test.ITools<flash.display.Sprite> = a;
+		trace(tools.sprite);
+
 		flash.Lib.current.addChild(a.sprite);
 	}
 }

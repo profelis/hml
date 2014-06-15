@@ -10,7 +10,7 @@ class Ba extends test.B {
         return test2 = value;
     }
 
-    @:expose inline function get_field0():String {
+    @:extern inline function get_field0():String {
         var res = 'foo';
         return res;
     }

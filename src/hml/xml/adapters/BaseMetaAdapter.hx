@@ -43,8 +43,8 @@ class MetaResolver implements IHaxeTypeResolver<Node, Type> {
 	var baseType:ComplexType;
 	var meta:Map<String, MetaData>;
 
-	@:expose static public inline function metaKey(qName:XMLQName) return metaKeyString(qName.name);
-	@:expose static public inline function metaKeyString(name:String) return "meta:" + name;
+	@:extern static public inline function metaKey(qName:XMLQName) return metaKeyString(qName.name);
+	@:extern static public inline function metaKeyString(name:String) return "meta:" + name;
 
 	public function getNativeType(node:Node):haxe.macro.Type return null;
 	public function isType(node:Node):Bool return false;

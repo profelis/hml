@@ -10,7 +10,7 @@ class First extends ru.stablex.ui.widgets.Widget {
 
     @:isVar public var text2(get, set):ru.stablex.ui.widgets.Text;
 
-    @:expose inline function get_field22():ru.stablex.ui.skins.Paint {
+    inline function get_field22():ru.stablex.ui.skins.Paint {
         var res = new ru.stablex.ui.skins.Paint();
         res.color = 0xDDDDDD;
         res.border = 2;
@@ -18,7 +18,7 @@ class First extends ru.stablex.ui.widgets.Widget {
         return res;
     }
 
-    @:expose inline function get_field2():String {
+    inline function get_field2():String {
         var res = 'My first widget!';
         return res;
     }
@@ -35,7 +35,7 @@ class First extends ru.stablex.ui.widgets.Widget {
         return res;
     }
 
-    @:expose inline function get_field6():ru.stablex.ui.skins.Paint {
+    inline function get_field6():ru.stablex.ui.skins.Paint {
         var res = new ru.stablex.ui.skins.Paint();
         res.color = 0xFF0000;
         res.border = 2;
@@ -43,7 +43,7 @@ class First extends ru.stablex.ui.widgets.Widget {
         return res;
     }
 
-    @:expose inline function get_field0():ru.stablex.ui.widgets.Button {
+    inline function get_field0():ru.stablex.ui.widgets.Button {
         var res = new ru.stablex.ui.widgets.Button();
         res.top = 100;
         res.text = get_field2();
@@ -60,7 +60,7 @@ class First extends ru.stablex.ui.widgets.Widget {
         return text2 = value;
     }
 
-    @:expose inline function get_field11():String {
+    inline function get_field11():String {
         var res = 'My second widget!';
         return res;
     }
@@ -78,17 +78,17 @@ class First extends ru.stablex.ui.widgets.Widget {
         return res;
     }
 
-    @:expose inline function get_field15():String {
+    inline function get_field15():String {
         var res = 'Green Button';
         return res;
     }
 
-    @:expose inline function get_field17():flash.events.MouseEvent -> StdTypes.Void {
+    inline function get_field17():flash.events.MouseEvent -> StdTypes.Void {
         var res = function (event:flash.events.MouseEvent):StdTypes.Void { trace('green button click'); };
         return res;
     }
 
-    @:expose inline function get_field13():GreenButton {
+    inline function get_field13():GreenButton {
         var res = new GreenButton();
         res.right = 10;
         res.text = get_field15();

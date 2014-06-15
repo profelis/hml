@@ -88,7 +88,7 @@ class DefaultSkinWriter extends hml.xml.XMLWriter.DefaultNodeWriter {
 
   	override function postInit(node:Node, method:Array<String>) initSkin(node, "res", method);
 
-  	@:expose inline function initSkin(node, scope, method) {
+  	@:extern inline function initSkin(node, scope, method) {
   		if (isChildOf(node, macro : ru.stablex.ui.widgets.Widget)) {
 			method.push('ru.stablex.ui.UIBuilder.applyDefaults($scope);');
 			method.push('$scope.onInitialize();');
