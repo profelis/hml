@@ -15,6 +15,8 @@ using StringTools;
 using hml.base.MacroTools;
 
 class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
+
+	static public inline var HAXE_NAMESPACE = "http://haxe.org/";
 	public function new() {}
 
 	public function match(data:XMLData, parent:Node):MatchLevel return GlobalLevel;
@@ -25,6 +27,11 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 		var node = new Node();
 		node.root = parent.root;
 		node.parent = parent;
+		parseNode(node, data, parser);
+		return node;
+	}
+
+	function parseNode(node:Node, data:XMLData, parser:IXMLDataParser<XMLData, Node>) {
 		node.model = data;
 		node.name = data.name;
 		node.superType = data.resolveType(data.name);
@@ -35,20 +42,30 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 		
 		parseAttributes(node, data, parser);
 		parseNodes(node, data, parser);
-		
-		return node;
+	}
+
+	function processSpecificNamespace(name:XMLQName, node:Node, ?child:Node, ?cData:String):Bool {
+		inline function data() return child != null ? child.cData : cData;
+		var res = false;
+		switch (node.model.resolveNamespace(name.ns)) {
+			case HAXE_NAMESPACE:
+				switch (name.name) {
+					case "generic": node.generic = data().stringToTypes(); res = true;
+					case "_": 
+						Context.error('unknown node "${name.ns}" in file "${node.root.file}"', node.root.pos);
+				}
+			case _:
+		}
+		return res;
 	}
 
 	function parseAttributes(node:Node, data:XMLData, parser:IXMLDataParser<XMLData, Node>) {
 		for (a in data.attributes.keys()) {
-			if (node.model.resolveNamespace(a.ns) == "http://haxe.org/") {
-				switch (a.name) {
-					case "generic": node.generic = data.attributes.get(a).stringToTypes();
-					case "implements": node.implementsList = data.attributes.get(a).stringToTypes();
-				}
-			}
-			else if (isID(a)) {
+			if (processSpecificNamespace(a, node, data.attributes.get(a))) {
+
+			} else if (isID(a)) {
 				node.id = data.attributes.get(a);
+				node.idSetted = true;
 				if (!~/^[^\d\W]\w*$/.match(node.id))
 					Context.error('id error "${node.id}" in file "${node.root.file}"', node.root.pos);
 			} else {
@@ -69,7 +86,52 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 	}
 
 	function parseNodes(node:Node, data:XMLData, parser:IXMLDataParser<XMLData, Node>) {
-		for (n in data.nodes) node.unresolvedNodes.push(parser.parse(n, node));
+		for (n in data.nodes) {
+			var child = parser.parse(n, node);
+			if (!processSpecificNamespace(child.name, node, child))
+				node.unresolvedNodes.push(child);
+		}
+	}
+}
+
+class DefaultXMLDataRootParser extends DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Type> {
+
+	override public function match(data:XMLData, parent:Node):MatchLevel return Std.is(data, XMLDataRoot) ? ClassLevel : None;
+
+	override function processSpecificNamespace(name:XMLQName, node:Node, ?child:Node, ?cData:String):Bool {
+		inline function data() return child != null ? child.cData : cData;
+		
+		var res = false;
+		switch (node.model.resolveNamespace(name.ns)) {
+			case DefaultXMLDataParser.HAXE_NAMESPACE:
+				switch (name.name) {
+					case "implements":
+						cast(node, Type).implementsList = data().stringToTypes();
+						res = true;
+					case _:
+				}
+			case _:
+		}
+	
+		return res ? res : super.processSpecificNamespace(name, node, child, cData);
+	}
+
+	override public function parse(data:XMLData, parent:Node, parser:IXMLDataParser<XMLData, Node>):Type {
+		var root:XMLDataRoot = cast data;
+
+		var type = new Type();
+		type.root = type;
+		type.file = root.file;
+		type.pos = root.pos;
+		type.type = root.type;
+		type.parent = null;
+
+		parseNode(type, root, parser);
+
+		type.id = "this";
+		type.idSetted = true;
+
+		return type;
 	}
 }
 
@@ -140,7 +202,7 @@ class DefaultHaxeTypeResolver implements IHaxeTypeResolver<Node, Type> {
 
 class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDataParser<XMLData, Node> {
 
-	public function new(parsers:Array<IXMLDataNodeParser<XMLData, Node, Dynamic>>, resolvers:Array<IHaxeTypeResolver<Node, Type>>) {
+	public function new(parsers:Array<IXMLDataNodeParser<XMLData, Node, Node>>, resolvers:Array<IHaxeTypeResolver<Node, Type>>) {
 		this.parsers = parsers;
 		this.resolvers = resolvers;
 	}
@@ -156,16 +218,7 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 
 	function parseXMLDataRoots(data:Array<XMLDataRoot>):Void {
 		for (i in data) {
-			var type:Type = new Type();
-			type.file = i.file;
-			type.pos = i.pos;
-			type.type = i.type;
-			type.root = type;
-			type.id = "this";
-
-			var node = parse(i, type);
-			for (n in node.fields()) type.setField(n, node.field(n));
-
+			var type:Type = cast parse(i, null);
 			types[type.type] = type;
 		}
 	}

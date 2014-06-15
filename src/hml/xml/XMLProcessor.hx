@@ -79,7 +79,7 @@ class DefaultXMLAdapter implements IAdapter<XMLData, Node, Type> {
 	public function new() {}
 
 	public function getXmlNodeParsers():Array<IXMLNodeParser<XMLData>> return [new DefaultXMLNodeParser()];
-	public function getXmlDataNodeParsers():Array<IXMLDataNodeParser<XMLData, Node, Node>> return [new DefaultXMLDataParser()];
+	public function getXmlDataNodeParsers():Array<IXMLDataNodeParser<XMLData, Node, Node>> return [new DefaultXMLDataParser(), new DefaultXMLDataRootParser()];
 	public function getTypeResolvers():Array<IHaxeTypeResolver<Node, Type>> return [new DefaultHaxeTypeResolver()];
 	public function getNodeWriters():Array<IHaxeNodeWriter<Node>> return [new DefaultArrayWriter(), new DefaultNodeWriter(), new DefaultStringWriter(), new DefaultFunctionWriter()];
 }

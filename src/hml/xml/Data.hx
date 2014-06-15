@@ -78,12 +78,14 @@ class Type extends Node {
 
 	public var file:String;
 	public var pos:Position;
+	public var implementsList:Array<TypeString> = null;
 
 	public var rootModel:XMLDataRoot;
 
 	override function toValue():Dynamic {
 		var res = super.toValue();
 		Reflect.setField(res, "file", '$file');
+		Reflect.setField(res, "implementsList", '$implementsList');
 		return res;
 	}
 }
@@ -93,8 +95,9 @@ class Node {
 	public var superType:String;
 	public var generic:Array<TypeString> = null;
 	public var nativeType:haxe.macro.Type;
-	public var implementsList:Array<TypeString> = null;
-	public var id:Null<String>;
+	
+	public var id:String;
+	public var idSetted = false;
 
 	public var nodes:Array<Node> = [];
 
@@ -119,7 +122,6 @@ class Node {
 		return {
 			name: name.toString(),
 			superType: superType,
-			implementsList: implementsList,
 			nativeType: Std.string(nativeType),
 			id: id,
 			nodes: [for (n in nodes) n.toValue()],

@@ -1,4 +1,5 @@
-<A xmlns="test" xmlns:ui="" xmlns:haxe="http://haxe.org/" haxe:implements="test.ITools<flash.display.Sprite>">
+<A xmlns="test" xmlns:ui="" xmlns:haxe="http://haxe.org/">
+	<haxe:implements><![CDATA[test.ITools<flash.display.Sprite>]]></haxe:implements>
 	<!-- <ui:Ba id="fa" /> -->
 	<name>'testName'</name>
 
