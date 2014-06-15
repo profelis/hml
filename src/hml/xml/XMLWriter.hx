@@ -139,7 +139,7 @@ class DefaultStringWriter extends DefaultNodeWriter {
 	override public function match(node:Node):MatchLevel return isChildOf(node, macro : String) ? ClassLevel : None;
 
 	override public function writeAttribute(node:Node, scope:String, child:Node, writer:IHaxeWriter<Node>, method:Array<String>):Void {
-		if (child.children.length > 0 || child.nodes.length > 0) {
+		if (child.oneInstance && child.children.length > 0 || child.nodes.length > 0) {
 			writer.writeNode(child);
 			method.push('$scope.${child.name.name} = ${universalGet(child)};');
 		} else {

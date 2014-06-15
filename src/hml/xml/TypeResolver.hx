@@ -17,6 +17,7 @@ using hml.base.MacroTools;
 class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 
 	static public inline var HAXE_NAMESPACE = "http://haxe.org/";
+
 	public function new() {}
 
 	public function match(data:XMLData, parent:Node):MatchLevel return GlobalLevel;
@@ -32,12 +33,12 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 	}
 
 	function parseNode(node:Node, data:XMLData, parser:IXMLDataParser<XMLData, Node>) {
+		node.superType = data.resolveType(data.name);
+		if (node.superType == null)
+			Context.fatalError('can\'t resolve namespace for node ${data.name}', data.root != null ? data.root.pos : Context.currentPos());
+
 		node.model = data;
 		node.name = data.name;
-		node.superType = data.resolveType(data.name);
-		if (node.superType == null) {
-			Context.fatalError('can\'t resolve namespace for node ${data.name}', data.root != null ? data.root.pos : Context.currentPos());
-		}
 		node.cData = data.cData;
 		
 		parseAttributes(node, data, parser);
@@ -50,9 +51,11 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 		switch (node.model.resolveNamespace(name.ns)) {
 			case HAXE_NAMESPACE:
 				switch (name.name) {
-					case "generic": node.generic = data().stringToTypes(); res = true;
+					case "generic": 
+						node.generic = data().stringToTypes();
+						res = true;
 					case "_": 
-						Context.error('unknown node "${name.ns}" in file "${node.root.file}"', node.root.pos);
+						Context.warning('unknown specific haxe attribute "${name}" in file "${node.root.file}"', node.root.pos);
 				}
 			case _:
 		}
@@ -61,9 +64,8 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 
 	function parseAttributes(node:Node, data:XMLData, parser:IXMLDataParser<XMLData, Node>) {
 		for (a in data.attributes.keys()) {
-			if (processSpecificNamespace(a, node, data.attributes.get(a))) {
-
-			} else if (isID(a)) {
+			if (processSpecificNamespace(a, node, data.attributes.get(a))) continue;
+			if (isID(a)) {
 				node.id = data.attributes.get(a);
 				node.idSetted = true;
 				if (!~/^[^\d\W]\w*$/.match(node.id))
@@ -88,8 +90,7 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 	function parseNodes(node:Node, data:XMLData, parser:IXMLDataParser<XMLData, Node>) {
 		for (n in data.nodes) {
 			var child = parser.parse(n, node);
-			if (!processSpecificNamespace(child.name, node, child))
-				node.unresolvedNodes.push(child);
+			if (!processSpecificNamespace(child.name, node, child)) node.unresolvedNodes.push(child);
 		}
 	}
 }
@@ -216,24 +217,20 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 		return parser.parse(data, parent, this);
 	}
 
-	function parseXMLDataRoots(data:Array<XMLDataRoot>):Void {
-		for (i in data) {
-			var type:Type = cast parse(i, null);
-			types[type.type] = type;
-		}
-	}
-
 	public function resolve(data:Array<XMLDataRoot>):Array<Type> {
 		types = new Map();
 		for (r in resolvers) r.types = types;
 
-		parseXMLDataRoots(data);
+		for (i in data) {
+			var type:Type = cast parse(i, null);
+			types[type.type] = type;
+		}
 
 		if (!(resolveTypes(resolveNode) && resolveTypes(recursiveResolve)))
 			types.iter(throwResolveError);
 
 		if (!resolveTypes(postResolve))
-			Context.error('can\'t resolve node native types. Please send error report to author.', Context.currentPos());
+			Context.error('can\'t resolve node native types. Please send error report to deep (system.grand<at>gmail.com).', Context.currentPos());
 
 		return [for (t in types) t];
 	}
@@ -281,9 +278,11 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 	function recursiveResolve(n:Node):Bool {
 		if (resolveNode(n)) {
 			var res = true;
-			inline function iterNode(c) res = res && recursiveResolve(c);
-			for (c in n.children) iterNode(c);
-			for (c in n.nodes) iterNode(c);
+			inline function iterNode(nodes:Array<Node>)
+				for (c in nodes) res = res && recursiveResolve(c);
+
+			iterNode(n.children);
+			iterNode(n.nodes);
 			return res;
 		}
 		return false;
@@ -297,19 +296,16 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 		var res = true;
 
 		if (n.id == null) {
+			n.oneInstance = true;
 			var i = nodeIds.exists(n.root) ? nodeIds.get(n.root) : 0;
 			n.id = "field" + (i++);
 			nodeIds[n.root] = i;
 		}
 		
-		for (c in n.children) {
-			if (c.id == null) c.oneInstance = true;
-			res = res && postResolve(c);
-		}
+		for (c in n.children) res = res && postResolve(c);
 		for (c in n.nodes) {
-			if (c.id == null) c.oneInstance = true;
 			res = res && postResolve(c);
-			c.superType = null; // node supertype incorrect
+			c.superType = null; // node's supertype is incorrect
 		}
 		
 		return res;
