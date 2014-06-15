@@ -10,17 +10,12 @@ class Ba extends test.B {
         return test2 = value;
     }
 
-    inline function get_field0():String {
-        var res = 'foo';
-        return res;
-    }
-
     function get_test2():Ab {
         if (test2_initialized) return test2;
         test2_initialized = true;
         var res = new Ab();
         this.test2 = res;
-        res.name = get_field0();
+        res.name = 'foo';
         return res;
     }
 

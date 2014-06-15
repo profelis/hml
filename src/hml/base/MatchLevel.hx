@@ -31,7 +31,7 @@ class MathLevelUtils {
 
 	static public function findMatch<T>(items:Iterable<T>, getLevel:T->MatchLevel):T {
 		var level:UInt = 0;
-		var res = null;
+		var res:T = null;
 		for (i in items) {
 			var l = getLevelNum(getLevel(i));
 			#if hml_debug

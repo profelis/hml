@@ -69,9 +69,8 @@ class MacroTools {
 
 	static public function isChildOf(type:Type, baseType:ComplexType) {
 		var name = getComplexTypeName(baseType);
-		if (name == null) {
-			throw 'unknown type name for ${baseType}';
-		}
+		if (name == null) throw 'unknown type name for ${baseType}';
+
 		var clazz;
 		try { clazz = type.follow().getClass(); } catch (e:Dynamic) { return false; }
 			
@@ -83,7 +82,7 @@ class MacroTools {
 	}
 
 	@:extern static inline function typeName(type:{pack:Array<String>, name:String}):String 
-		return (type.pack != null ? type.pack.join(".") + ":" : "") + type.name;
+		return (type.pack.length > 0 ? type.pack.join(".") + ":" : "") + type.name;
 
 	static function getComplexTypeName(baseType:ComplexType) {
 		return switch (baseType) {

@@ -22,11 +22,6 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
 
     @:isVar public var child3(get, set):flash.display.Sprite;
 
-    inline function get_field10():String {
-        var res = 'testName';
-        return res;
-    }
-
     inline function get_field12():String {
         var res = 'as';
         return res;
@@ -52,11 +47,6 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
         return child1 = value;
     }
 
-    inline function get_field2():String {
-        var res = 'tada';
-        return res;
-    }
-
     inline function get_field3():flash.events.MouseEvent -> StdTypes.Void {
         var res = function (event:flash.events.MouseEvent):StdTypes.Void { trace('click'); };
         return res;
@@ -69,7 +59,7 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
         this.child1 = res;
         res.alpha = 0.78;
         res.textColor = 0xFF0000;
-        res.text = get_field2();
+        res.text = 'tada';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_field3());
         res.x = 100;
         res.y = 200;
@@ -117,7 +107,7 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
 
     public function new() {
         super();
-        this.name = get_field10();
+        this.name = 'testName';
         this.list.push(get_field12());
         this.list.push(str2);
         get_sprite();

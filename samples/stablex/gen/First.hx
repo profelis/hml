@@ -18,11 +18,6 @@ class First extends ru.stablex.ui.widgets.Widget {
         return res;
     }
 
-    inline function get_field2():String {
-        var res = 'My first widget!';
-        return res;
-    }
-
     function set_clickHandler(value:flash.events.MouseEvent -> StdTypes.Void):flash.events.MouseEvent -> StdTypes.Void {
         return clickHandler = value;
     }
@@ -46,7 +41,7 @@ class First extends ru.stablex.ui.widgets.Widget {
     inline function get_field0():ru.stablex.ui.widgets.Button {
         var res = new ru.stablex.ui.widgets.Button();
         res.top = 100;
-        res.text = get_field2();
+        res.text = 'My first widget!';
         res.left = 50;
         res.widthPt = 70;
         res.addEventListener(flash.events.MouseEvent.CLICK, clickHandler);
@@ -60,26 +55,16 @@ class First extends ru.stablex.ui.widgets.Widget {
         return text2 = value;
     }
 
-    inline function get_field11():String {
-        var res = 'My second widget!';
-        return res;
-    }
-
     function get_text2():ru.stablex.ui.widgets.Text {
         if (text2_initialized) return text2;
         text2_initialized = true;
         var res = new ru.stablex.ui.widgets.Text();
         this.text2 = res;
         res.topPt = 45;
-        res.text = get_field11();
+        res.text = 'My second widget!';
         res.left = 50;
         res._onInitialize();
         res._onCreate();
-        return res;
-    }
-
-    inline function get_field15():String {
-        var res = 'Green Button';
         return res;
     }
 
@@ -91,7 +76,7 @@ class First extends ru.stablex.ui.widgets.Widget {
     inline function get_field13():GreenButton {
         var res = new GreenButton();
         res.right = 10;
-        res.text = get_field15();
+        res.text = 'Green Button';
         res.bottom = 10;
         res.addEventListener(flash.events.MouseEvent.CLICK, get_field17());
         res.w = 200;

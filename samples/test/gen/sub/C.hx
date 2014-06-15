@@ -2,13 +2,8 @@ package sub;
 
 class C extends Ab {
 
-    inline function get_field0():String {
-        var res = 'cName2';
-        return res;
-    }
-
     public function new() {
         super();
-        this.name = get_field0();
+        this.name = 'cName2';
     }
 }
