@@ -13,6 +13,8 @@ using haxe.macro.Tools;
 
 using hml.base.MatchLevel;
 
+using StringTools;
+
 class EventMetaData extends MetaData {
 	public var name:Expr;
 
@@ -75,8 +77,10 @@ class EventDispatcherMetaWriter implements IMetaWriter {
 		method.push('$scope.addEventListener(${metaWriter.printer.printExpr(eventData.name)}, ${metaWriter.universalGet(node)});');
 		switch (node.nativeType) {
 			case TFun(t, ret):
+				var body = node.cData;
+				if (!body.rtrim().endsWith(";")) body += ";";
 				node.cData = 'function (event:${metaWriter.printer.printComplexType(t[0].t.toComplexType())}):' +
-					'${metaWriter.printer.printComplexType(ret.toComplexType())} { ${node.cData}; }';
+					'${metaWriter.printer.printComplexType(ret.toComplexType())} { ${body} }';
 			case _:
 		}
 		writer.writeNode(node);

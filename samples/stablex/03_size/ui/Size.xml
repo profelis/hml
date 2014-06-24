@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Widget w="800" h="600" xmlns="ru.stablex.ui.widgets" xmlns:skin="ru.stablex.ui.skins">
+
+    <!-- Buttons -->
+    <VBox w="800" autoHeight="true" childPadding="10" padding="10">
+        <Button w="300" text="'Click here to set \'child.w = 50\''" autoHeight="true" click=" child.w = 50; ">
+            <skin><skin:Paint border="1" color="0x00FF00"/></skin>
+        </Button>
+        <Button w="300" text="'Click here to set \'child.widthPt = 50\''" autoHeight="true" click=" child.widthPt = 50; " >
+            <skin><skin:Paint border="1" color="0x00FF00"/></skin>
+        </Button>
+        <Button w="300" text="'Click here to set \'child.h = 50\''" autoHeight="true" click=" child.h = 50; ">
+            <skin><skin:Paint border="1" color="0x00FF00"/></skin>
+        </Button>
+        <Button w="300" text="'Click here to set \'child.heightPt = 50\''" autoHeight="true" click=" child.heightPt = 50; " >
+            <skin><skin:Paint border="1" color="0x00FF00"/></skin>
+        </Button>
+    </VBox>
+
+    <!-- parent -->
+    <Widget bottom="10" left="50" h="400" w="700">
+        <skin><skin:Paint border="1" color="0x005500"/></skin>
+        <!-- child -->
+        <Widget left="50" top="50" id="child" w="100" h="100">
+            <skin><skin:Paint border="1" color="0x550000"/></skin>
+        </Widget>
+    </Widget>
+</Widget>

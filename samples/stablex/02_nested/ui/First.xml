@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- .w and .h properties define widget's area width and height respectively -->
+<Widget xmlns="ru.stablex.ui.widgets" w="400" h="400" left="50" top="100">
+	<skin>
+		<skin:Paint xmlns:skin="ru.stablex.ui.skins">
+			<skin:border>1</skin:border>
+		</skin:Paint>
+	</skin>
+    <Text left="50" top="100" text="'My first widget!'" />
+</Widget>

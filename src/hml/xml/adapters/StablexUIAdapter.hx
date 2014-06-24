@@ -1,4 +1,4 @@
-package ;
+package hml.xml.adapters;
 
 #if macro
 import hml.base.MatchLevel;
@@ -19,16 +19,8 @@ using StringTools;
  * @author deep <system.grand@gmail.com>
  */
 
-class GenHx {
-	static function main() initHML();
-
-	static macro function initHML() {
-		hml.Hml.registerProcessor(new hml.xml.XMLProcessor([new StablexXMLAdapter(), new FlashAdapter(), new hml.xml.XMLProcessor.DefaultXMLAdapter()]));
-		return macro hml.Hml.parse({path:"gen", autoCreate:true}, "ui");
-	}
-}
 #if macro
-class StablexXMLAdapter extends FlashAdapter {
+class StablexUIAdapter extends FlashAdapter {
 	public function new() {
 		var eventType = (macro : flash.events.Event -> Void).toType();
 		var widgetEvent = (macro : ru.stablex.ui.events.WidgetEvent -> Void).toType();

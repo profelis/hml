@@ -1,0 +1,5 @@
+-cmd lime build gen.xml flash
+# -D hml_debug
+
+--next
+-cmd lime test flash

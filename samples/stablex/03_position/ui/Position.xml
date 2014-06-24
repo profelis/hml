@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Widget w="800" h="600" xmlns="ru.stablex.ui.widgets" xmlns:skin="ru.stablex.ui.skins">
+
+    <!-- Buttons -->
+    <VBox w="800" childPadding="10" padding="10">
+        <Button w="300" text="'Click here to set \'child.left = 30\''" autoHeight="true" click=" child.left = 30 ">
+            <skin><skin:Paint border="1" color="0x00FF00"/></skin>
+        </Button>
+        <Button w="300" text="'Click here to set \'child.leftPt = 30\''" autoHeight="true" click=" child.leftPt = 30; ">
+            <skin><skin:Paint border="1" color="0x00FF00"/></skin>
+        </Button>
+        <Button w="300" text="'Click here to set \'child.right = 30\''" autoHeight="true" click=" child.right = 30; ">
+
+            <skin><skin:Paint border="1" color="0x00FF00"/></skin>
+        </Button>
+        <Button w="300" text="'Click here to set \'child.rightPt = 30\''" autoHeight="true" click=" child.rightPt = 30; ">
+            <skin><skin:Paint border="1" color="0x00FF00"/></skin>
+        </Button>
+        <Button w="300" text="'Click here to set \'child.top = 30\''" autoHeight="true" click=" child.top = 30; ">
+            <skin><skin:Paint border="1" color="0x00FF00"/></skin>
+        </Button>
+        <Button w="300" text="'Click here to set \'child.topPt = 30\''" autoHeight="true" click=" child.topPt = 30; ">
+            <skin><skin:Paint border="1" color="0x00FF00"/></skin>
+        </Button>
+        <Button w="300" text="'Click here to set \'child.bottom = 30\''" autoHeight="true" click=" child.bottom = 30; ">
+            <skin><skin:Paint border="1" color="0x00FF00"/></skin>
+        </Button>
+        <Button w="300" text="'Click here to set \'child.bottomPt = 30\''" autoHeight="true" click=" child.bottomPt = 30; ">
+            <skin><skin:Paint border="1" color="0x00FF00"/></skin>
+        </Button>
+    </VBox>
+
+    <!-- parent -->
+    <Widget bottom="10" left="50" h="300" w="700">
+        <skin><skin:Paint border="1" color="0x005500"/></skin>
+        <!-- child -->
+        <Widget left="50%" topPt="50" id="child" w="50" h="50">
+            <skin><skin:Paint border="1" color="0x550000"></skin:Paint></skin>
+        </Widget>
+    </Widget>
+</Widget>
