@@ -278,33 +278,29 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 	function recursiveResolve(n:Node):Bool {
 		if (resolveNode(n)) {
 			var res = true;
-			inline function iterNode(nodes:Array<Node>)
+			inline function iterNodes(nodes:Array<Node>)
 				for (c in nodes) res = res && recursiveResolve(c);
 
-			iterNode(n.children);
-			iterNode(n.nodes);
+			iterNodes(n.children);
+			iterNodes(n.nodes);
 			return res;
 		}
 		return false;
 	}
-
-	var nodeIds:Map<Node, Int> = new Map();
 
 	function postResolve(n:Node):Bool {
 		if (n.nativeType == null) n.nativeType = getNativeType(n);
 		if (n.nativeType == null) return false;
 		var res = true;
 
-		if (n.id == null) {
-			n.oneInstance = true;
-			var i = nodeIds.exists(n.root) ? nodeIds.get(n.root) : 0;
-			n.id = "field" + (i++);
-			nodeIds[n.root] = i;
-		}
+		inline function processNode(node:Node) res = res && postResolve(node);
+		inline function iterNodes(nodes:Array<Node>) for (c in nodes) processNode(c);
+
+		n.oneInstance = n.id == null;
 		
-		for (c in n.children) res = res && postResolve(c);
+		iterNodes(n.children);
 		for (c in n.nodes) {
-			res = res && postResolve(c);
+			processNode(c);
 			c.superType = null; // node's supertype is incorrect
 		}
 		

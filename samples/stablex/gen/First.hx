@@ -10,7 +10,7 @@ class First extends ru.stablex.ui.widgets.Widget {
 
     @:isVar public var text2(get, set):ru.stablex.ui.widgets.Text;
 
-    inline function get_field22():ru.stablex.ui.skins.Paint {
+    inline function get_field0():ru.stablex.ui.skins.Paint {
         var res = new ru.stablex.ui.skins.Paint();
         res.color = 0xDDDDDD;
         res.border = 2;
@@ -30,7 +30,7 @@ class First extends ru.stablex.ui.widgets.Widget {
         return res;
     }
 
-    inline function get_field6():ru.stablex.ui.skins.Paint {
+    inline function get_field1():ru.stablex.ui.skins.Paint {
         var res = new ru.stablex.ui.skins.Paint();
         res.color = 0xFF0000;
         res.border = 2;
@@ -38,14 +38,14 @@ class First extends ru.stablex.ui.widgets.Widget {
         return res;
     }
 
-    inline function get_field0():ru.stablex.ui.widgets.Button {
+    inline function get_field2():ru.stablex.ui.widgets.Button {
         var res = new ru.stablex.ui.widgets.Button();
         res.top = 100;
         res.text = 'My first widget!';
         res.left = 50;
         res.widthPt = 70;
         res.addEventListener(flash.events.MouseEvent.CLICK, clickHandler);
-        res.skin = get_field6();
+        res.skin = get_field1();
         res._onInitialize();
         res._onCreate();
         return res;
@@ -68,17 +68,17 @@ class First extends ru.stablex.ui.widgets.Widget {
         return res;
     }
 
-    inline function get_field17():flash.events.MouseEvent -> StdTypes.Void {
+    inline function get_field3():flash.events.MouseEvent -> StdTypes.Void {
         var res = function (event:flash.events.MouseEvent):StdTypes.Void { trace('green button click'); };
         return res;
     }
 
-    inline function get_field13():GreenButton {
+    inline function get_field4():GreenButton {
         var res = new GreenButton();
         res.right = 10;
         res.text = 'Green Button';
         res.bottom = 10;
-        res.addEventListener(flash.events.MouseEvent.CLICK, get_field17());
+        res.addEventListener(flash.events.MouseEvent.CLICK, get_field3());
         res.w = 200;
         res._onInitialize();
         res._onCreate();
@@ -89,11 +89,11 @@ class First extends ru.stablex.ui.widgets.Widget {
         super();
         this.h = 300;
         this.w = 400;
-        this.skin = get_field22();
+        this.skin = get_field0();
         this._onInitialize();
-        this.addChild(get_field0());
+        this.addChild(get_field2());
         this.addChild(text2);
-        this.addChild(get_field13());
+        this.addChild(get_field4());
         this._onCreate();
     }
 }

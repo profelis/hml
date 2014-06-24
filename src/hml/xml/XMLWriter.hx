@@ -50,11 +50,32 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 
 	public function match(node:Node):MatchLevel return GlobalLevel;
 
-	@:extern public inline function getFieldName(fieldName:String) return 'get_$fieldName';
-	@:extern public inline function setFieldName(fieldName:String) return 'set_$fieldName';
-	@:extern public inline function initedFieldName(fieldName:String) return '${fieldName}_initialized';
+	static var nodeIds:Map<Node, Int> = new Map();
 
-	@:extern public inline function universalGet(node:Node) return node.oneInstance ? '${getFieldName(node.id)}()' : node.id;
+	@:extern function initNodeId(n:Node):Void {
+		if (n.id == null) {
+			var i = nodeIds.exists(n.root) ? nodeIds.get(n.root) : 0;
+			n.id = "field" + (i++);
+			nodeIds[n.root] = i;
+		}
+	}
+
+	@:extern public inline function getFieldName(node:Node):String {
+		initNodeId(node);
+		return 'get_${node.id}';
+	}
+
+	@:extern public inline function setFieldName(node:Node):String {
+		initNodeId(node);
+		return 'set_${node.id}';
+	}
+
+	@:extern public inline function initedFieldName(node:Node):String {
+		initNodeId(node);
+		return '${node.id}_initialized';
+	}
+
+	@:extern public inline function universalGet(node:Node) return node.oneInstance ? '${getFieldName(node)}()' : node.id;
 
 	@:extern public inline function nativeTypeString(node:Node) {
 		return if (node.superType != null)
@@ -78,19 +99,19 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 	}
 
 	function child(node:Node, scope:String, child:Node, method:Array<String>, assign = false) {
-		method.push('${assign ? scope + " = " : ""}${getFieldName(child.id)}();');
+		method.push('${assign ? scope + " = " : ""}${getFieldName(child)}();');
 	}
 
 	function writeField(node:Node, method:Array<String>, writer:IHaxeWriter<Node>) {
 		if (!node.oneInstance) {
-  			method.push('if (${initedFieldName(node.id)}) return ${node.id};');
-  			method.push('${initedFieldName(node.id)} = true;');
+  			method.push('if (${initedFieldName(node)}) return ${node.id};');
+  			method.push('${initedFieldName(node)} = true;');
 
-  			writer.fields.push(new FieldNodeWriter(node, null, initedFieldName(node.id), "Bool", "false"));
+  			writer.fields.push(new FieldNodeWriter(node, null, initedFieldName(node), "Bool", "false"));
   			writer.fields.push(new FieldNodeWriter(node, "@:isVar public", '${node.id}(get, set)', nativeTypeString(node)));
 
   			var setter = ['return ${node.id} = value;'];
-  			writer.methods.push(new MethodNodeWriter(node, null, setFieldName(node.id), 'value:${nativeTypeString(node)}', nativeTypeString(node), setter));
+  			writer.methods.push(new MethodNodeWriter(node, null, setFieldName(node), 'value:${nativeTypeString(node)}', nativeTypeString(node), setter));
   		}
 	}
 
@@ -122,7 +143,7 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 			defaultWrite(node, "res", writer, method);
 			postInit(node, method);
 			method.push('return res;');
-			writer.methods.push(new MethodNodeWriter(node, node.oneInstance ? "inline" : null, getFieldName(node.id), null, nativeTypeString(node), method));
+			writer.methods.push(new MethodNodeWriter(node, node.oneInstance ? "inline" : null, getFieldName(node), null, nativeTypeString(node), method));
 		}
   	}
 
