@@ -1,5 +1,6 @@
 package hml.xml;
 
+import com.tenderowls.xml176.Xml176Parser;
 import hml.base.BaseFileProcessor;
 import hml.Hml.Output;
 import haxe.macro.Expr;
@@ -13,12 +14,12 @@ using hml.base.MatchLevel;
 
 // reader
 interface IXMLParser<B> {
-	public function parse(xml:Xml, parent:B):B;
+	public function parse(xml:Xml176Document, parent:B):B;
 }
 
 interface IXMLNodeParser<B> {
-	public function match(xml:Xml, parent:B):MatchLevel;
-	public function parse(xml:Xml, parent:B, parser:IXMLParser<B>):B;
+	public function match(xml:Xml176Document, parent:B):MatchLevel;
+	public function parse(xml:Xml176Document, parent:B, parser:IXMLParser<B>):B;
 }
 
 // type resolver

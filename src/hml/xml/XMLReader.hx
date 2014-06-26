@@ -1,5 +1,6 @@
 package hml.xml;
 
+import com.tenderowls.xml176.Xml176Parser;
 import haxe.macro.Context;
 import haxe.macro.Expr;
 import hml.base.BaseFileProcessor;
@@ -14,13 +15,14 @@ using Lambda;
 
 class DefaultXMLNodeParser implements IXMLNodeParser<XMLData> {
 	public function new() {}
-	public function match(xml:Xml, parent:XMLData):MatchLevel return GlobalLevel;
+	public function match(xml:Xml176Document, parent:XMLData):MatchLevel return GlobalLevel;
 
-	public function parse(node:Xml, parent:XMLData, parser:IXMLParser<XMLData>):XMLData {
+	public function parse(node:Xml176Document, parent:XMLData, parser:IXMLParser<XMLData>):XMLData {
 		return parseData(new XMLData(), node, parent, parser);
 	}
 
-	function parseData(res:XMLData, node:Xml, parent:XMLData, parser:IXMLParser<XMLData>) {
+	function parseData(res:XMLData, xmlNode:Xml176Document, parent:XMLData, parser:IXMLParser<XMLData>) {
+		var node = xmlNode.document;
 		res.name = node.nodeName.toXMLQName();
 		res.parent = parent;
 		res.root = parent != null ? parent.root : null;
@@ -44,7 +46,7 @@ class DefaultXMLNodeParser implements IXMLNodeParser<XMLData> {
 						res.cData = res.cData == null ? data : res.cData + data;
 
 				case Xml.Element:
-					res.nodes.push(parser.parse(c, res));
+					res.nodes.push(parser.parse(xmlNode.sub(c), res));
 				default:
 			}
 
@@ -72,27 +74,27 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 
 	public function read(file:String, pos:Position):XMLDataRoot {
 		var cont;
-		var xml:Xml;
+		var xml:Xml176Document;
 
 		tryCatch(cont = sys.io.File.getContent(file), Context.fatalError('can\'t read file "$file" content', pos));
-		tryCatch(xml = Xml.parse(cont), Context.fatalError('can\'t parse XML "$file"', pos));
+		tryCatch(xml = Xml176Parser.parse(cont), Context.fatalError('can\'t parse XML "$file"', pos));
 
 		Context.registerModuleDependency("hml.Hml", file);
 		return readXML(xml, file, pos);
 	}
 
-	function readXML(xml:Xml, file:String, pos:Position):XMLDataRoot {
+	function readXML(xml:Xml176Document, file:String, pos:Position):XMLDataRoot {
 		var res = new XMLDataRoot();
 		res.type = getTypeName(file);
 		res.file = file;
 		res.pos = pos;
 		res.root = res;
-		var node = parse(xml.firstElement(), null);
+		var node = parse(xml.sub(xml.document.firstElement()), null);
 		for (n in node.fields()) res.setField(n, node.field(n));
 		return res;
 	}
 
-	public function parse(node:Xml, parent:XMLData):XMLData {
+	public function parse(node:Xml176Document, parent:XMLData):XMLData {
 		var nodeParser = nodeParsers.findMatch(function (p) return p.match(node, parent));
 		return nodeParser.parse(node, parent, this);
 	}
