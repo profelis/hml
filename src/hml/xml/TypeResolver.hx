@@ -79,6 +79,7 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 				n.cData = data.attributes.get(a);
 
 				n.model = new XMLData();
+				n.model.nodePos = data.attributesPos.get(a);
 				n.model.name = n.name;
 				n.model.cData = n.cData;
 				

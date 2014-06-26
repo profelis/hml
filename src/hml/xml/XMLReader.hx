@@ -21,9 +21,23 @@ class DefaultXMLNodeParser implements IXMLNodeParser<XMLData> {
 		return parseData(new XMLData(), node, parent, parser);
 	}
 
+	function posToXMLDataPos(xml:Xml176Document, pos:Pos):XMLDataPos {
+		var raw = xml.rawData;
+		inline function getLinePos(pos:Int) {
+			var s = raw.substr(0, pos);
+			var lines = s.split("\r\n").join("\n").split("\r").join("\n").split("\n");
+			return {global:pos, line:lines.length, pos:lines[lines.length-1].length};
+		}
+		return {
+			from: getLinePos(pos.from),
+			to: pos.to != null ? getLinePos(pos.to) : null
+		}
+	}
+
 	function parseData(res:XMLData, xmlNode:Xml176Document, parent:XMLData, parser:IXMLParser<XMLData>) {
 		var node = xmlNode.document;
 		res.name = node.nodeName.toXMLQName();
+		res.nodePos = posToXMLDataPos(xmlNode, xmlNode.getNodePosition(node));
 		res.parent = parent;
 		res.root = parent != null ? parent.root : null;
 
@@ -34,7 +48,9 @@ class DefaultXMLNodeParser implements IXMLNodeParser<XMLData> {
 			switch ({name:qName.name, ns:qName.ns}) {
 				case {name:"xmlns", ns:null}: res.namespaces["*"] = value;
 				case {name:n, ns:"xmlns"}: res.namespaces[n] = value;
-				case _: res.attributes.set(qName, value);
+				case _: 
+					res.attributes.set(qName, value);
+					res.attributesPos.set(qName, posToXMLDataPos(xmlNode, xmlNode.getAttrPosition(node, a)));
 			}
 		}
 

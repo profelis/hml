@@ -50,11 +50,14 @@ class Xml176Document {
 
     public var document(default,null):Xml;
 
+    public var rawData(default, null):String;
+
     var ePosInfos:Map<Xml, Pos>;
     var aPosInfos:Map<Xml, Map<String, Pos>>;
 
-    public function new(doc:Xml, ePosInfos, aPosInfos) {
+    public function new(doc:Xml, rawData, ePosInfos, aPosInfos) {
         this.document = doc;
+        this.rawData = rawData;
         this.ePosInfos = ePosInfos;
         this.aPosInfos = aPosInfos;
     }
@@ -68,7 +71,7 @@ class Xml176Document {
     }
 
     inline public function sub(xml:Xml):Xml176Document {
-    	return new Xml176Document(xml, ePosInfos, aPosInfos);
+    	return new Xml176Document(xml, rawData, ePosInfos, aPosInfos);
     }
 }
 
@@ -82,13 +85,13 @@ class Xml176Parser
 
 		doParse(str, 0, ePosInfos, aPosInfos, xmlDoc);
 
-		return new Xml176Document(xmlDoc, ePosInfos, aPosInfos);
+		return new Xml176Document(xmlDoc, str, ePosInfos, aPosInfos);
 	}
 	
 	static function doParse(str:String, p:Int = 0, ePosInfos:Map<Xml, Pos>, aPosInfos:Map<Xml, Map<String, Pos>>, ?parent:Xml):Int
 	{
 		var xml:Xml = null;
-        var xmlPos:Pos = { from: 0 };
+        var xmlPos:Pos = { from: 0, to: 0 };
 		var state = S.BEGIN;
 		var next = S.BEGIN;
 		var aname = null;
@@ -384,4 +387,4 @@ class Xml176Parser
     }
 }
 
-typedef Pos = { from:Int, ?to:Int }
+typedef Pos = { from:Int, to:Int }

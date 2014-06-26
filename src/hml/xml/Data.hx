@@ -1,5 +1,6 @@
 package hml.xml;
 
+import com.tenderowls.xml176.Xml176Parser;
 import haxe.ds.HashMap;
 import haxe.macro.Expr.Position;
 import haxe.macro.Context;
@@ -18,8 +19,14 @@ class XMLDataRoot extends XMLData {
 	override function toValue():Dynamic {
 		var res = super.toValue();
 		Reflect.setField(res, "type", '$type');
+		Reflect.setField(res, "file", '$file');
 		return res;
 	}
+}
+
+typedef XMLDataPos = {
+	from:{line:Int, pos:Int, global:Int},
+	?to:{line:Int, pos:Int, global:Int}
 }
 
 class XMLData {
@@ -28,9 +35,13 @@ class XMLData {
 
 	public var name:XMLQName = null;
 
+	public var nodePos:XMLDataPos;
+
 	public var namespaces:Map<String, String> = new Map();
 
 	public var attributes:HashMap<XMLQName, String> = new HashMap();
+
+	public var attributesPos:HashMap<XMLQName, XMLDataPos> = new HashMap();
 
 	public var nodes:Array<XMLData> = [];
 
@@ -44,9 +55,11 @@ class XMLData {
 
 	function toValue():Dynamic {
 		return {
-				name:name.toString(), 
+				name:name.toString(),
+				nodePos: nodePos,
 				namespaces:namespaces,
 				attributes:[for (a in attributes.keys()) a.toString() => attributes.get(a)],
+				attributesPos:[for (a in attributesPos.keys()) a.toString() => attributesPos.get(a)],
 				nodes: [for (n in nodes) n.toValue()],
 				cData:cData
 			};

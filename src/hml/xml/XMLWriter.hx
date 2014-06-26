@@ -52,7 +52,11 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 
 	static var nodeIds:Map<Node, Int> = new Map();
 
-	@:extern function initNodeId(n:Node):Void {
+	function writeNodePos(n:Node, method:Array<String>) {
+		method.push('/* ${n.root.file}:${n.model.nodePos.from.line} characters: ${n.model.nodePos.from.pos}-${n.model.nodePos.to.pos} */');
+	}
+
+	function initNodeId(n:Node):Void {
 		if (n.id == null) {
 			var i = nodeIds.exists(n.root) ? nodeIds.get(n.root) : 0;
 			n.id = "field" + (i++);
@@ -121,6 +125,7 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 	}
 
 	public function writeAttribute(node:Node, scope:String, child:Node, writer:IHaxeWriter<Node>, method:Array<String>):Void {
+		writeNodePos(child, method);
 		if (child.cData != null) {
 			method.push('$scope.${child.name.name} = ${child.cData};');
 		}
@@ -129,6 +134,7 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 
   	public function write(node:Node, writer:IHaxeWriter<Node>):Void {
   		var method = [];
+  		writeNodePos(node, method);
   		if (Std.is(node, Type)) {
   			method.push('super();');
   			predCtorInit(node, method);
@@ -160,6 +166,7 @@ class DefaultStringWriter extends DefaultNodeWriter {
 	override public function match(node:Node):MatchLevel return isChildOf(node, macro : String) ? ClassLevel : None;
 
 	override public function writeAttribute(node:Node, scope:String, child:Node, writer:IHaxeWriter<Node>, method:Array<String>):Void {
+		writeNodePos(child, method);
 		if (child.oneInstance && child.children.length > 0 || child.nodes.length > 0) {
 			writer.writeNode(child);
 			method.push('$scope.${child.name.name} = ${universalGet(child)};');
