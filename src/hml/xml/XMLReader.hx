@@ -30,7 +30,7 @@ class DefaultXMLNodeParser implements IXMLNodeParser<XMLData> {
 		}
 		return {
 			from: getLinePos(pos.from),
-			to: pos.to != null ? getLinePos(pos.to) : null
+			to: getLinePos(pos.to)
 		}
 	}
 
