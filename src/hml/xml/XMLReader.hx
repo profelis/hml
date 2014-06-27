@@ -25,7 +25,7 @@ class DefaultXMLNodeParser implements IXMLNodeParser<XMLData> {
 		var raw = xml.rawData;
 		inline function getLinePos(pos:Int) {
 			var s = raw.substr(0, pos);
-			var lines = s.split("\r\n").join("\n").split("\r").join("\n").split("\n");
+			var lines = ~/[\r\n]/g.split(s);
 			return {global:pos, line:lines.length, pos:lines[lines.length-1].length};
 		}
 		return {

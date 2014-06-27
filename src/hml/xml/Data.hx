@@ -26,7 +26,7 @@ class XMLDataRoot extends XMLData {
 
 typedef XMLDataPos = {
 	from:{line:Int, pos:Int, global:Int},
-	?to:{line:Int, pos:Int, global:Int}
+	to:{line:Int, pos:Int, global:Int}
 }
 
 class XMLData {
