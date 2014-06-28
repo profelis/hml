@@ -32,7 +32,7 @@ class Hml {
 		for (p in paths) {
 			var path = switch (p.expr) {
 				case EConst(CString(s)): s;
-				case _: Context.error('parse method support only const string args', p.pos);
+				case _: Context.error('parse method support only const string paths', p.pos);
 			}
 			if (!path.exists()) Context.error('"$path" expected', p.pos);
 			if (!path.isDirectory()) Context.error('"$path" is not directory', p.pos);

@@ -83,8 +83,13 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 	function getTypeName(path:String):String {
 		var res = ~/[\/\\]/g.replace(path, ".");
 		res = ~/(\w*\.)/.replace(res, "");
-		// TODO: match fileName -> safeName
 		res = XML_EXT.replace(res, "");
+		
+		var lastDot = res.lastIndexOf(".");
+		var t = lastDot == -1 ? res : res.substr(lastDot + 1);
+		if (!(~/[A-Z][a-z_A-Z0-9]*/.match(t))) {
+			Context.error('file name can\'t be used as class name "$path"', Context.currentPos());
+		}
 		return res;
 	}
 
