@@ -15,7 +15,10 @@ using Lambda;
 
 class DefaultXMLNodeParser implements IXMLNodeParser<XMLData> {
 	public function new() {}
-	public function match(xml:Xml176Document, parent:XMLData):MatchLevel return GlobalLevel;
+
+	public function match(xml:Xml176Document, parent:XMLData):MatchLevel {
+		return GlobalLevel;
+	}
 
 	public function parse(node:Xml176Document, parent:XMLData, parser:IXMLParser<XMLData>):XMLData {
 		return parseData(new XMLData(), node, parent, parser);
@@ -72,13 +75,14 @@ class DefaultXMLNodeParser implements IXMLNodeParser<XMLData> {
 
 class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 
+	static var XML_EXT = ~/(.xml$)/;
+	static var CLASS_ID = ~/[A-Z][a-z_A-Z0-9]*/;
+
 	var nodeParsers:Array<IXMLNodeParser<XMLData>>;
 
 	public function new(nodeParsers:Array<IXMLNodeParser<XMLData>>) {
 		this.nodeParsers = nodeParsers;
 	}
-
-	static var XML_EXT = ~/(.xml$)/;
 
 	function getTypeName(path:String):String {
 		var res = ~/[\/\\]/g.replace(path, ".");
@@ -87,9 +91,8 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 		
 		var lastDot = res.lastIndexOf(".");
 		var t = lastDot == -1 ? res : res.substr(lastDot + 1);
-		if (!(~/[A-Z][a-z_A-Z0-9]*/.match(t))) {
+		if (!(CLASS_ID.match(t)))
 			Context.error('file name can\'t be used as class name "$path"', Context.currentPos());
-		}
 		return res;
 	}
 

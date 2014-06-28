@@ -26,7 +26,9 @@ class StringNode extends WriteNode<Node> {
 		this.str = string;
 	}
 
-	override public function toString():String return str;
+	override public function toString():String {
+		return str;
+	}
 }
 
 class FieldNodeWriter extends StringNode {
@@ -44,15 +46,18 @@ class MethodNodeWriter extends StringNode {
 }
 
 class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
-	public var printer:Printer = new Printer("");
-	public function new() {
-	}
-
-	public function match(node:Node):MatchLevel return GlobalLevel;
-
+	
 	static var nodeIds:Map<Node, Int> = new Map();
 
-	function writeNodePos(n:Node, method:Array<String>) {
+	public var printer:Printer = new Printer("");
+
+	public function new() {}
+
+	public function match(node:Node):MatchLevel {
+		return GlobalLevel;
+	}
+
+	@:extern inline function writeNodePos(n:Node, method:Array<String>) {
 		method.push('/* ${n.root.file}:${n.model.nodePos.from.line} characters: ${n.model.nodePos.from.pos}-${n.model.nodePos.to.pos} */');
 	}
 
@@ -79,7 +84,9 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 		return '${node.id}_initialized';
 	}
 
-	@:extern public inline function universalGet(node:Node) return node.oneInstance ? '${getFieldName(node)}()' : node.id;
+	@:extern public inline function universalGet(node:Node) {
+		return node.oneInstance ? '${getFieldName(node)}()' : node.id;
+	}
 
 	@:extern public inline function nativeTypeString(node:Node) {
 		return if (node.superType != null)
@@ -159,11 +166,15 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 	function predInit(node, method) {}
   	function postInit(node, method) {}
 
-  	function writeFieldCtor(node:Node) return 'new ${nativeTypeString(node)}()';
+  	function writeFieldCtor(node:Node) {
+  		return 'new ${nativeTypeString(node)}()';
+  	}
 }
 
 class DefaultStringWriter extends DefaultNodeWriter {
-	override public function match(node:Node):MatchLevel return isChildOf(node, macro : String) ? ClassLevel : None;
+	override public function match(node:Node):MatchLevel {
+		return isChildOf(node, macro : String) ? ClassLevel : None;
+	}
 
 	override public function writeAttribute(node:Node, scope:String, child:Node, writer:IHaxeWriter<Node>, method:Array<String>):Void {
 		writeNodePos(child, method);
@@ -175,7 +186,9 @@ class DefaultStringWriter extends DefaultNodeWriter {
 		}
 	}
 
-	override function writeFieldCtor(node:Node) return node.cData != null ? node.cData : '""';
+	override function writeFieldCtor(node:Node) {
+		return node.cData != null ? node.cData : '""';
+	}
 }
 
 class DefaultFunctionWriter extends DefaultNodeWriter {
@@ -186,18 +199,25 @@ class DefaultFunctionWriter extends DefaultNodeWriter {
 		}
 	}
 
-	override function writeFieldCtor(node:Node) return node.cData;
+	override function writeFieldCtor(node:Node) {
+		return node.cData;
+	}
 }
 
 class DefaultArrayWriter extends DefaultNodeWriter {
-	override public function match(node:Node):MatchLevel return isChildOf(node, macro : Array) ? ClassLevel : None;
+	override public function match(node:Node):MatchLevel {
+		return isChildOf(node, macro : Array) ? ClassLevel : None;
+	}
 
-	override function child(node:Node, scope:String, child:Node, method:Array<String>, assign = false) method.push('$scope.push(${universalGet(child)});');
+	override function child(node:Node, scope:String, child:Node, method:Array<String>, assign = false) {
+		method.push('$scope.push(${universalGet(child)});');
+	}
 }
 
 class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 
 	public static inline var TAB = "    ";
+
 	public function new(writers:Array<IHaxeNodeWriter<Node>>) {
 		this.writers = writers;
 	}

@@ -27,7 +27,7 @@ class StablexUIAdapter extends FlashAdapter {
 		var dndEvent = (macro : ru.stablex.ui.events.DndEvent -> Void).toType();
 		var scrollEvent = (macro : ru.stablex.ui.events.ScrollEvent -> Void).toType();
 
-		var events:Map<String, EventMetaData> = new Map();
+		var events:Map<String, MetaData> = new Map();
 		events.set('display', new EventMetaData(eventType, macro flash.events.Event.ADDED_TO_STAGE));
 
 		events.set('widgetCreate', new EventMetaData(widgetEvent, macro ru.stablex.ui.events.WidgetEvent.CREATE));
@@ -50,7 +50,9 @@ class StablexUIAdapter extends FlashAdapter {
 		super(macro : ru.stablex.ui.widgets.Widget, events, CustomLevel(ClassLevel, 1));
 	}
 
-	override public function getNodeWriters():Array<IHaxeNodeWriter<Node>> return [new DefaultWidgetWriter(baseType, meta, metaWriter, matchLevel), new DefaultSkinWriter()];
+	override public function getNodeWriters():Array<IHaxeNodeWriter<Node>> {
+		return [new DefaultWidgetWriter(baseType, meta, metaWriter, matchLevel), new DefaultSkinWriter()];
+	}
 }
 
 class DefaultWidgetWriter extends DisplayObjectMetaWriter {
@@ -71,17 +73,27 @@ class DefaultWidgetWriter extends DisplayObjectMetaWriter {
 		method.push('$scope._onInitialize();');
 	}
 
-	override function postCtorInit(node, method) method.push('this._onCreate();');
+	override function postCtorInit(node, method) {
+		method.push('this._onCreate();');
+	}
 
-	override function postInit(node, method) method.push('res._onCreate();');
+	override function postInit(node, method) {
+		method.push('res._onCreate();');
+	}
 }
 
 class DefaultSkinWriter extends hml.xml.XMLWriter.DefaultNodeWriter {
-	override public function match(node:Node):MatchLevel return isChildOf(node, macro : ru.stablex.ui.skins.Skin) ? ClassLevel : None;
+	override public function match(node:Node):MatchLevel {
+		return isChildOf(node, macro : ru.stablex.ui.skins.Skin) ? ClassLevel : None;
+	}
 
-	override function postCtorInit(node:Node, method:Array<String>) initSkin(node, "this", method);
+	override function postCtorInit(node:Node, method:Array<String>) {
+		initSkin(node, "this", method);
+	}
 
-  	override function postInit(node:Node, method:Array<String>) initSkin(node, "res", method);
+  	override function postInit(node:Node, method:Array<String>) {
+  		initSkin(node, "res", method);
+  	}
 
   	@:extern inline function initSkin(node, scope, method) {
   		if (isChildOf(node, macro : ru.stablex.ui.widgets.Widget)) {

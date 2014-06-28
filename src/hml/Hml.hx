@@ -20,11 +20,19 @@ typedef Output = {
 
 class Hml {
 
+	#if macro
+	
+	static var processedPaths:Map<String, Bool>;
+
+	static var processors:Array<IFileProcessor> = [];
+
+	#end
+
 	macro static public function parse(output:Output, paths:Array<Expr>):Expr {
 		if (processedPaths != null)
-			Context.fatalError("call parse once", Context.currentPos());
+			Context.fatalError("call parse() method once", Context.currentPos());
 		if (processors.length == 0)
-			Context.fatalError("register file processors first", Context.currentPos());
+			Context.fatalError("register file processors before parse()", Context.currentPos());
 
 		initOutput(output);
 		processedPaths = new Map();
@@ -35,7 +43,7 @@ class Hml {
 				case _: Context.error('parse method support only const string paths', p.pos);
 			}
 			if (!path.exists()) Context.error('"$path" expected', p.pos);
-			if (!path.isDirectory()) Context.error('"$path" is not directory', p.pos);
+			if (!path.isDirectory()) Context.error('"$path" is not a directory', p.pos);
 			process(path, p.pos);
 		}
 
@@ -49,17 +57,13 @@ class Hml {
 		processors.push(processor);
 	}
 
-	static var processedPaths:Map<String, Bool>;
-
-	static var processors:Array<IFileProcessor> = [];
-
 	static function process(path:String, pos:Position):Void {
 		if (processedPaths.exists(path)) return;
 		processedPaths.set(path, true);
 
-		if (path.isDirectory()) {
+		if (path.isDirectory())
 			for (p in path.readDirectory()) process('$path/$p', pos);
-		} else {
+		else {
 			var processor = processors.find(function (p) return p.supportFile(path));
 			if (processor != null) processor.read(path, pos); else trace('>> ignore $path');
 		}
@@ -68,21 +72,20 @@ class Hml {
 	static function initOutput(output:Output):Void {
 		var path = output.path;
 		if (path.exists() && !path.isDirectory())
-			Context.fatalError('output folder "$path" already exist and it is not directory', Context.currentPos());
+			Context.fatalError('output path "$path" already exist', Context.currentPos());
 
 		if (output.autoClear != false && path.exists()) rmDir(path);
-		if (output.autoCreate != false && !path.exists()) {
+		if (output.autoCreate != false && !path.exists())
 			try {
 				path.createDirectory();
 			} catch (e:Dynamic) {
 				Context.fatalError('can\'t create output folder "$path"', Context.currentPos());
 			}
-		}
 
 		if (!path.exists())
-			Context.fatalError('output folder "$path" doesn\'t exist.', Context.currentPos());
+			Context.fatalError('output folder "$path" doesn\'t exist', Context.currentPos());
 		if (output.allowOverride != true && path.readDirectory().length > 0)
-			Context.fatalError('output folder "$path" is not empty.', Context.currentPos());	
+			Context.fatalError('output folder "$path" is not empty', Context.currentPos());	
 	}
 
 	static function rmDir(path:String) {

@@ -11,6 +11,10 @@ import haxe.macro.Expr;
 
 class MetaData {
 	public var type:haxe.macro.Type;
+
+	public function new(type:haxe.macro.Type) {
+		this.type = type;
+	}
 }
 
 interface IMetaWriter {
@@ -18,6 +22,12 @@ interface IMetaWriter {
 }
 
 class BaseMetaAdapter extends BaseXMLAdapter {
+
+	var baseType:ComplexType;
+	var meta:Map<String, MetaData>;
+	var metaWriter:IMetaWriter;
+	var matchLevel:MatchLevel;
+
 	public function new(baseType:ComplexType, meta:Map<String, MetaData>, metaWriter:IMetaWriter, matchLevel:MatchLevel) {
 		super();
 		this.baseType = baseType;
@@ -25,31 +35,43 @@ class BaseMetaAdapter extends BaseXMLAdapter {
 		this.metaWriter = metaWriter;
 		this.matchLevel = matchLevel;
 	}
-	var baseType:ComplexType;
-	var meta:Map<String, MetaData>;
-	var metaWriter:IMetaWriter;
-	var matchLevel:MatchLevel;
 
-	override public function getTypeResolvers():Array<IHaxeTypeResolver<Node, Type>> return [new MetaResolver(baseType, meta)];
-	override public function getNodeWriters():Array<IHaxeNodeWriter<Node>> return [new MetaWriter(baseType, meta, metaWriter, matchLevel)];
+	override public function getTypeResolvers():Array<IHaxeTypeResolver<Node, Type>> {
+		return [new MetaResolver(baseType, meta)];
+	}
+
+	override public function getNodeWriters():Array<IHaxeNodeWriter<Node>> {
+		return [new MetaWriter(baseType, meta, metaWriter, matchLevel)];
+	}
 }
 
 class MetaResolver implements IHaxeTypeResolver<Node, Type> {
-	public function new(baseType:ComplexType, meta:Map<String, MetaData>) {
-		this.baseType = baseType;
-		this.meta = meta;
-	}
-
+	
 	public var types:Map<String, Type>;
 
 	var baseType:ComplexType;
 	var meta:Map<String, MetaData>;
 
-	@:extern static public inline function metaKey(qName:XMLQName) return metaKeyString(qName.name);
-	@:extern static public inline function metaKeyString(name:String) return "meta:" + name;
+	public function new(baseType:ComplexType, meta:Map<String, MetaData>) {
+		this.baseType = baseType;
+		this.meta = meta;
+	}
 
-	public function getNativeType(node:Node):haxe.macro.Type return null;
-	public function isType(node:Node):Bool return false;
+	@:extern static public inline function metaKey(qName:XMLQName):String {
+		return metaKeyString(qName.name);
+	}
+
+	@:extern static public inline function metaKeyString(name:String):String {
+		return "meta:" + name;
+	}
+
+	public function getNativeType(node:Node):haxe.macro.Type {
+		return null;
+	}
+
+	public function isType(node:Node):Bool {
+		return false;
+	}
 	
 	public function hasField(node:Node, qName:XMLQName):Bool {
 		if (qName.ns != node.name.ns || !meta.exists(qName.name)) return false;
@@ -70,6 +92,12 @@ class MetaResolver implements IHaxeTypeResolver<Node, Type> {
 }
 
 class MetaWriter extends DefaultNodeWriter {
+	
+	var baseType:ComplexType;
+	var meta:Map<String, MetaData>;
+	var metaWriter:IMetaWriter;
+	var matchLevel:MatchLevel;
+
 	public function new(baseType:ComplexType, meta:Map<String, MetaData>, metaWriter:IMetaWriter, matchLevel:MatchLevel) {
 		super();
 		this.baseType = baseType;
@@ -77,12 +105,10 @@ class MetaWriter extends DefaultNodeWriter {
 		this.metaWriter = metaWriter;
 		this.matchLevel = matchLevel;
 	}
-	var baseType:ComplexType;
-	var meta:Map<String, MetaData>;
-	var metaWriter:IMetaWriter;
-	var matchLevel:MatchLevel;
 
-	override public function match(node:Node):MatchLevel return isChildOf(node, baseType) ? matchLevel : None;
+	override public function match(node:Node):MatchLevel {
+		return isChildOf(node, baseType) ? matchLevel : None;
+	}
 
 	override function writeNodes(node:Node, scope:String, writer:IHaxeWriter<Node>, method:Array<String>) {
 		for (a in node.nodes) {

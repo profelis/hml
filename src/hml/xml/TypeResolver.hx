@@ -20,9 +20,13 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 
 	public function new() {}
 
-	public function match(data:XMLData, parent:Node):MatchLevel return GlobalLevel;
+	public function match(data:XMLData, parent:Node):MatchLevel {
+		return GlobalLevel;
+	}
 
-	function isID(qName:XMLQName) return qName.ns == null && qName.name == "id";
+	function isID(qName:XMLQName):Bool {
+		return qName.ns == null && qName.name == "id";
+	}
 
 	public function parse(data:XMLData, parent:Node, parser:IXMLDataParser<XMLData, Node>):Node {
 		var node = new Node();
@@ -98,7 +102,9 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 
 class DefaultXMLDataRootParser extends DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Type> {
 
-	override public function match(data:XMLData, parent:Node):MatchLevel return Std.is(data, XMLDataRoot) ? ClassLevel : None;
+	override public function match(data:XMLData, parent:Node):MatchLevel {
+		return Std.is(data, XMLDataRoot) ? ClassLevel : None;
+	}
 
 	override function processSpecificNamespace(name:XMLQName, node:Node, ?child:Node, ?cData:String):Bool {
 		inline function data() return child != null ? child.cData : cData;
@@ -138,9 +144,10 @@ class DefaultXMLDataRootParser extends DefaultXMLDataParser implements IXMLDataN
 }
 
 class DefaultHaxeTypeResolver implements IHaxeTypeResolver<Node, Type> {
-	public function new() {}
-
+	
 	public var types:Map<String, Type>;
+	
+	public function new() {}
 
 	public function getNativeType(node:Node):haxe.macro.Type {
 		var type = node.superType;
@@ -204,14 +211,14 @@ class DefaultHaxeTypeResolver implements IHaxeTypeResolver<Node, Type> {
 
 class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDataParser<XMLData, Node> {
 
+	var parsers:Array<IXMLDataNodeParser<XMLData, Node, Dynamic>>;
+	var resolvers:Array<IHaxeTypeResolver<Node, Type>>;
+	var types:Map<String, Type>;
+
 	public function new(parsers:Array<IXMLDataNodeParser<XMLData, Node, Node>>, resolvers:Array<IHaxeTypeResolver<Node, Type>>) {
 		this.parsers = parsers;
 		this.resolvers = resolvers;
 	}
-
-	var parsers:Array<IXMLDataNodeParser<XMLData, Node, Dynamic>>;
-	var resolvers:Array<IHaxeTypeResolver<Node, Type>>;
-	var types:Map<String, Type>;
 
 	public function parse(data:XMLData, parent:Node):Node {
 		var parser = parsers.findMatch(function (p) return p.match(data, parent));

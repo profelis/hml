@@ -1,6 +1,5 @@
 package hml.xml;
 
-import com.tenderowls.xml176.Xml176Parser;
 import haxe.ds.HashMap;
 import haxe.macro.Expr.Position;
 import haxe.macro.Context;
@@ -24,10 +23,9 @@ class XMLDataRoot extends XMLData {
 	}
 }
 
-typedef XMLDataPos = {
-	from:{line:Int, pos:Int, global:Int},
-	to:{line:Int, pos:Int, global:Int}
-}
+typedef XMLDataPosLine = {line:Int, pos:Int, global:Int}
+
+typedef XMLDataPos = {from:XMLDataPosLine, to:XMLDataPosLine}
 
 class XMLData {
 
@@ -65,7 +63,9 @@ class XMLData {
 			};
 	}
 
-	public inline function toString():String return toValue().stringify("   ");
+	public inline function toString():String {
+		return toValue().stringify("   ");
+	}
 
 	public function resolveNamespace(namespace:Null<String>):Null<String> {
 		if (namespace == null) namespace = "*";
@@ -144,7 +144,9 @@ class Node {
 		}
 	}
 
-	public inline function toString():String return toValue().stringify("   ");
+	public inline function toString():String {
+		return toValue().stringify("   ");
+	}
 }
 
 class XMLQName {
@@ -164,9 +166,13 @@ class XMLQName {
 		else return t.length == 2 ? new XMLQName(t[1], t[0]) : new XMLQName(str);
 	}
 
-	public inline function toString():String return '${ns != null ? ns : "*"}$DELIMITER${name}';
+	public inline function toString():String {
+		return '${ns != null ? ns : "*"}$DELIMITER${name}';
+	}
 
-	public inline function equals(b:XMLQName):Bool return hashCode() == b.hashCode();
+	public inline function equals(b:XMLQName):Bool {
+		return hashCode() == b.hashCode();
+	}
 
 	public inline function hashCode():Int {
 		var h:Int = 0;
