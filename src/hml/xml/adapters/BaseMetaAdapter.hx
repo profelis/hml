@@ -18,7 +18,7 @@ class MetaData {
 }
 
 interface IMetaWriter {
-	public function writeMeta(node:Node, scope:String, parent:Node, metaWriter:MetaWriter, writer:IHaxeWriter<Node>, method:Array<String>):Void;
+	public function writeMeta(node:Node, scope:String, parent:Node, metaWriter:DefaultNodeWriter, writer:IHaxeWriter<Node>, method:Array<String>):Void;
 }
 
 class BaseMetaAdapter extends BaseXMLAdapter {
@@ -41,7 +41,7 @@ class BaseMetaAdapter extends BaseXMLAdapter {
 	}
 
 	override public function getNodeWriters():Array<IHaxeNodeWriter<Node>> {
-		return [new MetaWriter(baseType, meta, metaWriter, matchLevel)];
+		return [new BaseMetaWriter(baseType, meta, metaWriter, matchLevel)];
 	}
 }
 
@@ -78,20 +78,20 @@ class MetaResolver implements IHaxeTypeResolver<Node, Type> {
 
 		return if (MacroTools.isChildOf(node.nativeType, baseType)) {
 			var key = metaKey(qName);
-			var events:Map<XMLQName, MetaData> = node.extra[key];
-			if (events == null) node.extra[key] = events = new Map();
-			events.set(qName, meta.get(qName.name));
+			var extra:Map<XMLQName, MetaData> = node.extra[key];
+			if (extra == null) node.extra[key] = extra = new Map();
+			extra.set(qName, meta.get(qName.name));
 			return true;
 		} else false;
 	}
 	
 	public function getFieldNativeType(node:Node, qName:XMLQName):haxe.macro.Type {
-		var events:Map<XMLQName, MetaData> = node.extra[metaKey(qName)];
-		return events != null && events.exists(qName) ? meta[qName.name].type : null;
+		var extra:Map<XMLQName, MetaData> = node.extra[metaKey(qName)];
+		return extra != null && extra.exists(qName) ? meta[qName.name].type : null;
 	}
 }
 
-class MetaWriter extends DefaultNodeWriter {
+class BaseMetaWriter extends DefaultNodeWriter {
 	
 	var baseType:ComplexType;
 	var meta:Map<String, MetaData>;

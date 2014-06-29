@@ -93,33 +93,52 @@ class DefaultXMLAdapter implements IAdapter<XMLData, Node, Type> {
 	}
 }
 
+class MergedAdapter<B, N, T> implements IAdapter<B, N, T> {
+	public var adapters:Array<IAdapter<B, N, T>>;
+
+	public function new(adapters:Array<IAdapter<B, N, T>>) {
+		this.adapters = adapters;
+	}
+
+	public function getXmlNodeParsers():Array<IXMLNodeParser<B>> {
+		return foreach("getXmlNodeParsers");
+	}
+
+	public function getXmlDataNodeParsers():Array<IXMLDataNodeParser<B, N, N>> {
+		return foreach("getXmlDataNodeParsers");
+	}
+
+	public function getTypeResolvers():Array<IHaxeTypeResolver<N, T>> {
+		return foreach("getTypeResolvers");
+	}
+
+	public function getNodeWriters():Array<IHaxeNodeWriter<N>> {
+		return foreach("getNodeWriters");
+	}
+
+	macro static function foreach(method:String) {
+		return macro {
+			var res = [];
+			for (a in adapters) {
+				var t = a.$method();
+				if (t != null) res = res.concat(t);
+			}
+			res;
+		}
+	}
+}
+
 class XMLProcessor extends BaseFileProcessor<XMLDataRoot, Type> {
 
 	static var XML_EXT = ~/.xml$/;
 
 	public function new(adapters:Array<IAdapter<XMLData, Node, Type>>) {
-		var xmlNodeParsers = [];
-		var xmlDataNodeParsers = [];
-		var typeResolvers = [];
-		var nodeWriters = [];
-		for (a in adapters) {
-			concatNotNullArray(xmlNodeParsers, a.getXmlNodeParsers());
-			concatNotNullArray(xmlDataNodeParsers, a.getXmlDataNodeParsers());
-			concatNotNullArray(typeResolvers, a.getTypeResolvers());
-			concatNotNullArray(nodeWriters, a.getNodeWriters());
-		}
+		var merged = new MergedAdapter<XMLData, Node, Type>(adapters);
 		super(
-			new XMLReader(xmlNodeParsers), 
-			new TypeResolver(xmlDataNodeParsers, typeResolvers), 
-			new XMLWriter(nodeWriters)
+			new XMLReader(merged.getXmlNodeParsers()), 
+			new TypeResolver(merged.getXmlDataNodeParsers(), merged.getTypeResolvers()), 
+			new XMLWriter(merged.getNodeWriters())
 		);
-	}
-
-	macro static function concatNotNullArray(array, sub) {
-		return macro {
-			var t = $sub;
-			if (t != null) $array = $array.concat(t);
-		};
 	}
 
 	override public function supportFile(file:String):Bool {

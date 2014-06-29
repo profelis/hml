@@ -24,10 +24,24 @@ class EventMetaData extends MetaData {
 	}
 }
 
-class FlashAdapter extends EventDispatcherAdapter {
+class FlashAdapter extends MergedAdapter<XMLData, Node, Type> {
+	public function new() {
+		super([
+			new DisplayObjectAdapter(),
+			new IEventDispatcherAdapter(),
+			new hml.xml.XMLProcessor.DefaultXMLAdapter()
+		]);
+	}
+
+	static public function register():Void {
+		hml.Hml.registerProcessor(new hml.xml.XMLProcessor([new FlashAdapter()]));
+	}
+}
+
+class DisplayObjectAdapter extends BaseEventDispatcherAdapter {
 	public function new(?baseType:ComplexType, ?events:Map<String, MetaData>, ?matchLevel:MatchLevel) {
 		if (baseType == null) baseType = macro : flash.display.DisplayObject;
-		if (matchLevel == null) matchLevel = ClassLevel;
+		if (matchLevel == null) matchLevel = CustomLevel(ClassLevel, 10);
 
 		var mouseEventType = (macro : flash.events.MouseEvent -> Void).toType();
 		var eventType = (macro : flash.events.Event -> Void).toType();
@@ -58,13 +72,19 @@ class FlashAdapter extends EventDispatcherAdapter {
 	}
 }
 
-class EventDispatcherAdapter extends BaseMetaAdapter {
+class IEventDispatcherAdapter extends BaseEventDispatcherAdapter {
+	public function new() {
+		super(macro : flash.events.IEventDispatcher, new Map(), ClassLevel);
+	}
+}
+
+class BaseEventDispatcherAdapter extends BaseMetaAdapter {
 	public function new(baseType:ComplexType, events:Map<String, MetaData>, matchLevel:MatchLevel) {
 		super(baseType, events, new EventDispatcherMetaWriter(events), matchLevel);
 	}
 }
 
-class DisplayObjectMetaWriter extends MetaWriter {
+class DisplayObjectMetaWriter extends BaseMetaWriter {
 	override function child(node:Node, scope:String, child:Node, method:Array<String>, assign = false):Void {
 		method.push('$scope.addChild(${universalGet(child)});');
 	}
@@ -78,7 +98,7 @@ class EventDispatcherMetaWriter implements IMetaWriter {
 		this.events = events;
 	}
 
-	public function writeMeta(node:Node, scope:String, parent:Node, metaWriter:MetaWriter, writer:IHaxeWriter<Node>, method:Array<String>):Void {
+	public function writeMeta(node:Node, scope:String, parent:Node, metaWriter:DefaultNodeWriter, writer:IHaxeWriter<Node>, method:Array<String>):Void {
 		var eventData:MetaData = cast events.get(node.name.name);
 		var name:Expr = Std.is(eventData, EventMetaData) ? cast(eventData, EventMetaData).name : macro $v{node.name.name};
 		method.push('$scope.addEventListener(${metaWriter.printer.printExpr(name)}, ${metaWriter.universalGet(node)});');

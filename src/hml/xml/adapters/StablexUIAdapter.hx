@@ -20,7 +20,22 @@ using StringTools;
  */
 
 #if macro
-class StablexUIAdapter extends FlashAdapter {
+class StablexUIAdapter extends MergedAdapter<XMLData, Node, Type> {
+	public function new() {
+		super([
+			new WidgetAdapter(),
+			new DisplayObjectAdapter(),
+			new IEventDispatcherAdapter(),
+			new hml.xml.XMLProcessor.DefaultXMLAdapter()
+		]);
+	}
+
+	static public function register():Void {
+		hml.Hml.registerProcessor(new hml.xml.XMLProcessor([new StablexUIAdapter()]));
+	}
+}
+
+class WidgetAdapter extends DisplayObjectAdapter {
 	public function new() {
 		var eventType = (macro : flash.events.Event -> Void).toType();
 		var widgetEvent = (macro : ru.stablex.ui.events.WidgetEvent -> Void).toType();
@@ -47,7 +62,7 @@ class StablexUIAdapter extends FlashAdapter {
 
 		events.set('scrollBefore', new EventMetaData(scrollEvent, macro ru.stablex.ui.events.ScrollEvent.BEFORE_SCROLL));
 
-		super(macro : ru.stablex.ui.widgets.Widget, events, CustomLevel(ClassLevel, 1));
+		super(macro : ru.stablex.ui.widgets.Widget, events, CustomLevel(ClassLevel, 20));
 	}
 
 	override public function getNodeWriters():Array<IHaxeNodeWriter<Node>> {
