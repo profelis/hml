@@ -9,6 +9,8 @@ import hml.base.MatchLevel;
 import haxe.macro.Context;
 import haxe.macro.Expr;
 
+using hml.base.MacroTools;
+
 class MetaData {
 	public var type:haxe.macro.Type;
 	public var name:String;
@@ -82,7 +84,7 @@ class BaseMetaResolver implements IHaxeTypeResolver<Node, Type> {
 	public function hasField(node:Node, qName:XMLQName):Bool {
 		if (qName.ns != node.name.ns || !meta.exists(qName.name)) return false;
 
-		return if (MacroTools.isChildOf(node.nativeType, baseType)) {
+		return if (node.nativeType.isChildOf(baseType)) {
 			var key = metaKey(qName);
 			var extra:Map<XMLQName, MetaData> = node.extra[key];
 			if (extra == null) node.extra[key] = extra = new Map();

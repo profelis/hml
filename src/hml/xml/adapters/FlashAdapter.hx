@@ -64,6 +64,7 @@ class DisplayObjectAdapter extends BaseEventDispatcherAdapter {
 		inline function addEventMeta(type:String, nameExpr:Expr) {
 			addMeta(new EventMetaData(eventType, type, nameExpr));
 		}
+
 		addMouseEventMeta('click', macro flash.events.MouseEvent.CLICK);
 		addMouseEventMeta('mouseDown', macro flash.events.MouseEvent.MOUSE_DOWN);
 		addMouseEventMeta('mouseUp', macro flash.events.MouseEvent.MOUSE_UP);
@@ -124,10 +125,8 @@ class EventMetaResolver extends BaseMetaResolver {
 		var res = super.hasField(node, qName);
 		if (res) return res;
 
-		if (node.nativeType != null && MacroTools.isChildOf(node.nativeType, baseType)) 
-		{
+		if (node.nativeType != null && node.nativeType.isChildOf(baseType)) {
 			var clazz = node.nativeType.getClass();
-
 			while (clazz != null && clazz.isChildOf(baseType)) {
 				var meta:Map<String, MetaData> = cache.get(clazz.typeName());
 				if (meta == null) cache.set(clazz.typeName(), meta = getClassMeta(clazz));
@@ -163,28 +162,27 @@ class EventMetaResolver extends BaseMetaResolver {
 					}
 					for (a in args) {
 						switch (a) {
-							case macro name=$n:
+							case macro name = $n:
 								name = extractString(n);
-								if (name == null) {
+								if (name == null)
 									Context.warning('can\'t find "name" arg in Event meta: ${a.toString()}', m.pos);
-								}
-							case macro type=$t:
+							case macro type = $t:
 								type = extractString(t);
-								if (type == null) {
+								if (type == null)
 									Context.warning('can\'t find "type" arg in Event meta: ${a.toString()}', m.pos);
-								}
-							case _: Context.warning('unsupported arg in Event meta: ${a.toString()}', m.pos);
+							case _: 
+								Context.warning('unsupported arg in Event meta: ${a.toString()}', m.pos);
 						}
 					}
 					var hxType = null;
 					try {
 						hxType = Context.getType(type);
 					} catch (e:Dynamic) {}
-					if (hxType == null) {
-						Context.warning('can\t resolve Event type "$type"', m.pos);
-					}
+					if (hxType == null) Context.warning('can\'t resolve Event type "$type"', m.pos);
+
 					var complexType = hxType.toComplexType();
 					res.set(name, new MetaData((macro : $complexType -> Void).toType(), name));
+
 				case _: Context.warning("unknown meta: " + m.params, Context.currentPos());
 			}
 		}

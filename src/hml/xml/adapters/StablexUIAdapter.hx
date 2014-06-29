@@ -8,6 +8,8 @@ import hml.xml.XMLProcessor;
 import hml.xml.adapters.FlashAdapter;
 import hml.xml.adapters.BaseMetaAdapter;
 
+import haxe.macro.Expr;
+
 using haxe.macro.Context;
 using haxe.macro.Tools;
 
@@ -46,24 +48,37 @@ class WidgetAdapter extends DisplayObjectAdapter {
 		inline function addMeta(data:MetaData):Void {
 			events.set(data.name, data);
 		}
-		addMeta(new EventMetaData(eventType, 'display', macro flash.events.Event.ADDED_TO_STAGE));
+		inline function addEventMeta(type:String, nameExpr:Expr) {
+			addMeta(new EventMetaData(eventType, type, nameExpr));
+		}
+		inline function addWidgetEventMeta(type:String, nameExpr:Expr) {
+			addMeta(new EventMetaData(widgetEvent, type, nameExpr));
+		}
+		inline function addDragEventMeta(type:String, nameExpr:Expr) {
+			addMeta(new EventMetaData(dndEvent, type, nameExpr));
+		}
+		inline function addScrollEventMeta(type:String, nameExpr:Expr) {
+			addMeta(new EventMetaData(scrollEvent, type, nameExpr));
+		}
+		
+		addEventMeta('display', macro flash.events.Event.ADDED_TO_STAGE);
 
-		addMeta(new EventMetaData(widgetEvent, 'widgetCreate', macro ru.stablex.ui.events.WidgetEvent.CREATE));
-		addMeta(new EventMetaData(widgetEvent, 'widgetFree', macro ru.stablex.ui.events.WidgetEvent.FREE));
-		addMeta(new EventMetaData(widgetEvent, 'widgetResize', macro ru.stablex.ui.events.WidgetEvent.RESIZE));
-		addMeta(new EventMetaData(widgetEvent, 'widgetInitialResize', macro ru.stablex.ui.events.WidgetEvent.INITIAL_RESIZE));
-		addMeta(new EventMetaData(widgetEvent, 'widgetChange', macro ru.stablex.ui.events.WidgetEvent.CHANGE));
-		addMeta(new EventMetaData(widgetEvent, 'widgetScrollStart', macro ru.stablex.ui.events.WidgetEvent.SCROLL_START));
-		addMeta(new EventMetaData(widgetEvent, 'widgetScrollStop', macro ru.stablex.ui.events.WidgetEvent.SCROLL_STOP));
-		addMeta(new EventMetaData(widgetEvent, 'widgetAdded', macro ru.stablex.ui.events.WidgetEvent.ADDED));
-		addMeta(new EventMetaData(widgetEvent, 'widgetRemoved', macro ru.stablex.ui.events.WidgetEvent.REMOVED));
+		addWidgetEventMeta('widgetCreate', macro ru.stablex.ui.events.WidgetEvent.CREATE);
+		addWidgetEventMeta('widgetFree', macro ru.stablex.ui.events.WidgetEvent.FREE);
+		addWidgetEventMeta('widgetResize', macro ru.stablex.ui.events.WidgetEvent.RESIZE);
+		addWidgetEventMeta('widgetInitialResize', macro ru.stablex.ui.events.WidgetEvent.INITIAL_RESIZE);
+		addWidgetEventMeta('widgetChange', macro ru.stablex.ui.events.WidgetEvent.CHANGE);
+		addWidgetEventMeta('widgetScrollStart', macro ru.stablex.ui.events.WidgetEvent.SCROLL_START);
+		addWidgetEventMeta('widgetScrollStop', macro ru.stablex.ui.events.WidgetEvent.SCROLL_STOP);
+		addWidgetEventMeta('widgetAdded', macro ru.stablex.ui.events.WidgetEvent.ADDED);
+		addWidgetEventMeta('widgetRemoved', macro ru.stablex.ui.events.WidgetEvent.REMOVED);
 
-		addMeta(new EventMetaData(dndEvent, 'dndDrag', macro ru.stablex.ui.events.DndEvent.DRAG));
-		addMeta(new EventMetaData(dndEvent, 'dndDrop', macro ru.stablex.ui.events.DndEvent.DROP));
-		addMeta(new EventMetaData(dndEvent, 'dndReceive', macro ru.stablex.ui.events.DndEvent.RECEIVE));
-		addMeta(new EventMetaData(dndEvent, 'dndReturn', macro ru.stablex.ui.events.DndEvent.RETURN));
+		addDragEventMeta('dndDrag', macro ru.stablex.ui.events.DndEvent.DRAG);
+		addDragEventMeta('dndDrop', macro ru.stablex.ui.events.DndEvent.DROP);
+		addDragEventMeta('dndReceive', macro ru.stablex.ui.events.DndEvent.RECEIVE);
+		addDragEventMeta('dndReturn', macro ru.stablex.ui.events.DndEvent.RETURN);
 
-		addMeta(new EventMetaData(scrollEvent, 'scrollBefore', macro ru.stablex.ui.events.ScrollEvent.BEFORE_SCROLL));
+		addScrollEventMeta('scrollBefore', macro ru.stablex.ui.events.ScrollEvent.BEFORE_SCROLL);
 
 		super(macro : ru.stablex.ui.widgets.Widget, events, CustomLevel(ClassLevel, 20));
 	}

@@ -93,7 +93,7 @@ class ClassTypeTools {
 	}
 }
 
-class MacroTools {
+class TypeTools {
 
 	static public function isChildOf(type:Type, baseType:ComplexType) {
 		var clazz;

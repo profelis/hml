@@ -95,7 +95,7 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 	}
 
 	@:extern public inline function isChildOf(node:Node, type:haxe.macro.Expr.ComplexType) {
-		return node.nativeType != null ? hml.base.MacroTools.isChildOf(node.nativeType, type) : false;
+		return node.nativeType != null ? node.nativeType.isChildOf(type) : false;
 	}
 
 	function writeNodes(node:Node, scope:String, writer:IHaxeWriter<Node>, method:Array<String>) {
