@@ -85,7 +85,7 @@ class DisplayObjectAdapter extends BaseEventDispatcherAdapter {
 	}
 
 	override public function getNodeWriters():Array<IHaxeNodeWriter<Node>> {
-		return [new DisplayObjectWithMetaWriter(baseType, new EventDispatcherMetaWriter(), matchLevel)];
+		return [new DisplayObjectWithMetaWriter(baseType, metaWriter, matchLevel)];
 	}
 }
 
@@ -111,7 +111,7 @@ class BaseEventDispatcherAdapter extends BaseMetaAdapter {
 	}
 }
 
-class EventMetaResolver extends MetaResolver {
+class EventMetaResolver extends BaseMetaResolver {
 	public function new(baseType:ComplexType, meta:Map<String, MetaData>) {
 		super(baseType, meta);
 	}
@@ -132,7 +132,7 @@ class EventMetaResolver extends MetaResolver {
 				var meta:Map<String, MetaData> = cache.get(clazz.typeName());
 				if (meta == null) cache.set(clazz.typeName(), meta = getClassMeta(clazz));
 				if (meta.exists(qName.name)) {
-					var key = MetaResolver.metaKey(qName);
+					var key = BaseMetaResolver.metaKey(qName);
 					var extra:Map<XMLQName, MetaData> = node.extra[key];
 					if (extra == null) node.extra[key] = extra = new Map();
 					extra.set(qName, meta.get(qName.name));

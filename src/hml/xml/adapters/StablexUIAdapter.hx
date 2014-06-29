@@ -69,11 +69,11 @@ class WidgetAdapter extends DisplayObjectAdapter {
 	}
 
 	override public function getNodeWriters():Array<IHaxeNodeWriter<Node>> {
-		return [new DefaultWidgetWriter(baseType, metaWriter, matchLevel), new DefaultSkinWriter()];
+		return [new DefaultWidgetWithMetaWriter(baseType, metaWriter, matchLevel), new DefaultSkinWriter()];
 	}
 }
 
-class DefaultWidgetWriter extends DisplayObjectWithMetaWriter {
+class DefaultWidgetWithMetaWriter extends DisplayObjectWithMetaWriter {
 	override function writeNodes(node:Node, scope:String, writer:IHaxeWriter<Node>, method:Array<String>) {
 		for (n in node.nodes) {
 			if (n.cData != null && n.cData.rtrim().endsWith("%")) {

@@ -34,7 +34,7 @@ class BaseMetaAdapter extends BaseXMLAdapter {
 	var metaWriter:IMetaWriter;
 	var matchLevel:MatchLevel;
 
-	public function new(baseType:ComplexType, meta:Map<String, MetaData>, metaWriter:IMetaWriter, matchLevel:MatchLevel) {
+	function new(baseType:ComplexType, meta:Map<String, MetaData>, metaWriter:IMetaWriter, matchLevel:MatchLevel) {
 		super();
 		this.baseType = baseType;
 		this.meta = meta;
@@ -43,7 +43,7 @@ class BaseMetaAdapter extends BaseXMLAdapter {
 	}
 
 	override public function getTypeResolvers():Array<IHaxeTypeResolver<Node, Type>> {
-		return [new MetaResolver(baseType, meta)];
+		return [new BaseMetaResolver(baseType, meta)];
 	}
 
 	override public function getNodeWriters():Array<IHaxeNodeWriter<Node>> {
@@ -51,7 +51,7 @@ class BaseMetaAdapter extends BaseXMLAdapter {
 	}
 }
 
-class MetaResolver implements IHaxeTypeResolver<Node, Type> {
+class BaseMetaResolver implements IHaxeTypeResolver<Node, Type> {
 	
 	public var types:Map<String, Type>;
 
@@ -117,7 +117,7 @@ class BaseNodeWithMetaWriter extends DefaultNodeWriter {
 
 	override function writeNodes(node:Node, scope:String, writer:IHaxeWriter<Node>, method:Array<String>) {
 		for (a in node.nodes) {
-			var events:Map<XMLQName, MetaData> = node.extra[MetaResolver.metaKey(a.name)];
+			var events:Map<XMLQName, MetaData> = node.extra[BaseMetaResolver.metaKey(a.name)];
 			if (events != null && events.exists(a.name)) {
 				metaWriter.writeMeta(a, scope, events.get(a.name), node, this, writer, method);
 				continue;
