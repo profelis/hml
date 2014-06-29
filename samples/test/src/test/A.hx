@@ -1,11 +1,10 @@
 package test;
 
-
-class A {
+@:meta(Event(name = "someEvent",type="flash.events.Event"))
+class A extends flash.display.Sprite {
 	public function new() {
+		super();
 	}
-
-	public var name:String;
 
 	public var list:Array<String> = [];
 

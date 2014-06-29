@@ -22,7 +22,13 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
 
     @:isVar public var child3(get, set):flash.display.Sprite;
 
-    inline function get_field0():String {
+    inline function get_field0():flash.events.Event -> StdTypes.Void {
+        /* ui/Ab.xml:1 characters: 59-68 */
+        var res = function (event:flash.events.Event):StdTypes.Void { trace('some event meta magic'); };
+        return res;
+    }
+
+    inline function get_field1():String {
         /* ui/Ab.xml:7 characters: 8-17 */
         var res = 'as';
         return res;
@@ -49,9 +55,9 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
         return child1 = value;
     }
 
-    inline function get_field1():flash.events.MouseEvent -> StdTypes.Void {
-        /* ui/Ab.xml:10 characters: 114-119 */
-        var res = function (event:flash.events.MouseEvent):StdTypes.Void { trace('click'); };
+    inline function get_field2():flash.events.MouseEvent -> StdTypes.Void {
+        /* ui/Ab.xml:11 characters: 4-9 */
+        var res = function (event:flash.events.MouseEvent):StdTypes.Void { trace('click'); this.dispatchEvent(new flash.events.Event('someEvent')); };
         return res;
     }
 
@@ -69,7 +75,7 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
         res.text = 'tada';
         /* ui/Ab.xml:10 characters: 95-105 */
         res.selectable = false;
-        res.addEventListener(flash.events.MouseEvent.CLICK, get_field1());
+        res.addEventListener(flash.events.MouseEvent.CLICK, get_field2());
         /* ui/Ab.xml:10 characters: 31-32 */
         res.x = 100;
         /* ui/Ab.xml:10 characters: 39-40 */
@@ -82,14 +88,14 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
     }
 
     function get_child2():flash.display.Sprite {
-        /* ui/Ab.xml:11 characters: 3-11 */
+        /* ui/Ab.xml:13 characters: 3-11 */
         if (child2_initialized) return child2;
         child2_initialized = true;
         var res = new flash.display.Sprite();
         this.child2 = res;
-        /* ui/Ab.xml:11 characters: 41-42 */
+        /* ui/Ab.xml:13 characters: 41-42 */
         res.x = 100;
-        /* ui/Ab.xml:11 characters: 25-32 */
+        /* ui/Ab.xml:13 characters: 25-32 */
         res.visible = false;
         return res;
     }
@@ -99,14 +105,14 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
     }
 
     function get_child3():flash.display.Sprite {
-        /* ui/Ab.xml:12 characters: 3-11 */
+        /* ui/Ab.xml:15 characters: 3-11 */
         if (child3_initialized) return child3;
         child3_initialized = true;
         var res = new flash.display.Sprite();
         this.child3 = res;
-        /* ui/Ab.xml:12 characters: 41-42 */
+        /* ui/Ab.xml:15 characters: 41-42 */
         res.x = 100;
-        /* ui/Ab.xml:12 characters: 25-32 */
+        /* ui/Ab.xml:15 characters: 25-32 */
         res.visible = false;
         return res;
     }
@@ -126,11 +132,12 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
     public function new() {
         /* ui/Ab.xml:1 characters: 1-2 */
         super();
+        this.addEventListener("someEvent", get_field0());
         /* ui/Ab.xml:4 characters: 2-6 */
         this.name = 'testName';
         /* ui/Ab.xml:7 characters: 2-6 */
-        this.list.push(get_field0());
+        this.list.push(get_field1());
         this.list.push(str2);
-        get_sprite();
+        this.addChild(sprite);
     }
 }

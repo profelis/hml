@@ -11,14 +11,20 @@ import haxe.macro.Expr;
 
 class MetaData {
 	public var type:haxe.macro.Type;
+	public var name:String;
 
-	public function new(type:haxe.macro.Type) {
+	public function new(type:haxe.macro.Type, name:String) {
 		this.type = type;
+		this.name = name;
+	}
+
+	public function getExpr():Expr {
+		return macro $v{name};
 	}
 }
 
 interface IMetaWriter {
-	public function writeMeta(node:Node, scope:String, parent:Node, metaWriter:DefaultNodeWriter, writer:IHaxeWriter<Node>, method:Array<String>):Void;
+	public function writeMeta(node:Node, scope:String, metaData:MetaData, parent:Node, metaWriter:DefaultNodeWriter, writer:IHaxeWriter<Node>, method:Array<String>):Void;
 }
 
 class BaseMetaAdapter extends BaseXMLAdapter {
@@ -41,7 +47,7 @@ class BaseMetaAdapter extends BaseXMLAdapter {
 	}
 
 	override public function getNodeWriters():Array<IHaxeNodeWriter<Node>> {
-		return [new BaseMetaWriter(baseType, meta, metaWriter, matchLevel)];
+		return [new BaseNodeWithMetaWriter(baseType, metaWriter, matchLevel)];
 	}
 }
 
@@ -87,21 +93,20 @@ class MetaResolver implements IHaxeTypeResolver<Node, Type> {
 	
 	public function getFieldNativeType(node:Node, qName:XMLQName):haxe.macro.Type {
 		var extra:Map<XMLQName, MetaData> = node.extra[metaKey(qName)];
-		return extra != null && extra.exists(qName) ? meta[qName.name].type : null;
+		return extra != null && extra.exists(qName) ? extra.get(qName).type : null;
 	}
 }
 
-class BaseMetaWriter extends DefaultNodeWriter {
+class BaseNodeWithMetaWriter extends DefaultNodeWriter {
 	
 	var baseType:ComplexType;
 	var meta:Map<String, MetaData>;
 	var metaWriter:IMetaWriter;
 	var matchLevel:MatchLevel;
 
-	public function new(baseType:ComplexType, meta:Map<String, MetaData>, metaWriter:IMetaWriter, matchLevel:MatchLevel) {
+	public function new(baseType:ComplexType, metaWriter:IMetaWriter, matchLevel:MatchLevel) {
 		super();
 		this.baseType = baseType;
-		this.meta = meta;
 		this.metaWriter = metaWriter;
 		this.matchLevel = matchLevel;
 	}
@@ -112,12 +117,10 @@ class BaseMetaWriter extends DefaultNodeWriter {
 
 	override function writeNodes(node:Node, scope:String, writer:IHaxeWriter<Node>, method:Array<String>) {
 		for (a in node.nodes) {
-			if (meta.exists(a.name.name)) {
-				var events:Map<XMLQName, MetaData> = node.extra[MetaResolver.metaKey(a.name)];
-				if (events != null && events.exists(a.name)) {
-					metaWriter.writeMeta(a, scope, node, this, writer, method);
-					continue;
-				}
+			var events:Map<XMLQName, MetaData> = node.extra[MetaResolver.metaKey(a.name)];
+			if (events != null && events.exists(a.name)) {
+				metaWriter.writeMeta(a, scope, events.get(a.name), node, this, writer, method);
+				continue;
 			}
 			writer.writeAttribute(node, scope, a, method);
 		}

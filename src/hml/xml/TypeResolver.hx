@@ -231,6 +231,7 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 
 		for (i in data) {
 			var type:Type = cast parse(i, null);
+			type.nativeType = getNativeType(type);
 			types[type.type] = type;
 		}
 
@@ -269,15 +270,17 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 			var i = 0;
 			while (i < t.unresolvedNodes.length) {
 				var n = t.unresolvedNodes[i];
+				if (n.nativeType == null) n.nativeType = getNativeType(n);
 				if (hasField(t, n.name)) {
 					removeItem(i);
 					n.nativeType = getFieldNativeType(t, n.name);
 					t.nodes.push(n);
 				} else if (isType(n)) {
 					removeItem(i);
-					if (n.nativeType == null) n.nativeType = getNativeType(n);
 					t.children.push(n);
-				} else i++;
+				} else {
+					i++;
+				}
 			}
 		}
 		return t.unresolvedNodes.length == 0;

@@ -65,31 +65,40 @@ class TypeStringTools {
 	}
 }
 
-class MacroTools {
+class ClassTypeTools {
 
-	static public function isChildOf(type:Type, baseType:ComplexType) {
+	static public function isChildOf(clazz:ClassType, baseType:ComplexType) {
 		var name = getComplexTypeName(baseType);
-		if (name == null) throw 'unknown type name for ${baseType}';
-
-		var clazz;
-		try { clazz = type.follow().getClass(); } catch (e:Dynamic) { return false; }
+		if (name == null) throw 'unknown type name for ${clazz.module}';
 			
 		while (clazz != null) {
 			if (clazz != null && typeName(clazz) == name) return true;
+			for (i in clazz.interfaces) {
+				if (i.t != null && typeName(i.t.get()) == name) return true;
+			}
 			clazz = clazz.superClass != null ? clazz.superClass.t.get() : null;
 		}
 		return  false;
 	}
 
-	@:extern static inline function typeName(type:{pack:Array<String>, name:String}):String 
+	@:extern public static inline function typeName(type:{pack:Array<String>, name:String}):String 
 		return (type.pack.length > 0 ? type.pack.join(".") + ":" : "") + type.name;
 
-	static function getComplexTypeName(baseType:ComplexType) {
+	static public function getComplexTypeName(baseType:ComplexType) {
 		return switch (baseType) {
 			case TPath(p): typeName(p);
 			case TParent(ct) | TOptional(ct): getComplexTypeName(ct);
 			case _: null;
 		}
 	}
+}
 
+class MacroTools {
+
+	static public function isChildOf(type:Type, baseType:ComplexType) {
+		var clazz;
+		try { clazz = type.follow().getClass(); } catch (e:Dynamic) { return false; }
+
+		return ClassTypeTools.isChildOf(clazz, baseType);
+	}
 }

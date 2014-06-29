@@ -43,34 +43,37 @@ class WidgetAdapter extends DisplayObjectAdapter {
 		var scrollEvent = (macro : ru.stablex.ui.events.ScrollEvent -> Void).toType();
 
 		var events:Map<String, MetaData> = new Map();
-		events.set('display', new EventMetaData(eventType, macro flash.events.Event.ADDED_TO_STAGE));
+		inline function addMeta(data:MetaData):Void {
+			events.set(data.name, data);
+		}
+		addMeta(new EventMetaData(eventType, 'display', macro flash.events.Event.ADDED_TO_STAGE));
 
-		events.set('widgetCreate', new EventMetaData(widgetEvent, macro ru.stablex.ui.events.WidgetEvent.CREATE));
-		events.set('widgetFree', new EventMetaData(widgetEvent, macro ru.stablex.ui.events.WidgetEvent.FREE));
-		events.set('widgetResize', new EventMetaData(widgetEvent, macro ru.stablex.ui.events.WidgetEvent.RESIZE));
-		events.set('widgetInitialResize', new EventMetaData(widgetEvent, macro ru.stablex.ui.events.WidgetEvent.INITIAL_RESIZE));
-		events.set('widgetChange', new EventMetaData(widgetEvent, macro ru.stablex.ui.events.WidgetEvent.CHANGE));
-		events.set('widgetScrollStart', new EventMetaData(widgetEvent, macro ru.stablex.ui.events.WidgetEvent.SCROLL_START));
-		events.set('widgetScrollStop', new EventMetaData(widgetEvent, macro ru.stablex.ui.events.WidgetEvent.SCROLL_STOP));
-		events.set('widgetAdded', new EventMetaData(widgetEvent, macro ru.stablex.ui.events.WidgetEvent.ADDED));
-		events.set('widgetRemoved', new EventMetaData(widgetEvent, macro ru.stablex.ui.events.WidgetEvent.REMOVED));
+		addMeta(new EventMetaData(widgetEvent, 'widgetCreate', macro ru.stablex.ui.events.WidgetEvent.CREATE));
+		addMeta(new EventMetaData(widgetEvent, 'widgetFree', macro ru.stablex.ui.events.WidgetEvent.FREE));
+		addMeta(new EventMetaData(widgetEvent, 'widgetResize', macro ru.stablex.ui.events.WidgetEvent.RESIZE));
+		addMeta(new EventMetaData(widgetEvent, 'widgetInitialResize', macro ru.stablex.ui.events.WidgetEvent.INITIAL_RESIZE));
+		addMeta(new EventMetaData(widgetEvent, 'widgetChange', macro ru.stablex.ui.events.WidgetEvent.CHANGE));
+		addMeta(new EventMetaData(widgetEvent, 'widgetScrollStart', macro ru.stablex.ui.events.WidgetEvent.SCROLL_START));
+		addMeta(new EventMetaData(widgetEvent, 'widgetScrollStop', macro ru.stablex.ui.events.WidgetEvent.SCROLL_STOP));
+		addMeta(new EventMetaData(widgetEvent, 'widgetAdded', macro ru.stablex.ui.events.WidgetEvent.ADDED));
+		addMeta(new EventMetaData(widgetEvent, 'widgetRemoved', macro ru.stablex.ui.events.WidgetEvent.REMOVED));
 
-		events.set('dndDrag', new EventMetaData(dndEvent, macro ru.stablex.ui.events.DndEvent.DRAG));
-		events.set('dndDrop', new EventMetaData(dndEvent, macro ru.stablex.ui.events.DndEvent.DROP));
-		events.set('dndReceive', new EventMetaData(dndEvent, macro ru.stablex.ui.events.DndEvent.RECEIVE));
-		events.set('dndReturn', new EventMetaData(dndEvent, macro ru.stablex.ui.events.DndEvent.RETURN));
+		addMeta(new EventMetaData(dndEvent, 'dndDrag', macro ru.stablex.ui.events.DndEvent.DRAG));
+		addMeta(new EventMetaData(dndEvent, 'dndDrop', macro ru.stablex.ui.events.DndEvent.DROP));
+		addMeta(new EventMetaData(dndEvent, 'dndReceive', macro ru.stablex.ui.events.DndEvent.RECEIVE));
+		addMeta(new EventMetaData(dndEvent, 'dndReturn', macro ru.stablex.ui.events.DndEvent.RETURN));
 
-		events.set('scrollBefore', new EventMetaData(scrollEvent, macro ru.stablex.ui.events.ScrollEvent.BEFORE_SCROLL));
+		addMeta(new EventMetaData(scrollEvent, 'scrollBefore', macro ru.stablex.ui.events.ScrollEvent.BEFORE_SCROLL));
 
 		super(macro : ru.stablex.ui.widgets.Widget, events, CustomLevel(ClassLevel, 20));
 	}
 
 	override public function getNodeWriters():Array<IHaxeNodeWriter<Node>> {
-		return [new DefaultWidgetWriter(baseType, meta, metaWriter, matchLevel), new DefaultSkinWriter()];
+		return [new DefaultWidgetWriter(baseType, metaWriter, matchLevel), new DefaultSkinWriter()];
 	}
 }
 
-class DefaultWidgetWriter extends DisplayObjectMetaWriter {
+class DefaultWidgetWriter extends DisplayObjectWithMetaWriter {
 	override function writeNodes(node:Node, scope:String, writer:IHaxeWriter<Node>, method:Array<String>) {
 		for (n in node.nodes) {
 			if (n.cData != null && n.cData.rtrim().endsWith("%")) {
