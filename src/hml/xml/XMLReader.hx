@@ -92,7 +92,7 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 		var lastDot = res.lastIndexOf(".");
 		var t = lastDot == -1 ? res : res.substr(lastDot + 1);
 		if (!(CLASS_ID.match(t)))
-			Context.error('file name can\'t be used as class name "$path"', Context.currentPos());
+			Context.error('file name can\'t be used as class name', Context.makePosition({min:0, max:0, file:path}));
 		return res;
 	}
 
@@ -101,7 +101,7 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 		var xml:Xml176Document;
 
 		tryCatch(cont = sys.io.File.getContent(file), Context.fatalError('can\'t read file "$file" content', pos));
-		tryCatch(xml = Xml176Parser.parse(cont), Context.fatalError('can\'t parse XML "$file"', pos));
+		tryCatch(xml = Xml176Parser.parse(cont), Context.fatalError('can\'t parse XML file content', Context.makePosition({min:0, max:0, file:file})));
 
 		Context.registerModuleDependency("hml.Hml", file);
 		return readXML(xml, file, pos);
@@ -113,8 +113,9 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 		res.file = file;
 		res.pos = pos;
 		res.root = res;
-		var node = parse(xml.sub(xml.document.firstElement()), null);
+		var node = parse(xml.sub(xml.document.firstElement()), res);
 		for (n in node.fields()) res.setField(n, node.field(n));
+		res.parent = null;
 		return res;
 	}
 
