@@ -47,10 +47,10 @@ class DefaultXMLNodeParser implements IXMLNodeParser<XMLData> {
 		for (a in node.attributes()) {
 			var qName = a.toXMLQName();
 			var value = node.get(a);
-			if (value.endsWith(".*")) value = value.substr(0, -2);
+			inline function formatNS(value:String) return if (value.endsWith(".*")) value.substr(0, -2) else value;
 			switch ({name:qName.name, ns:qName.ns}) {
-				case {name:"xmlns", ns:null}: res.namespaces["*"] = value;
-				case {name:n, ns:"xmlns"}: res.namespaces[n] = value;
+				case {name:"xmlns", ns:null}: res.namespaces["*"] = formatNS(value);
+				case {name:n, ns:"xmlns"}: res.namespaces[n] = formatNS(value);
 				case _: 
 					res.attributes.set(qName, value);
 					res.attributesPos.set(qName, posToXMLDataPos(xmlNode, xmlNode.getAttrPosition(node, a)));
