@@ -41,7 +41,7 @@ class MethodNodeWriter extends StringNode {
 	public function new(node:Node, accessor:String, id:String, args:String, type:String, body:Array<String>) {
 		var b = new Strings();
 		for (s in body) b += '${XMLWriter.TAB}$s\n';
-		super(node, '${accessor != null ? accessor + " " : ""}function $id(${args != null ? args : ""})${type != null ? ":" + type : ""} {\n${b.toString()}}');
+		super(node, '${accessor != null ? accessor + " " : ""}function $id(${args != null ? args : ""})${type != null ? ":" + type : ""} {\n$b}');
 	}
 }
 
@@ -261,7 +261,7 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 			var p = new Path(path);
 			if (p.dir != null) p.dir.createDirectory();
 			p.ext = "hx";
-			sys.io.File.saveContent(p.toString(), res.toString());
+			sys.io.File.saveContent(p.toString(), res);
 		}
 	}
 
