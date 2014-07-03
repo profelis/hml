@@ -21,6 +21,10 @@ class XMLDataRoot extends XMLData {
 		Reflect.setField(res, "file", '$file');
 		return res;
 	}
+
+	public function getHaxePosition(pos:XMLDataPos):Position {
+		return Context.makePosition({min:pos.from.global, max:pos.to.global, file:file});
+	}
 }
 
 typedef XMLDataPosLine = {line:Int, pos:Int, global:Int}

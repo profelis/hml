@@ -124,7 +124,7 @@ class ClassTypeTools {
 			}
 			clazz = clazz.superClass != null ? clazz.superClass.t.get() : null;
 		}
-		return  false;
+		return false;
 	}
 
 	/**
