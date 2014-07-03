@@ -14,6 +14,30 @@ typedef TypeString = {
 }
 
 class TypeStringTools {
+
+	/**
+	 * Convert string "Map<String, Array<Int>>" to TypeString struct 
+	 * {
+	 *    type:Map, 
+	 *    params:[
+	 *        {
+	 *            type:String,
+	 *            params:[]
+	 *        }, 
+	 *        {
+	 *            type:Array,
+	 *            params:
+	 *            	{
+	 *            	    type:Int,
+	 *            	    params:[]
+	 *            	 }
+	 *         }
+	 *    ]
+	 * }
+	 * 
+	 * @param  str type defenition
+	 * @return     array of TypeString structurs
+	 */
 	static public function stringToTypes(str:String):Array<TypeString> {
 		function map(str):Array<TypeString> {
 			var reg = ~/\s*([\.\w]*)\s*<(([^<>]*|(?R))*)>/g;
@@ -36,6 +60,13 @@ class TypeStringTools {
 		return map(str);
 	}
 
+	/**
+	 * Convert TypeString to valid haxe code string
+	 * {type:String, params:[] } convert to "String"
+	 * 
+	 * @param  types<TypeString> array of TypeString structurs
+	 * @return                   valid haxe type name
+	 */
 	static public function typesToString(types:Array<TypeString>):String {
 		function map(types:Array<TypeString>) {
 			return [for (t in types) t.type + (t.params.length == 0 ? "" : '<${map(t.params)}>')].join(", ");
@@ -43,6 +74,14 @@ class TypeStringTools {
 		return map(types);
 	}
 
+	/**
+	 * Convert TypeString to haxe.macro.Type, resolving generic params
+	 *
+	 * throws Context.getType errors
+	 * 
+	 * @param  types<TypeString> array of TypeString structurs
+	 * @return                   array of haxe.macro.Type 
+	 */
 	static public function toTypeArray(types:Array<TypeString>):Array<haxe.macro.Type> {
 		function map(data:Array<TypeString>):Array<haxe.macro.Type> {
 			var res = [];
@@ -67,7 +106,14 @@ class TypeStringTools {
 
 class ClassTypeTools {
 
-	static public function isChildOf(clazz:ClassType, baseType:ComplexType) {
+	/**
+	 * resolve inheritance
+	 * 
+	 * @param  clazz    source ClassType
+	 * @param  baseType target ComplexType (class or interface)
+	 * @return          source class is subclass of baseType or implements baseType interface
+	 */
+	static public function isChildOf(clazz:ClassType, baseType:ComplexType):Bool {
 		var name = getComplexTypeName(baseType);
 		if (name == null) throw 'unknown type name for ${clazz.module}';
 			
@@ -81,9 +127,24 @@ class ClassTypeTools {
 		return  false;
 	}
 
+	/**
+	 * generate type name using package and type name
+	 * typeName({pack:["flash", "display", "Sprite"], name:"Sprite"}) return flash.display.Sprite.Sprite
+	 * 
+	 * @param  type struct {pack:Array<String>, name:String}
+	 * @return type name string
+	 */
 	@:extern public static inline function typeName(type:{pack:Array<String>, name:String}):String 
 		return (type.pack.length > 0 ? type.pack.join(".") + ":" : "") + type.name;
 
+	/**
+	 * generate type name of ComplexType. Use typeName method
+	 * @param  baseType ComplexType
+	 *
+	 * @see typeName
+	 * 
+	 * @return          type name string
+	 */
 	static public function getComplexTypeName(baseType:ComplexType) {
 		return switch (baseType) {
 			case TPath(p): typeName(p);
@@ -95,7 +156,16 @@ class ClassTypeTools {
 
 class TypeTools {
 
-	static public function isChildOf(type:Type, baseType:ComplexType) {
+	/**
+	 * resolve inheritance
+	 *
+	 * @see ClassTypeTools.isChildOf
+	 * 
+	 * @param  type     source type haxe.macro.Type
+	 * @param  baseType target type or interface
+	 * @return          source type is subclass of target type or implements target interface 
+	 */
+	static public function isChildOf(type:haxe.macro.Type, baseType:ComplexType) {
 		var clazz;
 		try { clazz = type.follow().getClass(); } catch (e:Dynamic) { return false; }
 
