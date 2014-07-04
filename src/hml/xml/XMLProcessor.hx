@@ -6,7 +6,7 @@ import hml.Hml.Output;
 import haxe.macro.Expr;
 import hml.xml.Data;
 import hml.xml.TypeResolver;
-import hml.xml.XMLReader.DefaultXMLNodeParser;
+import hml.xml.XMLReader;
 import hml.xml.XMLWriter;
 import hml.base.MatchLevel;
 
@@ -80,7 +80,7 @@ class DefaultXMLAdapter implements IAdapter<XMLData, Node, Type> {
 	public function new() {}
 
 	public function getXmlNodeParsers():Array<IXMLNodeParser<XMLData>> {
-		return [new DefaultXMLNodeParser()];
+		return [new DefaultXMLNodeParser(), new DefaultXMLDocumentParser()];
 	}
 	public function getXmlDataNodeParsers():Array<IXMLDataNodeParser<XMLData, Node, Node>> {
 		return [new DefaultXMLDataParser(), new DefaultXMLDataRootParser()];

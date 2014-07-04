@@ -17,7 +17,10 @@ class DefaultXMLNodeParser implements IXMLNodeParser<XMLData> {
 	public function new() {}
 
 	public function match(xml:Xml176Document, parent:XMLData):MatchLevel {
-		return GlobalLevel;
+		return switch (xml.document.nodeType) {
+			case Xml.Element: GlobalLevel;
+			default: None;
+		};
 	}
 
 	public function parse(node:Xml176Document, parent:XMLData, parser:IXMLParser<XMLData>):XMLData {
@@ -73,6 +76,23 @@ class DefaultXMLNodeParser implements IXMLNodeParser<XMLData> {
 	}
 }
 
+class DefaultXMLDocumentParser extends DefaultXMLNodeParser {
+	override public function match(xml:Xml176Document, parent:XMLData):MatchLevel {
+		return switch (xml.document.nodeType) {
+			case Xml.Document: PackageLevel;
+			default: None;
+		};
+	}
+
+	override public function parse(node:Xml176Document, parent:XMLData, parser:IXMLParser<XMLData>):XMLData {
+		var res = new XMLDataRoot();
+		res.root = res;
+		parseData(res, node.sub(node.document.firstElement()), res, parser);
+		res.parent = null;
+		return res;
+	}
+}
+
 class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 
 	static var XML_EXT = ~/(.xml$)/;
@@ -100,22 +120,26 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 		var cont;
 		var xml:Xml176Document;
 
-		tryCatch(cont = sys.io.File.getContent(file), Context.fatalError('can\'t read file "$file" content', pos));
-		tryCatch(xml = Xml176Parser.parse(cont), Context.fatalError('can\'t parse XML file content', Context.makePosition({min:0, max:0, file:file})));
+		try {
+			cont = sys.io.File.getContent(file);
+		} catch (e:Dynamic) {
+			Context.fatalError('can\'t read file "$file" content', pos);
+		}
+		try {
+			xml = Xml176Parser.parse(cont);
+		} catch (e:Dynamic) {
+			Context.fatalError('${Std.string(e)}', Context.makePosition({min:0, max:0, file:file}));
+		}
 
 		Context.registerModuleDependency("hml.Hml", file);
 		return readXML(xml, file, pos);
 	}
 
 	function readXML(xml:Xml176Document, file:String, pos:Position):XMLDataRoot {
-		var res = new XMLDataRoot();
+		var res:XMLDataRoot = cast parse(xml, null);
 		res.type = getTypeName(file);
 		res.file = file;
 		res.pos = pos;
-		res.root = res;
-		var node = parse(xml.sub(xml.document.firstElement()), res);
-		for (n in node.fields()) res.setField(n, node.field(n));
-		res.parent = null;
 		return res;
 	}
 
@@ -123,10 +147,4 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 		var nodeParser = nodeParsers.findMatch(function (p) return p.match(node, parent));
 		return nodeParser.parse(node, parent, this);
 	}
-
-	macro function tryCatch(expr:Expr, catchExpr:Expr):Expr return
-		macro try $expr catch (e:Dynamic) {
-			#if hml_debug trace(e); #end
-			$catchExpr;
-		};
 }
