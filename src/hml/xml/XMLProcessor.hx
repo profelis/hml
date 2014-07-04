@@ -14,7 +14,7 @@ using hml.base.MatchLevel;
 
 // reader
 interface IXMLParser<B> {
-	public function parse(xml:Xml176Document, parent:B):B;
+	public function parse(xml:Xml176Document, parent:B):Null<B>;
 }
 
 interface IXMLNodeParser<B> {
@@ -80,7 +80,7 @@ class DefaultXMLAdapter implements IAdapter<XMLData, Node, Type> {
 	public function new() {}
 
 	public function getXmlNodeParsers():Array<IXMLNodeParser<XMLData>> {
-		return [new DefaultXMLNodeParser(), new DefaultXMLDocumentParser()];
+		return [new DefaultXMLElementParser(), new DefaultXMLDocumentParser()];
 	}
 	public function getXmlDataNodeParsers():Array<IXMLDataNodeParser<XMLData, Node, Node>> {
 		return [new DefaultXMLDataParser(), new DefaultXMLDataRootParser()];

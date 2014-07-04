@@ -4,7 +4,7 @@
 --no-output
 -main GenHx
 --macro allowPackage('flash')
-#-D hml_debug
+-D hml_debug
 
 --next
 

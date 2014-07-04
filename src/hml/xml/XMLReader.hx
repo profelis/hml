@@ -13,7 +13,7 @@ using StringTools;
 using Reflect;
 using Lambda;
 
-class DefaultXMLNodeParser implements IXMLNodeParser<XMLData> {
+class DefaultXMLElementParser implements IXMLNodeParser<XMLData> {
 	public function new() {}
 
 	public function match(xml:Xml176Document, parent:XMLData):MatchLevel {
@@ -67,16 +67,16 @@ class DefaultXMLNodeParser implements IXMLNodeParser<XMLData> {
 					if (data.length > 0)
 						res.cData = res.cData == null ? data : res.cData + data;
 
-				case Xml.Element:
-					res.nodes.push(parser.parse(xmlNode.sub(c), res));
 				default:
+					var node = parser.parse(xmlNode.sub(c), res);
+					if (node != null) res.nodes.push(node);
 			}
 
 		return res;
 	}
 }
 
-class DefaultXMLDocumentParser extends DefaultXMLNodeParser {
+class DefaultXMLDocumentParser extends DefaultXMLElementParser {
 	override public function match(xml:Xml176Document, parent:XMLData):MatchLevel {
 		return switch (xml.document.nodeType) {
 			case Xml.Document: PackageLevel;
@@ -143,8 +143,14 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 		return res;
 	}
 
-	public function parse(node:Xml176Document, parent:XMLData):XMLData {
+	public function parse(node:Xml176Document, parent:XMLData):Null<XMLData> {
 		var nodeParser = nodeParsers.findMatch(function (p) return p.match(node, parent));
+		if (nodeParser == null) {
+			#if hml_debug
+				trace('ignored node: ${node.document}');
+			#end
+			return null;
+		}
 		return nodeParser.parse(node, parent, this);
 	}
 }
