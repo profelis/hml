@@ -3,4 +3,3 @@
 
 -cmd cd samples/test
 -cmd haxe build.hxml
--cmd open bin/hml.swf
