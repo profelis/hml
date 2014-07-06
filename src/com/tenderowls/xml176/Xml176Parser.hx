@@ -75,6 +75,18 @@ class Xml176Document {
     }
 }
 
+class XmlParserError {
+	public var text(default, null):String;
+	public var from(default, null):Int;
+	public var to(default, null):Int;
+	
+	public function new(text, from, to) {
+		this.text = text;
+		this.from = from;
+		this.to = to;
+	}
+}
+
 class Xml176Parser
 {
 	static public function parse(str:String)
@@ -166,7 +178,7 @@ class Xml176Parser
 							{
 								p += 2;
 								if (str.substr(p, 6).toUpperCase() != "CDATA[")
-									throw("Expected <![CDATA[");
+									throw new XmlParserError("Expected <![CDATA[", p, p + 1);
 								p += 5;
 								state = S.CDATA;
 								start = p + 1;
@@ -174,13 +186,13 @@ class Xml176Parser
 							else if (str.fastCodeAt(p + 1) == 'D'.code || str.fastCodeAt(p + 1) == 'd'.code)
 							{
 								if(str.substr(p + 2, 6).toUpperCase() != "OCTYPE")
-									throw("Expected <!DOCTYPE");
+									throw new XmlParserError("Expected <!DOCTYPE", p, p + 1);
 								p += 8;
 								state = S.DOCTYPE;
 								start = p + 1;
 							}
 							else if( str.fastCodeAt(p + 1) != '-'.code || str.fastCodeAt(p + 2) != '-'.code )
-								throw("Expected <!--");
+								throw new XmlParserError("Expected <!--", p, p + 2);
 							else
 							{
 								p += 2;
@@ -192,7 +204,7 @@ class Xml176Parser
 							start = p;
 						case '/'.code:
 							if( parent == null )
-								throw("Expected node name");
+								throw new XmlParserError("Expected node name", p, p + 1);
 							start = p + 1;
 							state = S.IGNORE_SPACES;
 							next = S.CLOSE;
@@ -205,7 +217,7 @@ class Xml176Parser
 					if (!isValidChar(c))
 					{
 						if( p == start )
-							throw("Expected node name");
+							throw new XmlParserError("Expected node name", p, p + 1);
 						xml = Xml.createElement(str.substr(start, p - start));
                         ePosInfos.set(xml, {from:start, to: p});
 						parent.addChild(xml);
@@ -232,11 +244,11 @@ class Xml176Parser
 					{
 						var tmp;
 						if( start == p )
-							throw("Expected attribute name");
+							throw new XmlParserError("Expected attribute name", p, p + 1);
 						tmp = str.substr(start,p-start);
 						aname = tmp;
 						if( xml.exists(aname) )
-							throw("Duplicate attribute");
+							throw new XmlParserError("Duplicate attribute", start, start + tmp.length);
 						state = S.IGNORE_SPACES;
 						next = S.EQUALS;
 						continue;
@@ -248,7 +260,7 @@ class Xml176Parser
 							state = S.IGNORE_SPACES;
 							next = S.ATTVAL_BEGIN;
 						default:
-							throw("Expected =");
+							throw new XmlParserError("Expected =", p, p + 1);
 					}
 				case S.ATTVAL_BEGIN:
 					switch(c)
@@ -257,7 +269,7 @@ class Xml176Parser
 							state = S.ATTRIB_VAL;
 							start = p;
 						default:
-							throw("Expected \"");
+							throw new XmlParserError("Expected \"", p, p + 1);
 					}
 				case S.ATTRIB_VAL:
 					if (c == str.fastCodeAt(start))
@@ -284,7 +296,7 @@ class Xml176Parser
 						case '>'.code:
 							state = S.BEGIN;
 						default :
-							throw("Expected >");
+							throw new XmlParserError("Expected >", p, p + 1);
 					}
 				case S.WAIT_END_RET:
 					switch(c)
@@ -294,17 +306,17 @@ class Xml176Parser
 								parent.addChild(Xml.createPCData(""));
 							return p;
 						default :
-							throw("Expected >");
+							throw new XmlParserError("Expected >", p, p + 1);
 					}
 				case S.CLOSE:
 					if (!isValidChar(c))
 					{
 						if( start == p )
-							throw("Expected node name");
-
+							throw new XmlParserError("Expected node name", p, p + 1);
+							
 						var v = str.substr(start,p - start);
 						if (v != parent.nodeName)
-							throw "Expected </" +parent.nodeName + ">";
+							throw new XmlParserError("Expected </" +parent.nodeName + ">", start, p);
 
 						state = S.IGNORE_SPACES;
 						next = S.WAIT_END_RET;
@@ -368,7 +380,7 @@ class Xml176Parser
 			return p;
 		}
 		
-		throw "Unexpected end";
+		throw new XmlParserError("Unexpected end", p - 1, p);
 	}
 	
 	static inline function isValidChar(c) {

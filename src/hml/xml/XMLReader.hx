@@ -127,6 +127,8 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 		}
 		try {
 			xml = Xml176Parser.parse(cont);
+		} catch (e:XmlParserError) {
+			Context.fatalError('${e.text}', Context.makePosition({min:e.from, max:e.to, file:file}));
 		} catch (e:Dynamic) {
 			Context.fatalError('${Std.string(e)}', Context.makePosition({min:0, max:0, file:file}));
 		}

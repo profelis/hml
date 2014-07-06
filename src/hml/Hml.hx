@@ -84,14 +84,27 @@ class Hml {
 
 		if (!path.exists())
 			Context.fatalError('output folder "$path" doesn\'t exist', Context.currentPos());
-		if (output.allowOverride != true && path.readDirectory().length > 0)
-			Context.fatalError('output folder "$path" is not empty', Context.currentPos());	
+
+		if (output.allowOverride != true) {
+			var dir = readDir(path);
+			if (dir.length > 0)
+				Context.fatalError('output folder "$path" is not empty', Context.currentPos());
+		}
+	}
+	
+	static function readDir(path:String):Array<String> {
+		return try {
+			path.readDirectory();
+		} catch (e:Dynamic) {
+			Context.fatalError('Can\'t read directory "$path"', Context.currentPos());
+		}
 	}
 
 	static function rmDir(path:String) {
 		if (!path.exists()) return;
 		if (path.isDirectory()) {
-			for (p in path.readDirectory()) rmDir('$path/$p');
+			var dir = readDir(path);
+			for (p in dir) rmDir('$path/$p');
 			path.deleteDirectory();
 		}
 		else path.deleteFile();
