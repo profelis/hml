@@ -30,7 +30,7 @@ class DefaultXMLElementParser implements IXMLNodeParser<XMLData> {
 	function posToXMLDataPos(xml:Xml176Document, pos:Pos):XMLDataPos {
 		var raw = xml.rawData;
 		inline function getLinePos(pos:Int) {
-			var s = raw.substr(0, pos);
+			var s = raw.substr(0, pos).split("\r\n").join("\n");
 			var lines = ~/[\r\n]/g.split(s);
 			return {global:pos, line:lines.length, pos:lines[lines.length-1].length};
 		}
