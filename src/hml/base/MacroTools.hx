@@ -8,6 +8,9 @@ using haxe.macro.Tools;
 
 using StringTools;
 
+/**
+ * Type definition with generic parameters
+ */
 typedef TypeString = {
 	type:String,
 	params:Array<TypeString>

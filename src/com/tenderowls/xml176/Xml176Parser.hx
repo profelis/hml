@@ -51,15 +51,17 @@ class Xml176Document {
     public var document(default,null):Xml;
 
     public var rawData(default, null):String;
+    public var path(default, null):String;
 
     var ePosInfos:Map<Xml, Pos>;
     var aPosInfos:Map<Xml, Map<String, Pos>>;
 
-    public function new(doc:Xml, rawData, ePosInfos, aPosInfos) {
+    public function new(doc:Xml, rawData, ePosInfos, aPosInfos, path) {
         this.document = doc;
         this.rawData = rawData;
         this.ePosInfos = ePosInfos;
         this.aPosInfos = aPosInfos;
+        this.path = path;
     }
 
     public function getNodePosition(node:Xml):Pos {
@@ -71,7 +73,7 @@ class Xml176Document {
     }
 
     inline public function sub(xml:Xml):Xml176Document {
-    	return new Xml176Document(xml, rawData, ePosInfos, aPosInfos);
+    	return new Xml176Document(xml, rawData, ePosInfos, aPosInfos, path);
     }
 }
 
@@ -89,7 +91,7 @@ class XmlParserError {
 
 class Xml176Parser
 {
-	static public function parse(str:String)
+	static public function parse(str:String, path:String)
 	{
 		var xmlDoc = Xml.createDocument();
         var ePosInfos = new Map<Xml, Pos>();
@@ -97,7 +99,7 @@ class Xml176Parser
 
 		doParse(str, 0, ePosInfos, aPosInfos, xmlDoc);
 
-		return new Xml176Document(xmlDoc, str, ePosInfos, aPosInfos);
+		return new Xml176Document(xmlDoc, str, ePosInfos, aPosInfos, path);
 	}
 	
 	static function doParse(str:String, p:Int = 0, ePosInfos:Map<Xml, Pos>, aPosInfos:Map<Xml, Map<String, Pos>>, ?parent:Xml):Int
@@ -248,7 +250,7 @@ class Xml176Parser
 						tmp = str.substr(start,p-start);
 						aname = tmp;
 						if( xml.exists(aname) )
-							throw new XmlParserError("Duplicate attribute", start, start + tmp.length);
+							throw new XmlParserError("Duplicate attribute", start, p);
 						state = S.IGNORE_SPACES;
 						next = S.EQUALS;
 						continue;
@@ -325,7 +327,9 @@ class Xml176Parser
 				case S.COMMENT:
 					if (c == '-'.code && str.fastCodeAt(p +1) == '-'.code && str.fastCodeAt(p + 2) == '>'.code)
 					{
-						parent.addChild(Xml.createComment(str.substr(start, p - start)));
+						var xml;
+						parent.addChild(xml = Xml.createComment(str.substr(start, p - start)));
+						ePosInfos.set(xml, {from:start, to: p});
 						p += 2;
 						state = S.BEGIN;
 					}

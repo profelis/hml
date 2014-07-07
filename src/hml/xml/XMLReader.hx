@@ -32,11 +32,14 @@ class DefaultXMLElementParser implements IXMLNodeParser<XMLData> {
 		inline function getLinePos(pos:Int) {
 			var s = raw.substr(0, pos).split("\r\n").join("\n");
 			var lines = ~/[\r\n]/g.split(s);
-			return {global:pos, line:lines.length, pos:lines[lines.length-1].length};
+			return {line:lines.length, pos:lines[lines.length-1].length};
 		}
 		return {
 			from: getLinePos(pos.from),
-			to: getLinePos(pos.to)
+			to: getLinePos(pos.to),
+			min: pos.from,
+			max: pos.to,
+			file: xml.path
 		}
 	}
 
@@ -126,7 +129,7 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 			Context.fatalError('can\'t read file "$file" content', pos);
 		}
 		try {
-			xml = Xml176Parser.parse(cont);
+			xml = Xml176Parser.parse(cont, file);
 		} catch (e:XmlParserError) {
 			Context.fatalError('${e.text}', Context.makePosition({min:e.from, max:e.to, file:file}));
 		} catch (e:Dynamic) {
@@ -146,10 +149,16 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 	}
 
 	public function parse(node:Xml176Document, parent:XMLData):Null<XMLData> {
-		var nodeParser = nodeParsers.findMatch(function (p) return p.match(node, parent));
+		var nodeParser;
+		try {
+			nodeParser = nodeParsers.findMatch(function (p) return p.match(node, parent));
+		} catch(e:Dynamic) {
+			Context.fatalError(e, Context.currentPos());
+		}
 		if (nodeParser == null) {
 			#if hml_debug
-				trace('ignored node: ${node.document}');
+			var pos = node.getNodePosition(node.document);
+			Context.warning('ignored node: ${node.document}', Context.makePosition({file:node.path, min:pos.from, max:pos.to}));
 			#end
 			return null;
 		}

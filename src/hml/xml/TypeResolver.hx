@@ -39,7 +39,7 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 	function parseNode(node:Node, data:XMLData, parser:IXMLDataParser<XMLData, Node>) {
 		node.superType = data.resolveType(data.name);
 		if (node.superType == null)
-			Context.fatalError('can\'t resolve namespace', data.root.getHaxePosition(data.nodePos));
+			Context.fatalError('can\'t resolve namespace', Context.makePosition(data.nodePos));
 
 		node.model = data;
 		node.name = data.name;
@@ -59,7 +59,7 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 						node.generic = data().stringToTypes();
 						res = true;
 					case _: 
-						Context.error('unknown specific haxe attribute "${name}"', node.model.root.getHaxePosition(pos));
+						Context.error('unknown specific haxe attribute "${name}"', Context.makePosition(pos));
 				}
 			case _:
 		}
@@ -73,7 +73,7 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 				node.id = data.attributes.get(a);
 				node.idSetted = true;
 				if (!~/^[^\d\W]\w*$/.match(node.id))
-					Context.error('invalid id "${node.id}"', node.model.root.getHaxePosition(node.model.nodePos));
+					Context.error('invalid id "${node.id}"', Context.makePosition(node.model.nodePos));
 			} else {
 				var n:Node = new Node();
 				n.name = new XMLQName(a.name, node.name.ns);
@@ -223,7 +223,12 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 	}
 
 	public function parse(data:XMLData, parent:Node):Node {
-		var parser = parsers.findMatch(function (p) return p.match(data, parent));
+		var parser;
+		try {
+			parser = parsers.findMatch(function (p) return p.match(data, parent));
+		} catch (e:Dynamic) {
+			Context.fatalError(e, Context.currentPos());
+		}
 		return parser.parse(data, parent, this);
 	}
 
@@ -261,7 +266,7 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 
 	function throwResolveError(t:Node) {
 		for (n in t.unresolvedNodes)
-			Context.error('can\'t resolve node "${n.name}". Can\'t find haxe type or field with same name.', n.model.root.getHaxePosition(n.model.nodePos));
+			Context.error('can\'t resolve node "${n.name}". Can\'t find haxe type or field with same name.', Context.makePosition(n.model.nodePos));
 		t.children.iter(throwResolveError);
 		t.nodes.iter(throwResolveError);
 	}

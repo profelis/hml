@@ -269,12 +269,22 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 	public var methods:Array<WriteNode<Node>>;
 
 	public function writeNode(node:Node):Void {
-		var writer = writers.findMatch(function (p) return p.match(node));
+		var writer;
+		try {
+			writer = writers.findMatch(function (p) return p.match(node));
+		} catch (e:Dynamic) {
+			Context.fatalError(e, Context.makePosition(node.model.nodePos));
+		}
 		return writer.write(node, this);
 	}
 
 	public function writeAttribute(node:Node, scope:String, child:Node, method:Array<String>):Void {
-		var writer = writers.findMatch(function (p) return p.match(child));
+		var writer;
+		try {
+			writer = writers.findMatch(function (p) return p.match(child));
+		} catch(e:Dynamic) {
+			Context.fatalError(e, Context.makePosition(child.model.nodePos));
+		}
 		writer.writeAttribute(node, scope, child, this, method);
 	}
 }
