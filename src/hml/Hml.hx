@@ -12,7 +12,7 @@ using Lambda;
 #end
 
 typedef Output = {
-	path:String,
+	path:String, // output folder path
 	?autoClear:Bool, // empty output folder before generate output: default true
 	?autoCreate:Bool, // create output folder if expected: default true
 	?allowOverride:Bool // allow override files in output folder: default false
@@ -65,7 +65,8 @@ class Hml {
 			for (p in path.readDirectory()) process('$path/$p', pos);
 		else {
 			var processor = processors.find(function (p) return p.supportFile(path));
-			if (processor != null) processor.read(path, pos); else trace('>> ignore $path');
+			if (processor != null) processor.read(path, pos);
+			else Context.warning('Ignored', Context.makePosition({file:path, min:0, max:0}));
 		}
 	}
 
