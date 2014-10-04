@@ -42,25 +42,27 @@ class TypeStringTools {
 	 * @return     array of TypeString structurs
 	 */
 	static public function stringToTypes(str:String):Array<TypeString> {
-		function map(str):Array<TypeString> {
-			var reg = ~/\s*([\.\w]*)\s*<(([^<>]*|(?R))*)>/g;
-			var res = [];
-			
-			while (reg.match(str)) {
-				for (t in reg.matchedLeft().split(",")) 
-					if (t.trim().length > 0) res.push({type:t.trim(), params:[]});
+		return TypeStringTools.stringToTypesMap(str);
+	}
 
-				res.push({type:reg.matched(1), params:map(reg.matched(2))});
-				
-				str = reg.matchedRight();
+	static function stringToTypesMap(str:String):Array<TypeString> {
+		var reg = ~/\s*([\.\w]*)\s*<(([^<>]*|(?R))*)>/g;
+		var res = [];
+		
+		while (reg.match(str)) {
+			for (t in reg.matchedLeft().split(",")) {
+				if (t.trim().length > 0) res.push({type:t.trim(), params:[]});
 			}
-			if (res.length == 0) {
-				var types = str.split(",");
-				for (t in types) res.push({type:t.trim(), params:[]});
-			}
-			return res;
+
+			res.push({type:reg.matched(1), params:TypeStringTools.stringToTypesMap(reg.matched(2))});
+			
+			str = reg.matchedRight();
 		}
-		return map(str);
+		if (res.length == 0) {
+			var types = str.split(",");
+			for (t in types) res.push({type:t.trim(), params:[]});
+		}
+		return res;
 	}
 
 	/**
@@ -138,7 +140,7 @@ class ClassTypeTools {
 	 * @return type name string
 	 */
 	@:extern public static inline function typeName(type:{pack:Array<String>, name:String}):String 
-		return (type.pack.length > 0 ? type.pack.join(".") + ":" : "") + type.name;
+		return type.pack.length > 0 ? type.pack.join(".") + ":" + type.name : type.name;
 
 	/**
 	 * generate type name of ComplexType. Use typeName method

@@ -36,12 +36,12 @@ class FlashAdapter extends MergedAdapter<XMLData, Node, Type> {
 		super([
 			new DisplayObjectAdapter(),
 			new IEventDispatcherAdapter(),
-			new hml.xml.XMLProcessor.DefaultXMLAdapter()
+			new XMLProcessor.DefaultXMLAdapter()
 		]);
 	}
 
 	static public function register():Void {
-		hml.Hml.registerProcessor(new hml.xml.XMLProcessor([new FlashAdapter()]));
+		hml.Hml.registerProcessor(new XMLProcessor([new FlashAdapter()]));
 	}
 }
 
