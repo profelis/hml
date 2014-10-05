@@ -101,22 +101,27 @@ class MergedAdapter<B, N, T> implements IAdapter<B, N, T> {
 	}
 
 	public function getXmlNodeParsers():Array<IXMLNodeParser<B>> {
-		return foreach("getXmlNodeParsers");
+		return foreach(getXmlNodeParsers);
 	}
 
 	public function getXmlDataNodeParsers():Array<IXMLDataNodeParser<B, N, N>> {
-		return foreach("getXmlDataNodeParsers");
+		return foreach(getXmlDataNodeParsers);
 	}
 
 	public function getTypeResolvers():Array<IHaxeTypeResolver<N, T>> {
-		return foreach("getTypeResolvers");
+		return foreach(getTypeResolvers);
 	}
 
 	public function getNodeWriters():Array<IHaxeNodeWriter<N>> {
-		return foreach("getNodeWriters");
+		return foreach(getNodeWriters);
 	}
 
-	macro static function foreach(method:String) {
+	macro static function foreach(methodExpr:Expr) {
+		var method = switch (methodExpr.expr) {
+			case EField(_, field): field;
+			case EConst(CIdent(id)): id;
+			case _: null;
+		}
 		return macro {
 			var res = [];
 			for (a in adapters) {

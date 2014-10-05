@@ -65,7 +65,9 @@ class Hml {
 			for (p in path.readDirectory()) process('$path/$p', pos);
 		else {
 			var processor = processors.find(function (p) return p.supportFile(path));
-			if (processor != null) processor.read(path, pos);
+			if (processor != null) {
+				processor.read(path, pos);
+			}
 			else Context.warning('Ignored', Context.makePosition({file:path, min:0, max:0}));
 		}
 	}
