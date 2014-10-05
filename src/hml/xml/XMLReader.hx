@@ -162,6 +162,13 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 			#end
 			return null;
 		}
-		return nodeParser.parse(node, parent, this);
+		var res;
+		try {
+			res = nodeParser.parse(node, parent, this);
+		} catch (e:Dynamic) {
+			var pos = node.getNodePosition(node.document);
+			Context.fatalError(e, Context.makePosition({min:pos.from, max:pos.to, file:parent.root.nodePos.file}));
+		}
+		return res;
 	}
 }

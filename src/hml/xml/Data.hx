@@ -160,10 +160,22 @@ class XMLQName {
 		this.ns = ns;
 	}
 
-	static public inline function toXMLQName(str:String):XMLQName {
+	static public function toXMLQName(str:String):XMLQName {
+		if (str == null || str.length <= 0) throw 'XMLQName is empty "$str"';
 		var t = str.split(DELIMITER);
 		if (t.length > 2) throw 'XMLQName incorrect "$str"';
-		else return t.length == 2 ? new XMLQName(t[1], t[0]) : new XMLQName(str);
+		else return if (t.length == 2) {
+			var name = t[1];
+			var ns = t[0];
+			if (name.length <= 0)
+				throw 'XMLQName incorrect "$str". Name is empty';
+			if (ns.length <= 0)
+				throw 'XMLQName incorrect "$str". Namespace is empty';
+
+			new XMLQName(name, ns);
+		} else {
+			new XMLQName(str);
+		}
 	}
 
 	public inline function toString():String {
@@ -177,8 +189,8 @@ class XMLQName {
 	public inline function hashCode():Int {
 		var h:Int = 0;
 		var s = toString();
-		for (i in 0...s.length){  
-			h = (h << 5) - h + StringTools.fastCodeAt(s, i); 
+		for (i in 0...s.length) {
+			h = (h << 5) - h + StringTools.fastCodeAt(s, i);
 		}
 		return h;
 	}
