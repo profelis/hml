@@ -36,7 +36,7 @@ class FlashAdapter extends MergedAdapter<XMLData, Node, Type> {
 		super([
 			new DisplayObjectAdapter(),
 			new IEventDispatcherAdapter(),
-			new XMLProcessor.DefaultXMLAdapter()
+			new DefaultXMLAdapter()
 		]);
 	}
 

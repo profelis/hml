@@ -120,7 +120,7 @@ class MergedAdapter<B, N, T> implements IAdapter<B, N, T> {
 		var method = switch (methodExpr.expr) {
 			case EField(_, field): field;
 			case EConst(CIdent(id)): id;
-			case _: null;
+			case _: throw "assert";
 		}
 		return macro {
 			var res = [];

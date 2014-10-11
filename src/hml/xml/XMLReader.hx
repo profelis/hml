@@ -126,14 +126,14 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 		try {
 			cont = sys.io.File.getContent(file);
 		} catch (e:Dynamic) {
-			Context.fatalError('can\'t read file "$file" content', pos);
+			Context.error('can\'t read file "$file" content', pos);
 		}
 		try {
 			xml = Xml176Parser.parse(cont, file);
 		} catch (e:XmlParserError) {
-			Context.fatalError('${e.text}', Context.makePosition({min:e.from, max:e.to, file:file}));
+			Context.error('${e.text}', Context.makePosition({min:e.from, max:e.to, file:file}));
 		} catch (e:Dynamic) {
-			Context.fatalError('${Std.string(e)}', Context.makePosition({min:0, max:0, file:file}));
+			Context.error('${Std.string(e)}', Context.makePosition({min:0, max:0, file:file}));
 		}
 
 		Context.registerModuleDependency("hml.Hml", file);
@@ -153,7 +153,7 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 		try {
 			nodeParser = nodeParsers.findMatch(function (p) return p.match(node, parent));
 		} catch(e:Dynamic) {
-			Context.fatalError(e, Context.currentPos());
+			Context.error(e, Context.currentPos());
 		}
 		if (nodeParser == null) {
 			#if hml_debug
@@ -167,7 +167,7 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 			res = nodeParser.parse(node, parent, this);
 		} catch (e:Dynamic) {
 			var pos = node.getNodePosition(node.document);
-			Context.fatalError(e, Context.makePosition({min:pos.from, max:pos.to, file:parent.root.nodePos.file}));
+			Context.error(e, Context.makePosition({min:pos.from, max:pos.to, file:parent.root.nodePos.file}));
 		}
 		return res;
 	}

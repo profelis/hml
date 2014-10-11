@@ -273,7 +273,7 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 		try {
 			writer = writers.findMatch(function (p) return p.match(node));
 		} catch (e:Dynamic) {
-			Context.fatalError(e, Context.makePosition(node.model.nodePos));
+			Context.error(e, Context.makePosition(node.model.nodePos));
 		}
 		return writer.write(node, this);
 	}
@@ -283,7 +283,7 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 		try {
 			writer = writers.findMatch(function (p) return p.match(child));
 		} catch(e:Dynamic) {
-			Context.fatalError(e, Context.makePosition(child.model.nodePos));
+			Context.error(e, Context.makePosition(child.model.nodePos));
 		}
 		writer.writeAttribute(node, scope, child, this, method);
 	}

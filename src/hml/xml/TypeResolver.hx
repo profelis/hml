@@ -39,7 +39,7 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 	function parseNode(node:Node, data:XMLData, parser:IXMLDataParser<XMLData, Node>) {
 		node.superType = data.resolveType(data.name);
 		if (node.superType == null)
-			Context.fatalError('can\'t resolve namespace', Context.makePosition(data.nodePos));
+			Context.error('can\'t resolve namespace', Context.makePosition(data.nodePos));
 
 		node.model = data;
 		node.name = data.name;
@@ -227,7 +227,7 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 		try {
 			parser = parsers.findMatch(function (p) return p.match(data, parent));
 		} catch (e:Dynamic) {
-			Context.fatalError(e, Context.currentPos());
+			Context.error(e, Context.currentPos());
 		}
 		return parser.parse(data, parent, this);
 	}
