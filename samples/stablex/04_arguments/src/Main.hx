@@ -1,0 +1,32 @@
+package;
+
+import flash.display.StageAlign;
+import flash.display.StageScaleMode;
+import flash.Lib;
+import ru.stablex.ui.UIBuilder;
+
+
+/**
+* StablexUI example created in this manual: http://ui.stablex.ru/doc#manual/04_Advanced_XML.html
+* Section: Xml arguments (`@someArg` placeholder)
+*
+*/
+class Main extends flash.display.Sprite{
+    /**
+    * Enrty point
+    *
+    */
+    static public function main () : Void{
+        Lib.current.stage.align     = StageAlign.TOP_LEFT;
+        Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
+
+        //initialize StablexUI
+        UIBuilder.init();
+
+        //Create our UI
+        Lib.current.addChild( new Main2() );
+    }//function main()
+}//class Main
+
+
+

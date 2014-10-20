@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<VBox xmlns="ru.stablex.ui.widgets" xmlns:skin="ru.stablex.ui.skins"
+	left="100" top="100" padding="10" childPadding="5">
+
+	<skin><skin:Paint border="2" color="0xbbbbbb"/></skin>
+    <!-- Here we use argument to set text for text field -->
+    <Text id="message" />
+    <Button text="'close'" click="this.free();" >
+    	<skin><skin:Paint border="1" color="0x777777"/></skin>
+    </Button>
+</VBox>
