@@ -11,6 +11,6 @@ class GenHx {
 	static macro function initHML() {
 		hml.xml.adapters.StablexUIAdapter.register();
 
-		return macro hml.Hml.parse({path:"gen", autoCreate:true}, "ui");
+		return macro hml.Hml.parse({path:"gen"}, "ui");
 	}
 }

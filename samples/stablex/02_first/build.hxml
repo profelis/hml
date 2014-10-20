@@ -1,5 +1,4 @@
--cmd lime build gen.xml flash
-# -D hml_debug
+-cmd lime build flash --app-main=GenHx --no-output
 
 --next
 -cmd lime test flash
