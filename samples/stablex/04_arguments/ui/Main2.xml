@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<HBox padding="10" childPadding="5" xmlns="ru.stablex.ui.widgets" xmlns:skin="ru.stablex.ui.skins">
+    <InputText id="input" w="150" h="20" text="'type any message here'">
+    	<skin><skin:Paint border="1" color="0xFFFFFF"/></skin>
+    </InputText>
+
+    <!-- Here we create on-click handler wich shows our alert box with input message -->
+    <Button h="20" text="'Show me the alert!'" click="
+        flash.Lib.current.addChild(
+            {
+            	var alert = new Alert();
+            	alert.message.text = input.text;
+            	alert;
+            }
+        );
+    ">
+    	<skin><skin:Paint border="1" color="0xbbbbbb"/></skin>
+	</Button>
+</HBox>
