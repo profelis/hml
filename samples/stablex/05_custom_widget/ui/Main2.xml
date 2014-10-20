@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<HBox padding="20" childPadding="20" xmlns="ru.stablex.ui.widgets" xmlns:skin="ru.stablex.ui.skins">
+    <ColorWidget xmlns="" id="custom" w="200" h="100" color="0x0000FF" />
+    <Button text="'set random color'" click="
+        custom.color = Std.random(0xFFFFFF);
+        custom.refresh();
+    ">
+    <skin><skin:Paint color="0x999999"/></skin>
+    </Button>
+</HBox>
