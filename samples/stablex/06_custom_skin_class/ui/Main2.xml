@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Widget xmlns="ru.stablex.ui.widgets" xmlns:skin="" w="400" h="200">
+	<skin><skin:Fractal lineThickness="8" lineColor="0x00FF00" step="20"/></skin>
+</Widget>
