@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<VBox xmlns="ru.stablex.ui.widgets" xmlns:skin="ru.stablex.ui.skins"
+    w="flash.Lib.current.stage.stageWidth" h="flash.Lib.current.stage.stageHeight" childPadding="20">
+
+    <!-- Count backward -->
+    <Clock value="60*60*2" timeFormat="'Countdown: %H:%M:%S'" forward="false" id="clock1" display="clock1.run();"/>
+
+    <!-- Count forward -->
+    <Clock id="clock2" display="this.clock2.run();"/>
+
+    <!-- Without seconds -->
+    <Clock value="Std.int(60*90)" timeFormat="'%H:%M'"/>
+
+    <!-- Seconds only -->
+    <Clock id="clock3" timeFormat="'Self destruction in %s seconds...'" forward="false" value="60"
+        display="clock3.run();"
+        widgetChange=" if( clock3.value == 0 ) clock3.free();"
+    />
+
+</VBox>
+
