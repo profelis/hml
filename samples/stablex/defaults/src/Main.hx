@@ -20,10 +20,10 @@ class Main extends flash.display.Sprite{
         Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 
         //initialize StablexUI
-        UIBuilder.init('assets/ui/defaults.xml');
+        UIBuilder.init('defaults.xml');
 
         //Create our UI
-        Lib.current.addChild( UIBuilder.buildFn('assets/ui/index.xml')() );
+        Lib.current.addChild( new Index() );
     }//function main()
 
 

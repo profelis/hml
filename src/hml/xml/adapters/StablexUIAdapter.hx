@@ -14,6 +14,7 @@ using haxe.macro.Context;
 using haxe.macro.Tools;
 
 using StringTools;
+using Lambda;
 #end
 
 /**
@@ -112,6 +113,40 @@ class DefaultWidgetWithMetaWriter extends DisplayObjectWithMetaWriter {
 
 	override function postInit(node, method) {
 		method.push('res._onCreate();');
+	}
+
+	override function predInit(node:Node, method) {
+		var defaults = node.nodes.find(function (it) return it.name.name == "defaults" && it.name.ns == null);
+		var defs = defaults != null ? defaults.cData.trim() : null;
+		if (defs != null && defs.length > 0) {
+			defs = defs.substr(1, defs.length - 2); // remove ' '
+			var defs = '["${defs.split(",").map(function (s) return s.trim()).join('", "')}"]';
+			var typeName = switch (node.nativeType) { case haxe.macro.Type.TInst(_.get() => a, _): a.name; case _: null;};
+			method.push('if(ru.stablex.ui.UIBuilder.defaults.exists("$typeName")) {');
+			method.push('\tvar defFns = ru.stablex.ui.UIBuilder.defaults.get("$typeName");');
+			method.push('\tfor(def in $defs) {');
+			method.push('\t\tvar defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);');
+			method.push('\t\tif(defaultsFn != null) defaultsFn(res);');
+			method.push('\t}');
+			method.push('}');
+	    }
+	}
+
+	override function predCtorInit(node:Node, method) {
+		var defaults = node.nodes.find(function (it) return it.name.name == "defaults" && it.name.ns == null);
+		var defs = defaults != null ? defaults.cData.trim() : null;
+		if (defs != null && defs.length > 0) {
+			defs = defs.substr(1, defs.length - 2); // remove ' '
+			var defs = '["${defs.split(",").map(function (s) return s.trim()).join('", "')}"]';
+			var typeName = switch (node.nativeType) { case haxe.macro.Type.TInst(_.get() => a, _): a.name; case _: null;};
+			method.push('if(ru.stablex.ui.UIBuilder.defaults.exists("$typeName")) {');
+			method.push('\tvar defFns = ru.stablex.ui.UIBuilder.defaults.get("$typeName");');
+			method.push('\tfor(def in $defs) {');
+			method.push('\t\tvar defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);');
+			method.push('\t\tif(defaultsFn != null) defaultsFn(this);');
+			method.push('\t}');
+			method.push('}');
+	    }
 	}
 }
 
