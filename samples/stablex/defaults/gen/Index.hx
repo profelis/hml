@@ -96,7 +96,7 @@ class Index extends ru.stablex.ui.widgets.VBox {
         		if(defaultsFn != null) defaultsFn(res);
         	}
         }
-        /* ui/Index.xml:12 characters: 30-34 */
+        /* ui/Index.xml:12 characters: 28-32 */
         res.text = 'this button is using `Red` section for buttons in defaults.xml';
         /* ui/Index.xml:12 characters: 13-21 */
         res.defaults = 'Red';
@@ -115,10 +115,10 @@ class Index extends ru.stablex.ui.widgets.VBox {
         		if(defaultsFn != null) defaultsFn(res);
         	}
         }
-        /* ui/Index.xml:13 characters: 44-48 */
+        /* ui/Index.xml:13 characters: 43-47 */
         res.text = 'this button is using `Red` and `AnotherFormat` sections for buttons in defaults.xml';
         /* ui/Index.xml:13 characters: 13-21 */
-        res.defaults = 'Red,AnotherFormat';
+        res.defaults = 'Red, AnotherFormat';
         res._onInitialize();
         res._onCreate();
         return res;

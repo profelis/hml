@@ -120,6 +120,9 @@ class DefaultWidgetWithMetaWriter extends DisplayObjectWithMetaWriter {
 		var defs = defaults != null ? defaults.cData.trim() : "Default";
 		if (defs.startsWith("'") && defs.endsWith("'")) defs = defs.substr(1, defs.length - 2);
 		if (defs.length > 0) {
+			if (defaults != null) {
+				defaults.cData = '\'$defs\'';
+			}
 			var defs = '["${defs.split(",").map(function (s) return s.trim()).join('", "')}"]';
 			var typeName = switch (node.nativeType) { case haxe.macro.Type.TInst(_.get() => a, _): a.name; case _: null;};
 			method.push('if(ru.stablex.ui.UIBuilder.defaults.exists("$typeName")) {');
@@ -137,6 +140,9 @@ class DefaultWidgetWithMetaWriter extends DisplayObjectWithMetaWriter {
 		var defs = defaults != null ? defaults.cData.trim() : "Default";
 		if (defs.startsWith("'") && defs.endsWith("'")) defs = defs.substr(1, defs.length - 2);
 		if (defs.length > 0) {
+			if (defaults != null) {
+				defaults.cData = '\'$defs\'';
+			}
 			if (defs.endsWith("'")) defs = defs.substr(0, defs.length - 1);
 			var defs = '["${defs.split(",").map(function (s) return s.trim()).join('", "')}"]';
 			var typeName = switch (node.nativeType) { case haxe.macro.Type.TInst(_.get() => a, _): a.name; case _: null;};
