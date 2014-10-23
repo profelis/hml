@@ -38,6 +38,13 @@ class Index extends ru.stablex.ui.widgets.VBox {
     inline function get_field2():ru.stablex.ui.widgets.Text {
         /* ui/Index.xml:9 characters: 5-9 */
         var res = new ru.stablex.ui.widgets.Text();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Text")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Text");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         /* ui/Index.xml:9 characters: 11-15 */
         res.text = 'This is text with no defaults specified. And `Default` section for Text tag is not defined in defaults.xml';
         res._onInitialize();
@@ -48,6 +55,13 @@ class Index extends ru.stablex.ui.widgets.VBox {
     inline function get_field3():ru.stablex.ui.widgets.Text {
         /* ui/Index.xml:10 characters: 5-9 */
         var res = new ru.stablex.ui.widgets.Text();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Text")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Text");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         /* ui/Index.xml:10 characters: 11-15 */
         res.text = 'So this text looks like it was just `new flash.text.TextField()` ';
         res._onInitialize();
@@ -58,6 +72,13 @@ class Index extends ru.stablex.ui.widgets.VBox {
     inline function get_field4():ru.stablex.ui.widgets.Button {
         /* ui/Index.xml:11 characters: 5-11 */
         var res = new ru.stablex.ui.widgets.Button();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         /* ui/Index.xml:11 characters: 13-17 */
         res.text = 'this is button with no defaults specified. But `Default` section for buttons does exist in defaults.xml';
         res._onInitialize();
@@ -106,6 +127,13 @@ class Index extends ru.stablex.ui.widgets.VBox {
     public function new() {
         /* ui/Index.xml:4 characters: 1-5 */
         super();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("VBox")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("VBox");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(this);
+        	}
+        }
         /* ui/Index.xml:4 characters: 7-11 */
         this.name = 'top';
         /* ui/Index.xml:4 characters: 99-111 */
