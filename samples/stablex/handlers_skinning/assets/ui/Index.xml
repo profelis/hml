@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Root element of our UI. We can use Main in markup since it extends ru.stablex.ui.widgets.Widget -->
+<root:Main
+    xmlns="ru.stablex.ui.widgets" xmlns:skin="ru.stablex.ui.skins" xmlns:root="" xmlns:text="flash.text"
+    id       = "root"
+    x        = "10"
+    y        = "10"
+    w        = "flash.Lib.current.stage.stageWidth - 20"
+    h        = "flash.Lib.current.stage.stageHeight - 20"
+    skinName = "'winxp'"
+>
+    <!-- panel with OpenFL logo -->
+    <Box id="box" rightPt="5" bottom="10" widthPt="90" heightPt="50" skinName="'green'" mouseDown="
+        nme.tween(
+            1,
+            {x:box.mouseX - nme.width / 2, y:box.mouseY - nme.height / 2},
+            'Quad.easeOut'
+        );
+    ">
+        <Box id="nme" w="80" h="80" skinName="'win7'">
+            <Bmp smooth="true" src="'assets/img/nme.png'"/>
+        </Box>
+        <Text text="'Click anywhere in this box'">
+            <format><text:TextFormat size="20"/></format>
+        </Text>
+    </Box>
+
+    <!-- Buttons -->
+    <HBox id="buttons" top="35" widthPt="100" h="40" childPadding="10" align="'center,middle'">
+        <Button skinName="'btnxp'" w="100" h="40" text="'Move nme. logo'" click="
+            nme.tween(
+                1,
+                {x:box.w * Math.random(), y:box.h * Math.random()},
+                'Quad.easeIn'
+            );
+        "/>
+
+        <Button skinName="'btnxp'" w="100" h="40" text="'Make it red'" id="btn1" click="
+            var box = this.box;
+            /*
+            if( cast(box.skin, ru.stablex.ui.skins.Paint).color == 0x005500 ){
+                cast(box.skin, ru.stablex.ui.skins.Paint).color       = 0x550000;
+                cast(box.skin, ru.stablex.ui.skins.Paint).borderColor = 0xFF0000;
+                btn1.text = 'Make it green';
+            }else{
+                cast(box.skin, $Paint).color       = 0x005500;
+                cast(box.skin, $Paint).borderColor = 0x00ff00;
+                btn1.text = 'Make it red';
+            }
+            */
+            if( box.skinName == 'green' ){
+                box.skinName = 'red';
+                btn1.text   = 'Make it green';
+            }else{
+                box.skinName = 'green';
+                btn1.text   = 'Make it red';
+            }
+
+            box.applySkin();
+        "/>
+
+        <Button id="btn2" skinName="'btnxp'" w="100" h="40" text="'Make it Ubuntu'" click="
+            var root = this;
+            if( root.skinName == 'winxp' ){
+                root.skinName = 'winubuntu';
+                btn2.text    = 'Make it WinXP';
+            }else{
+                root.skinName = 'winxp';
+                btn2.text    = 'Make it Ubuntu';
+            }
+            root.refresh();
+
+            for(i in 0...buttons.numChildren){
+                if( Std.is(buttons.getChildAt(i), ru.stablex.ui.widgets.Button) ){
+                    cast(buttons.getChildAt(i), ru.stablex.ui.widgets.Button).skinName = (root.skinName == 'winubuntu' ? 'btnubuntu' : 'btnxp');
+                    cast(buttons.getChildAt(i), ru.stablex.ui.widgets.Button).refresh();
+                }
+            }
+        "/>
+
+        <Button skinName="'btnxp'" w="100" h="40" text="'Random resize'" click="
+            resize(500 + Std.random(291), 400 + Std.random(191));
+        "/>
+    </HBox>
+
+</root:Main>
