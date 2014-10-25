@@ -1,9 +1,11 @@
 package hml.xml.adapters;
 
 #if macro
+import hml.xml.writer.IHaxeWriter;
+import hml.xml.adapters.base.MergedAdapter;
+
 import hml.base.MatchLevel;
 import hml.xml.Data;
-import hml.xml.XMLProcessor;
 
 import hml.xml.adapters.FlashAdapter;
 import hml.xml.adapters.BaseMetaAdapter;

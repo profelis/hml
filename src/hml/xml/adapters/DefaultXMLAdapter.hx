@@ -1,4 +1,4 @@
-package hml.xml.adapters.base;
+package hml.xml.adapters;
 
 import hml.xml.writer.IHaxeWriter.IHaxeNodeWriter;
 import hml.xml.typeResolver.IHaxeTypeResolver;
