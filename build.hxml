@@ -1,8 +1,18 @@
-# -cmd cd samples/stablex
-# -cmd haxe build.hxml
+-cp src
+-cp samples/test/src
+-cp samples/test/gen
+-js samples/test/bin/empty.js
+--no-output
+-main GenHx
+--macro allowPackage('flash')
 
--cmd cd samples/test
--cmd haxe gen.hxml
--cmd haxe build.hxml
-
--cmd open bin/hml.swf
+--next
+-cp src
+-cp samples/test/src
+-cp samples/test/gen
+-swf samples/test/bin/hml.swf
+-main Main
+-debug
+# -D fdb
+#-D dump=pretty
+--times

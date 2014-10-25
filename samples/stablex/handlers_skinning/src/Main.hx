@@ -31,7 +31,7 @@ class Main extends ru.stablex.ui.widgets.Widget {
         UIBuilder.regSkins('assets/skins.xml');
 
         //Create our UI
-        Lib.current.addChild( new ui.Index() );
+        Lib.current.addChild( new Index() );
     }//function main()
 
 

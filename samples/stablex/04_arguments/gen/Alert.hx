@@ -26,6 +26,13 @@ class Alert extends ru.stablex.ui.widgets.VBox {
         message_initialized = true;
         var res = new ru.stablex.ui.widgets.Text();
         this.message = res;
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Text")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Text");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         res._onInitialize();
         res._onCreate();
         return res;
@@ -50,6 +57,13 @@ class Alert extends ru.stablex.ui.widgets.VBox {
     inline function get_field3():ru.stablex.ui.widgets.Button {
         /* ui/Alert.xml:9 characters: 5-11 */
         var res = new ru.stablex.ui.widgets.Button();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         /* ui/Alert.xml:9 characters: 13-17 */
         res.text = 'close';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_field1());
@@ -63,6 +77,13 @@ class Alert extends ru.stablex.ui.widgets.VBox {
     public function new() {
         /* ui/Alert.xml:3 characters: 1-5 */
         super();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("VBox")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("VBox");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(this);
+        	}
+        }
         /* ui/Alert.xml:4 characters: 13-16 */
         this.top = 100;
         /* ui/Alert.xml:4 characters: 36-48 */

@@ -30,6 +30,13 @@ class Clock extends ru.stablex.ui.widgets.VBox {
         clock1_initialized = true;
         var res = new ru.stablex.ui.widgets.Clock();
         this.clock1 = res;
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Clock")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Clock");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         res.addEventListener(flash.events.Event.ADDED_TO_STAGE, get_field0());
         /* ui/Clock.xml:7 characters: 63-70 */
         res.forward = false;
@@ -58,6 +65,13 @@ class Clock extends ru.stablex.ui.widgets.VBox {
         clock2_initialized = true;
         var res = new ru.stablex.ui.widgets.Clock();
         this.clock2 = res;
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Clock")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Clock");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         res.addEventListener(flash.events.Event.ADDED_TO_STAGE, get_field1());
         res._onInitialize();
         res._onCreate();
@@ -67,6 +81,13 @@ class Clock extends ru.stablex.ui.widgets.VBox {
     inline function get_field2():ru.stablex.ui.widgets.Clock {
         /* ui/Clock.xml:13 characters: 5-10 */
         var res = new ru.stablex.ui.widgets.Clock();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Clock")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Clock");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         /* ui/Clock.xml:13 characters: 12-17 */
         res.value = Std.int(60*90);
         /* ui/Clock.xml:13 characters: 35-45 */
@@ -98,6 +119,13 @@ class Clock extends ru.stablex.ui.widgets.VBox {
         clock3_initialized = true;
         var res = new ru.stablex.ui.widgets.Clock();
         this.clock3 = res;
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Clock")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Clock");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         res.addEventListener(flash.events.Event.ADDED_TO_STAGE, get_field3());
         /* ui/Clock.xml:16 characters: 73-80 */
         res.forward = false;
@@ -114,6 +142,13 @@ class Clock extends ru.stablex.ui.widgets.VBox {
     public function new() {
         /* ui/Clock.xml:3 characters: 1-5 */
         super();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("VBox")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("VBox");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(this);
+        	}
+        }
         /* ui/Clock.xml:4 characters: 84-96 */
         this.childPadding = 20;
         /* ui/Clock.xml:4 characters: 44-45 */

@@ -5,7 +5,7 @@ import haxe.macro.Expr.Position;
 import hml.Hml.Output;
 
 interface IReader<B> {
-	public function read(file:String, pos:Position):B;
+	public function read(file:String, pos:Position, root:String):B;
 }
 
 interface ITypeResolver<B, T> {
@@ -34,8 +34,8 @@ class BaseFileProcessor<B, T> implements IFileProcessor {
 		throw "override me";
 	}
 
-	public function read(file:String, pos:Position):Void {
-		data.push(reader.read(file, pos));
+	public function read(file:String, pos:Position, root:String):Void {
+		data.push(reader.read(file, pos, root));
 	}
 	public function write(output:Output):Void {
 		var types = resolver.resolve(data);

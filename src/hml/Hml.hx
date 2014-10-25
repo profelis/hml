@@ -44,7 +44,7 @@ class Hml {
 			}
 			if (!path.exists()) Context.error('"$path" expected', p.pos);
 			if (!path.isDirectory()) Context.error('"$path" is not a directory', p.pos);
-			process(path, p.pos);
+			process(path, p.pos, path);
 		}
 
 		for (p in processors) p.write(output);
@@ -57,16 +57,16 @@ class Hml {
 		processors.push(processor);
 	}
 
-	static function process(path:String, pos:Position):Void {
+	static function process(path:String, pos:Position, root:String):Void {
 		if (processedPaths.exists(path)) return;
 		processedPaths.set(path, true);
 
 		if (path.isDirectory())
-			for (p in path.readDirectory()) process('$path/$p', pos);
+			for (p in path.readDirectory()) process('$path/$p', pos, root);
 		else {
 			var processor = processors.find(function (p) return p.supportFile(path));
 			if (processor != null) {
-				processor.read(path, pos);
+				processor.read(path, pos, root);
 			}
 			else Context.warning('Ignored', Context.makePosition({file:path, min:0, max:0}));
 		}

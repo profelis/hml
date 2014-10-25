@@ -107,10 +107,11 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 		this.nodeParsers = nodeParsers;
 	}
 
-	function getTypeName(path:String):String {
-		var res = ~/[\/\\]/g.replace(path, ".");
-		res = ~/(\w*\.)/.replace(res, "");
+	function getTypeName(path:String, root:String):String {
+		var res = path.replace(root, "");
+		res = ~/[\/\\]/g.replace(res, ".");
 		res = XML_EXT.replace(res, "");
+		if (res.startsWith(".")) res = res.substring(1);
 		
 		var lastDot = res.lastIndexOf(".");
 		var t = lastDot == -1 ? res : res.substr(lastDot + 1);
@@ -119,7 +120,7 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 		return res;
 	}
 
-	public function read(file:String, pos:Position):XMLDataRoot {
+	public function read(file:String, pos:Position, root:String):XMLDataRoot {
 		var cont;
 		var xml:Xml176Document;
 
@@ -137,12 +138,12 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 		}
 
 		Context.registerModuleDependency("hml.Hml", file);
-		return readXML(xml, file, pos);
+		return readXML(xml, file, pos, root);
 	}
 
-	function readXML(xml:Xml176Document, file:String, pos:Position):XMLDataRoot {
+	function readXML(xml:Xml176Document, file:String, pos:Position, root:String):XMLDataRoot {
 		var res:XMLDataRoot = cast parse(xml, null);
-		res.type = getTypeName(file);
+		res.type = getTypeName(file, root);
 		res.file = file;
 		res.pos = pos;
 		return res;

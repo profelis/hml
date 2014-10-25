@@ -13,6 +13,13 @@ class First extends ru.stablex.ui.widgets.Widget {
     inline function get_field1():ru.stablex.ui.widgets.Text {
         /* ui/First.xml:10 characters: 5-9 */
         var res = new ru.stablex.ui.widgets.Text();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Text")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Text");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         /* ui/First.xml:10 characters: 21-24 */
         res.top = 100;
         /* ui/First.xml:10 characters: 31-35 */
@@ -27,6 +34,13 @@ class First extends ru.stablex.ui.widgets.Widget {
     public function new() {
         /* ui/First.xml:4 characters: 1-7 */
         super();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Widget")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Widget");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(this);
+        	}
+        }
         /* ui/First.xml:4 characters: 65-68 */
         this.top = 100;
         /* ui/First.xml:4 characters: 47-48 */

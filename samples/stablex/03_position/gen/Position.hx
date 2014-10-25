@@ -25,6 +25,13 @@ class Position extends ru.stablex.ui.widgets.Widget {
     inline function get_field2():ru.stablex.ui.widgets.Button {
         /* ui/Position.xml:7 characters: 9-15 */
         var res = new ru.stablex.ui.widgets.Button();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         /* ui/Position.xml:7 characters: 25-29 */
         res.text = 'Click here to set \'child.left = 30\'';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_field0());
@@ -58,6 +65,13 @@ class Position extends ru.stablex.ui.widgets.Widget {
     inline function get_field5():ru.stablex.ui.widgets.Button {
         /* ui/Position.xml:10 characters: 9-15 */
         var res = new ru.stablex.ui.widgets.Button();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         /* ui/Position.xml:10 characters: 25-29 */
         res.text = 'Click here to set \'child.leftPt = 30\'';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_field3());
@@ -91,6 +105,13 @@ class Position extends ru.stablex.ui.widgets.Widget {
     inline function get_field8():ru.stablex.ui.widgets.Button {
         /* ui/Position.xml:13 characters: 9-15 */
         var res = new ru.stablex.ui.widgets.Button();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         /* ui/Position.xml:13 characters: 25-29 */
         res.text = 'Click here to set \'child.right = 30\'';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_field6());
@@ -124,6 +145,13 @@ class Position extends ru.stablex.ui.widgets.Widget {
     inline function get_field11():ru.stablex.ui.widgets.Button {
         /* ui/Position.xml:17 characters: 9-15 */
         var res = new ru.stablex.ui.widgets.Button();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         /* ui/Position.xml:17 characters: 25-29 */
         res.text = 'Click here to set \'child.rightPt = 30\'';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_field9());
@@ -157,6 +185,13 @@ class Position extends ru.stablex.ui.widgets.Widget {
     inline function get_field14():ru.stablex.ui.widgets.Button {
         /* ui/Position.xml:20 characters: 9-15 */
         var res = new ru.stablex.ui.widgets.Button();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         /* ui/Position.xml:20 characters: 25-29 */
         res.text = 'Click here to set \'child.top = 30\'';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_field12());
@@ -190,6 +225,13 @@ class Position extends ru.stablex.ui.widgets.Widget {
     inline function get_field17():ru.stablex.ui.widgets.Button {
         /* ui/Position.xml:23 characters: 9-15 */
         var res = new ru.stablex.ui.widgets.Button();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         /* ui/Position.xml:23 characters: 25-29 */
         res.text = 'Click here to set \'child.topPt = 30\'';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_field15());
@@ -223,6 +265,13 @@ class Position extends ru.stablex.ui.widgets.Widget {
     inline function get_field20():ru.stablex.ui.widgets.Button {
         /* ui/Position.xml:26 characters: 9-15 */
         var res = new ru.stablex.ui.widgets.Button();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         /* ui/Position.xml:26 characters: 25-29 */
         res.text = 'Click here to set \'child.bottom = 30\'';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_field18());
@@ -256,6 +305,13 @@ class Position extends ru.stablex.ui.widgets.Widget {
     inline function get_field23():ru.stablex.ui.widgets.Button {
         /* ui/Position.xml:29 characters: 9-15 */
         var res = new ru.stablex.ui.widgets.Button();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         /* ui/Position.xml:29 characters: 25-29 */
         res.text = 'Click here to set \'child.bottomPt = 30\'';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_field21());
@@ -273,6 +329,13 @@ class Position extends ru.stablex.ui.widgets.Widget {
     inline function get_field24():ru.stablex.ui.widgets.VBox {
         /* ui/Position.xml:6 characters: 5-9 */
         var res = new ru.stablex.ui.widgets.VBox();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("VBox")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("VBox");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         /* ui/Position.xml:6 characters: 19-31 */
         res.childPadding = 10;
         /* ui/Position.xml:6 characters: 37-44 */
@@ -322,6 +385,13 @@ class Position extends ru.stablex.ui.widgets.Widget {
         child_initialized = true;
         var res = new ru.stablex.ui.widgets.Widget();
         this.child = res;
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Widget")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Widget");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         /* ui/Position.xml:38 characters: 57-58 */
         res.h = 50;
         /* ui/Position.xml:38 characters: 28-33 */
@@ -340,6 +410,13 @@ class Position extends ru.stablex.ui.widgets.Widget {
     inline function get_field27():ru.stablex.ui.widgets.Widget {
         /* ui/Position.xml:35 characters: 5-11 */
         var res = new ru.stablex.ui.widgets.Widget();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Widget")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Widget");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         /* ui/Position.xml:35 characters: 35-36 */
         res.h = 300;
         /* ui/Position.xml:35 characters: 13-19 */
@@ -359,6 +436,13 @@ class Position extends ru.stablex.ui.widgets.Widget {
     public function new() {
         /* ui/Position.xml:3 characters: 1-7 */
         super();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Widget")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Widget");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(this);
+        	}
+        }
         /* ui/Position.xml:3 characters: 17-18 */
         this.h = 600;
         /* ui/Position.xml:3 characters: 9-10 */

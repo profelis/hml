@@ -16,6 +16,13 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         custom_initialized = true;
         var res = new ColorWidget();
         this.custom = res;
+        if(ru.stablex.ui.UIBuilder.defaults.exists("ColorWidget")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("ColorWidget");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         /* ui/Main2.xml:4 characters: 55-60 */
         res.color = 0x0000FF;
         /* ui/Main2.xml:4 characters: 47-48 */
@@ -47,6 +54,13 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
     inline function get_field2():ru.stablex.ui.widgets.Button {
         /* ui/Main2.xml:5 characters: 5-11 */
         var res = new ru.stablex.ui.widgets.Button();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(res);
+        	}
+        }
         /* ui/Main2.xml:5 characters: 13-17 */
         res.text = 'set random color';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_field0());
@@ -60,6 +74,13 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
     public function new() {
         /* ui/Main2.xml:3 characters: 1-5 */
         super();
+        if(ru.stablex.ui.UIBuilder.defaults.exists("HBox")) {
+        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("HBox");
+        	for(def in ["Default"]) {
+        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+        		if(defaultsFn != null) defaultsFn(this);
+        	}
+        }
         /* ui/Main2.xml:3 characters: 20-32 */
         this.childPadding = 20;
         /* ui/Main2.xml:3 characters: 7-14 */
