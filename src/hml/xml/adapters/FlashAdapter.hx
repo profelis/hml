@@ -1,13 +1,12 @@
 package hml.xml.adapters;
 
+import hml.xml.writer.DefaultNodeWriter;
 import hml.xml.typeResolver.IHaxeTypeResolver;
 import hml.xml.adapters.base.MergedAdapter;
 import hml.xml.writer.IHaxeWriter;
 import hml.xml.Data;
 import hml.xml.XMLProcessor;
-import hml.xml.XMLWriter;
 import hml.base.MatchLevel;
-import hml.xml.XMLWriter.DefaultNodeWriter;
 import hml.xml.adapters.BaseMetaAdapter;
 import hml.base.MacroTools;
 

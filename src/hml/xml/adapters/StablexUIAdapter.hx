@@ -1,6 +1,7 @@
 package hml.xml.adapters;
 
 #if macro
+import hml.xml.writer.DefaultNodeWriter;
 import hml.xml.writer.IHaxeWriter;
 import hml.xml.adapters.base.MergedAdapter;
 
@@ -159,7 +160,7 @@ class DefaultWidgetWithMetaWriter extends DisplayObjectWithMetaWriter {
 	}
 }
 
-class DefaultSkinWriter extends hml.xml.XMLWriter.DefaultNodeWriter {
+class DefaultSkinWriter extends DefaultNodeWriter {
 	override public function match(node:Node):MatchLevel {
 		return isChildOf(node, macro : ru.stablex.ui.skins.Skin) ? ClassLevel : None;
 	}

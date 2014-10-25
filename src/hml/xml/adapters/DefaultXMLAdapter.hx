@@ -1,11 +1,11 @@
 package hml.xml.adapters;
 
+import hml.xml.writer.IHaxeWriter;
 import hml.xml.reader.*;
 import hml.xml.typeResolver.*;
-import hml.xml.writer.IHaxeWriter;
+import hml.xml.writer.*;
 import hml.xml.typeResolver.IHaxeTypeResolver;
 import hml.xml.reader.IXMLParser;
-import hml.xml.XMLWriter;
 import hml.xml.Data;
 
 
