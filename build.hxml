@@ -19,4 +19,4 @@
 # -D dump=pretty
 --times
 
--cmd open samples/test/bin/hml.swf
+#-cmd open samples/test/bin/hml.swf

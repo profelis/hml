@@ -1,20 +1,11 @@
 package hml.base;
 
+import hml.base.fileProcessor.IWriter;
+import hml.base.fileProcessor.ITypeResolver;
+import hml.base.fileProcessor.IReader;
 import hml.IFileProcessor;
 import haxe.macro.Expr.Position;
 import hml.Hml.Output;
-
-interface IReader<B> {
-	public function read(file:String, pos:Position, root:String):B;
-}
-
-interface ITypeResolver<B, T> {
-	public function resolve(data:Array<B>):Array<T>;
-}
-
-interface IWriter<T> {
-	public function write(types:Array<T>, output:Output):Void;
-}
 
 class BaseFileProcessor<B, T> implements IFileProcessor {
 

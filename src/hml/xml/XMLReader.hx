@@ -1,5 +1,6 @@
 package hml.xml;
 
+import hml.base.fileProcessor.IReader;
 import com.tenderowls.xml176.Xml176Parser;
 import haxe.macro.Context;
 import haxe.macro.Expr;

@@ -18,7 +18,7 @@ enum MatchLevel {
 	CustomLevel(main:MatchLevel, offset:UInt);
 }
 
-class MathLevelUtils {
+class MathLevelTools {
 	/**
 	 * Convert MatchLevel to UInt value
 	 * 
