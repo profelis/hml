@@ -132,8 +132,14 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 		try {
 			xml = Xml176Parser.parse(cont, file);
 		} catch (e:XmlParserError) {
+            #if hml_debug
+            trace(e.text);
+            #end
 			Context.error('${e.text}', Context.makePosition({min:e.from, max:e.to, file:file}));
 		} catch (e:Dynamic) {
+            #if hml_debug
+            trace(e);
+            #end
 			Context.error('${Std.string(e)}', Context.makePosition({min:0, max:0, file:file}));
 		}
 
@@ -167,6 +173,9 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 		try {
 			res = nodeParser.parse(node, parent, this);
 		} catch (e:Dynamic) {
+            #if hml_debug
+            trace(e);
+            #end
 			var pos = node.getNodePosition(node.document);
 			Context.error(e, Context.makePosition({min:pos.from, max:pos.to, file:parent.root.nodePos.file}));
 		}

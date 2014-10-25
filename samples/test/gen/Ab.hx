@@ -2,6 +2,14 @@ package ;
 
 class Ab extends test.A implements test.ITools<flash.display.Sprite> {
 
+    var string_initialized:Bool = false;
+
+    @:isVar public var string(get, set):String;
+
+    var string2_initialized:Bool = false;
+
+    @:isVar public var string2(get, set):String;
+
     var str2_initialized:Bool = false;
 
     @:isVar public var str2(get, set):String;
@@ -21,6 +29,32 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
     var child3_initialized:Bool = false;
 
     @:isVar public var child3(get, set):flash.display.Sprite;
+
+    function set_string(value:String):String {
+        return string = value;
+    }
+
+    function get_string():String {
+        /* samples/test/ui/Ab.xml:19 characters: 9-18 */
+        if (string_initialized) return string;
+        string_initialized = true;
+        var res = "23";
+        this.string = res;
+        return res;
+    }
+
+    function set_string2(value:String):String {
+        return string2 = value;
+    }
+
+    function get_string2():String {
+        /* samples/test/ui/Ab.xml:20 characters: 9-18 */
+        if (string2_initialized) return string2;
+        string2_initialized = true;
+        var res = "ab";
+        this.string2 = res;
+        return res;
+    }
 
     inline function get_field0():flash.events.Event -> StdTypes.Void {
         /* samples/test/ui/Ab.xml:1 characters: 59-68 */

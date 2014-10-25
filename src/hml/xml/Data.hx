@@ -92,6 +92,7 @@ class Type extends Node {
 	public var file:String;
 	public var pos:Position;
 	public var implementsList:Array<TypeString> = null;
+    public var declarations:Array<Node> = [];
 
 	public var rootModel:XMLDataRoot;
 
@@ -99,6 +100,7 @@ class Type extends Node {
 		var res = super.toValue();
 		Reflect.setField(res, "file", '$file');
 		Reflect.setField(res, "implementsList", '$implementsList');
+		Reflect.setField(res, "declarations", '$declarations');
 		return res;
 	}
 }

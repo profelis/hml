@@ -58,7 +58,11 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 					case "generic": 
 						node.generic = data().stringToTypes();
 						res = true;
-					case _: 
+                    case "Declarations" if (Std.is(node, Type)):
+                        var type:Type = cast node;
+                        for (c in child.unresolvedNodes) type.declarations.push(c);
+                        res = true;
+					case _:
 						Context.error('unknown specific haxe attribute "${name}"', Context.makePosition(pos));
 				}
 			case _:
@@ -207,7 +211,7 @@ class DefaultHaxeTypeResolver implements IHaxeTypeResolver<Node, Type> {
 		}
 		return try {
 			Context.getType(node.superType).getClass().findField(qName.name, false).type;
-		} catch (e:Dynamic) { null; }	
+		} catch (e:Dynamic) { null; }
 	}
 }
 
@@ -301,6 +305,7 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 
 			iterNodes(n.children);
 			iterNodes(n.nodes);
+            if (Std.is(n, Type)) iterNodes(cast(n, Type).declarations);
 			return res;
 		}
 		return false;
@@ -317,11 +322,11 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 		n.oneInstance = n.id == null;
 		
 		iterNodes(n.children);
+        if (Std.is(n, Type)) iterNodes(cast(n, Type).declarations);
 		for (c in n.nodes) {
 			processNode(c);
 			c.superType = null; // node's supertype is incorrect
 		}
-		
 		return res;
 	}
 

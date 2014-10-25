@@ -1,6 +1,7 @@
 package hml.xml;
 
 import haxe.macro.Printer;
+import haxe.macro.Context;
 import hml.base.BaseFileProcessor.IWriter;
 import hml.base.Strings;
 import hml.Hml.Output;
@@ -102,6 +103,10 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 		for (n in node.nodes) writer.writeAttribute(node, scope, n, method);
 	}
 
+    function writeDeclarations(node:Type, scope:String, writer:IHaxeWriter<Node>, method:Array<String>) {
+        for (n in node.declarations) writer.writeNode(n);
+    }
+
 	function writeChildren(node:Node, scope:String, writer:IHaxeWriter<Node>, method:Array<String>, assign = false) {
 		for (n in node.children) {
   			writer.writeNode(n);
@@ -127,6 +132,9 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 	}
 
 	@:extern inline function defaultWrite(node:Node, scope:String, writer:IHaxeWriter<Node>, method:Array<String>, assign = false) {
+        if (Std.is(node, Type)) {
+            writeDeclarations(cast node, scope, writer, method);
+        }
 		writeNodes(node, scope, writer, method);
   		writeChildren(node, scope, writer, method, assign);
 	}
@@ -270,21 +278,30 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 
 	public function writeNode(node:Node):Void {
 		var writer;
+        #if hml_debug
+        writer = writers.findMatch(function (p) return p.match(node));
+        #else
 		try {
 			writer = writers.findMatch(function (p) return p.match(node));
 		} catch (e:Dynamic) {
 			Context.error(e, Context.makePosition(node.model.nodePos));
 		}
+        #end
 		return writer.write(node, this);
 	}
 
 	public function writeAttribute(node:Node, scope:String, child:Node, method:Array<String>):Void {
 		var writer;
+        #if hml_debug
+        trace(child);
+        writer = writers.findMatch(function (p) return p.match(child));
+        #else
 		try {
 			writer = writers.findMatch(function (p) return p.match(child));
 		} catch(e:Dynamic) {
 			Context.error(e, Context.makePosition(child.model.nodePos));
 		}
+        #end
 		writer.writeAttribute(node, scope, child, this, method);
 	}
 }

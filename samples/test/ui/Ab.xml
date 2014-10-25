@@ -14,4 +14,9 @@
 		
 		<s:Sprite id="child3" visible="false" x="100"/>
 	</s:Sprite>
+
+    <haxe:Declarations>
+        <ui:String id="string">"23"</ui:String>
+        <ui:String id="string2">"ab"</ui:String>
+    </haxe:Declarations>
 </A>
