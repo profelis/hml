@@ -1,17 +1,11 @@
 package hml.xml.adapters;
 
-import hml.xml.typeResolver.DefaultHaxeTypeResolver;
-import hml.xml.typeResolver.DefaultXMLDataParser;
-import hml.xml.typeResolver.DefaultXMLDataRootParser;
-import hml.xml.writer.IHaxeWriter.IHaxeNodeWriter;
+import hml.xml.reader.*;
+import hml.xml.typeResolver.*;
+import hml.xml.writer.IHaxeWriter;
 import hml.xml.typeResolver.IHaxeTypeResolver;
-import hml.xml.reader.IXMLParser.IXMLNodeParser;
-import hml.xml.XMLWriter.DefaultFunctionWriter;
-import hml.xml.XMLWriter.DefaultStringWriter;
-import hml.xml.XMLWriter.DefaultNodeWriter;
-import hml.xml.XMLWriter.DefaultArrayWriter;
-import hml.xml.XMLReader.DefaultXMLDocumentParser;
-import hml.xml.XMLReader.DefaultXMLElementParser;
+import hml.xml.reader.IXMLParser;
+import hml.xml.XMLWriter;
 import hml.xml.Data;
 
 
