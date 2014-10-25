@@ -1,5 +1,6 @@
 package hml.xml;
 
+import hml.xml.writer.IHaxeWriter;
 import hml.base.fileProcessor.IWriter;
 import haxe.macro.Printer;
 import haxe.macro.Context;

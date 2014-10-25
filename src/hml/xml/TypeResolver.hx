@@ -1,5 +1,7 @@
 package hml.xml;
 
+import hml.xml.typeResolver.IHaxeTypeResolver;
+import hml.xml.reader.IXMLParser;
 import hml.base.fileProcessor.ITypeResolver;
 import haxe.macro.Context;
 import hml.base.BaseFileProcessor;

@@ -1,11 +1,10 @@
 package hml.xml;
 
+import hml.xml.reader.IXMLParser;
 import hml.base.fileProcessor.IReader;
 import com.tenderowls.xml176.Xml176Parser;
 import haxe.macro.Context;
 import haxe.macro.Expr;
-import hml.base.BaseFileProcessor;
-import hml.xml.XMLProcessor;
 import hml.base.MatchLevel;
 
 using hml.base.MatchLevel;

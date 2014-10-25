@@ -1,12 +1,13 @@
 package hml.xml.adapters;
 
+import hml.xml.typeResolver.IHaxeTypeResolver;
+import hml.xml.writer.IHaxeWriter;
+import hml.xml.adapters.base.BaseXMLAdapter;
 import hml.base.MacroTools;
 import hml.xml.Data;
-import hml.xml.XMLProcessor;
 import hml.xml.XMLWriter;
 import hml.base.MatchLevel;
 
-import haxe.macro.Context;
 import haxe.macro.Expr;
 
 using hml.base.MacroTools;

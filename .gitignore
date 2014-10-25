@@ -5,3 +5,4 @@ bin/
 *.hxproj
 .idea
 *.iml
+out
