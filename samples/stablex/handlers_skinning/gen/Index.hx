@@ -23,6 +23,7 @@ class Index extends Main {
     @:isVar public var btn2(get, set):ru.stablex.ui.widgets.Button;
 
     function set_box(value:ru.stablex.ui.widgets.Box):ru.stablex.ui.widgets.Box {
+        box_initialized = true;
         return box = value;
     }
 
@@ -39,6 +40,7 @@ class Index extends Main {
     }
 
     function set_nme(value:ru.stablex.ui.widgets.Box):ru.stablex.ui.widgets.Box {
+        nme_initialized = true;
         return nme = value;
     }
 
@@ -145,6 +147,7 @@ class Index extends Main {
     }
 
     function set_buttons(value:ru.stablex.ui.widgets.HBox):ru.stablex.ui.widgets.HBox {
+        buttons_initialized = true;
         return buttons = value;
     }
 
@@ -185,6 +188,7 @@ class Index extends Main {
     }
 
     function set_btn1(value:ru.stablex.ui.widgets.Button):ru.stablex.ui.widgets.Button {
+        btn1_initialized = true;
         return btn1 = value;
     }
 
@@ -244,6 +248,7 @@ class Index extends Main {
     }
 
     function set_btn2(value:ru.stablex.ui.widgets.Button):ru.stablex.ui.widgets.Button {
+        btn2_initialized = true;
         return btn2 = value;
     }
 

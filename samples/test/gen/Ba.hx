@@ -7,6 +7,7 @@ class Ba extends test.B {
     @:isVar public var test2(get, set):Ab;
 
     function set_test2(value:Ab):Ab {
+        test2_initialized = true;
         return test2 = value;
     }
 

@@ -15,6 +15,7 @@ class Clock extends ru.stablex.ui.widgets.VBox {
     @:isVar public var clock3(get, set):ru.stablex.ui.widgets.Clock;
 
     function set_clock1(value:ru.stablex.ui.widgets.Clock):ru.stablex.ui.widgets.Clock {
+        clock1_initialized = true;
         return clock1 = value;
     }
 
@@ -50,6 +51,7 @@ class Clock extends ru.stablex.ui.widgets.VBox {
     }
 
     function set_clock2(value:ru.stablex.ui.widgets.Clock):ru.stablex.ui.widgets.Clock {
+        clock2_initialized = true;
         return clock2 = value;
     }
 
@@ -98,6 +100,7 @@ class Clock extends ru.stablex.ui.widgets.VBox {
     }
 
     function set_clock3(value:ru.stablex.ui.widgets.Clock):ru.stablex.ui.widgets.Clock {
+        clock3_initialized = true;
         return clock3 = value;
     }
 

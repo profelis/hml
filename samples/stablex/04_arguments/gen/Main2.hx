@@ -7,6 +7,7 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
     @:isVar public var input(get, set):ru.stablex.ui.widgets.InputText;
 
     function set_input(value:ru.stablex.ui.widgets.InputText):ru.stablex.ui.widgets.InputText {
+        input_initialized = true;
         return input = value;
     }
 

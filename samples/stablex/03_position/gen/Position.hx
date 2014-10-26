@@ -366,6 +366,7 @@ class Position extends ru.stablex.ui.widgets.Widget {
     }
 
     function set_child(value:ru.stablex.ui.widgets.Widget):ru.stablex.ui.widgets.Widget {
+        child_initialized = true;
         return child = value;
     }
 

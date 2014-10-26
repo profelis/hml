@@ -17,6 +17,7 @@ class Alert extends ru.stablex.ui.widgets.VBox {
     }
 
     function set_message(value:ru.stablex.ui.widgets.Text):ru.stablex.ui.widgets.Text {
+        message_initialized = true;
         return message = value;
     }
 

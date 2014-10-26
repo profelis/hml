@@ -35,6 +35,7 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
     @:isVar public var child3(get, set):flash.display.Sprite;
 
     function set_string(value:String):String {
+        string_initialized = true;
         return string = value;
     }
 
@@ -48,6 +49,7 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
     }
 
     function set_string2(value:String):String {
+        string2_initialized = true;
         return string2 = value;
     }
 
@@ -61,6 +63,7 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
     }
 
     function set_privateString(value:String):String {
+        privateString_initialized = true;
         return privateString = value;
     }
 
@@ -86,6 +89,7 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
     }
 
     function set_str2(value:String):String {
+        str2_initialized = true;
         return str2 = value;
     }
 
@@ -99,10 +103,12 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
     }
 
     function set_sprite(value:flash.display.Sprite):flash.display.Sprite {
+        sprite_initialized = true;
         return sprite = value;
     }
 
     function set_child1(value:flash.text.TextField):flash.text.TextField {
+        child1_initialized = true;
         return child1 = value;
     }
 
@@ -135,6 +141,7 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
     }
 
     function set_child2(value:flash.display.Sprite):flash.display.Sprite {
+        child2_initialized = true;
         return child2 = value;
     }
 
@@ -152,6 +159,7 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
     }
 
     function set_child3(value:flash.display.Sprite):flash.display.Sprite {
+        child3_initialized = true;
         return child3 = value;
     }
 

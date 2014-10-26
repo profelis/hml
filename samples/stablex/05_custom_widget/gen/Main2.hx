@@ -7,6 +7,7 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
     @:isVar public var custom(get, set):ColorWidget;
 
     function set_custom(value:ColorWidget):ColorWidget {
+        custom_initialized = true;
         return custom = value;
     }
 

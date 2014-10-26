@@ -23,6 +23,7 @@ class First extends ru.stablex.ui.widgets.Widget {
     }
 
     function set_clickHandler(value:flash.events.MouseEvent -> StdTypes.Void):flash.events.MouseEvent -> StdTypes.Void {
+        clickHandler_initialized = true;
         return clickHandler = value;
     }
 
@@ -74,6 +75,7 @@ class First extends ru.stablex.ui.widgets.Widget {
     }
 
     function set_text2(value:ru.stablex.ui.widgets.Text):ru.stablex.ui.widgets.Text {
+        text2_initialized = true;
         return text2 = value;
     }
 
