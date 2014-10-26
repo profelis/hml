@@ -87,7 +87,7 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
   			method.push('${initedFieldName(node)} = true;');
 
   			writer.fields.push(new FieldNodeWriter(node, null, initedFieldName(node), "Bool", "false"));
-  			writer.fields.push(new FieldNodeWriter(node, "@:isVar public", '${node.id}(get, set)', nativeTypeString(node)));
+  			writer.fields.push(new FieldNodeWriter(node, "@:isVar" + (node.publicAccess ? " public" : ""), '${node.id}(get, set)', nativeTypeString(node)));
 
   			var setter = ['return ${node.id} = value;'];
   			writer.methods.push(new MethodNodeWriter(node, null, setFieldName(node), 'value:${nativeTypeString(node)}', nativeTypeString(node), setter));

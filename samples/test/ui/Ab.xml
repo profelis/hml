@@ -7,7 +7,7 @@
 	<list><ui:String>'as'</ui:String><ui:String id="str2">null</ui:String></list>
 	
 	<s:Sprite xmlns:s="flash.display" id="sprite" xmlns:text="flash.text.*">
-		<text:TextField id="child1" x="100" y="200" alpha="0.78" text="'tada'" textColor="0xFF0000" selectable="false" 
+		<text:TextField id="child1" x="100" y="200" alpha="0.78" text="privateString" textColor="0xFF0000" selectable="false"
 			click="trace('click'); this.dispatchEvent(new flash.events.Event('someEvent'))"/>
 
 		<s:Sprite id="child2" visible="false" x="100"/>
@@ -19,4 +19,8 @@
         <ui:String id="string">"23"</ui:String>
         <ui:String id="string2">"ab"</ui:String>
     </haxe:Declarations>
+
+    <haxe:Private>
+        <ui:String id="privateString">'text in private string'</ui:String>
+    </haxe:Private>
 </A>

@@ -10,6 +10,10 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
 
     @:isVar public var string2(get, set):String;
 
+    var privateString_initialized:Bool = false;
+
+    @:isVar var privateString(get, set):String;
+
     var str2_initialized:Bool = false;
 
     @:isVar public var str2(get, set):String;
@@ -53,6 +57,19 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
         string2_initialized = true;
         var res = "ab";
         this.string2 = res;
+        return res;
+    }
+
+    function set_privateString(value:String):String {
+        return privateString = value;
+    }
+
+    function get_privateString():String {
+        /* samples/test/ui/Ab.xml:24 characters: 9-18 */
+        if (privateString_initialized) return privateString;
+        privateString_initialized = true;
+        var res = 'text in private string';
+        this.privateString = res;
         return res;
     }
 
@@ -103,11 +120,11 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
         this.child1 = res;
         /* samples/test/ui/Ab.xml:10 characters: 47-52 */
         res.alpha = 0.78;
-        /* samples/test/ui/Ab.xml:10 characters: 74-83 */
+        /* samples/test/ui/Ab.xml:10 characters: 81-90 */
         res.textColor = 0xFF0000;
         /* samples/test/ui/Ab.xml:10 characters: 60-64 */
-        res.text = 'tada';
-        /* samples/test/ui/Ab.xml:10 characters: 95-105 */
+        res.text = privateString;
+        /* samples/test/ui/Ab.xml:10 characters: 102-112 */
         res.selectable = false;
         res.addEventListener(flash.events.MouseEvent.CLICK, get_field2());
         /* samples/test/ui/Ab.xml:10 characters: 31-32 */

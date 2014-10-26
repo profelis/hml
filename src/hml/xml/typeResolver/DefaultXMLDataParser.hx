@@ -51,11 +51,15 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
                     case "generic":
                         node.generic = data().stringToTypes();
                         res = true;
-                    case "Declarations" if (Std.is(node, Type)):
+                    case "Declarations" | "Private" if (Std.is(node, Type)):
                         var type:Type = cast node;
-                        for (c in child.unresolvedNodes) type.declarations.push(c);
+                        var publicAccess = name.name == "Declarations";
+                        for (c in child.unresolvedNodes) {
+                            c.publicAccess = publicAccess;
+                            type.declarations.push(c);
+                        }
                         res = true;
-                        case _:
+                    case _:
                         Context.error('unknown specific haxe attribute "${name}"', Context.makePosition(pos));
                 }
             case _:

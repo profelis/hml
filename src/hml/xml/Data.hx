@@ -131,6 +131,8 @@ class Node {
 
 	public var extra:Map<String, Dynamic> = new Map();
 
+    public var publicAccess = true;
+
 	public function new() {}
 
 	function toValue():Dynamic {
@@ -139,6 +141,7 @@ class Node {
 			superType: superType,
 			nativeType: Std.string(nativeType),
 			id: id,
+            publicAccess: publicAccess,
 			nodes: [for (n in nodes) n.toValue()],
 			children: [for (n in children) n.toValue()],
 			unresolved: [for (n in unresolvedNodes) n.toValue()],
