@@ -20,12 +20,20 @@ class DefaultXMLDataRootParser extends DefaultXMLDataParser implements IXMLDataN
             case DefaultXMLDataParser.HAXE_NAMESPACE:
             switch (name.name) {
                 case "implements":
-                    var type = cast(node, Type);
+                    var type:Type = cast node;
                     var imps = data().stringToTypes();
                     if (type.implementsList == null)
                         type.implementsList = imps;
                     else
                         for (t in imps) type.implementsList.push(t);
+                    res = true;
+                case "Declarations" | "Private":
+                    var type:Type = cast node;
+                    var publicAccess = name.name == "Declarations";
+                    for (c in child.unresolvedNodes) {
+                        c.publicAccess = publicAccess;
+                        type.declarations.push(c);
+                    }
                     res = true;
                 case _:
             }

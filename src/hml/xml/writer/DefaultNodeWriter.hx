@@ -6,6 +6,8 @@ import haxe.macro.Printer;
 import hml.xml.writer.IHaxeWriter.IHaxeNodeWriter;
 import hml.xml.Data;
 
+import haxe.macro.Context;
+
 using hml.base.MacroTools;
 using haxe.macro.Tools;
 
@@ -86,8 +88,8 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
   			method.push('if (${initedFieldName(node)}) return ${node.id};');
   			method.push('${initedFieldName(node)} = true;');
 
-  			writer.fields.push(new FieldNodeWriter(node, null, initedFieldName(node), "Bool", "false"));
-  			writer.fields.push(new FieldNodeWriter(node, "@:isVar" + (node.publicAccess ? " public" : ""), '${node.id}(get, set)', nativeTypeString(node)));
+  			writer.fields.push(new FieldNodeWriter(node, null, null, initedFieldName(node), "Bool", "false"));
+  			writer.fields.push(new FieldNodeWriter(node, node.meta, "@:isVar" + (node.publicAccess ? " public" : ""), '${node.id}(get, set)', nativeTypeString(node)));
 
   			var setter = ['${initedFieldName(node)} = true;', 'return ${node.id} = value;'];
   			writer.methods.push(new MethodNodeWriter(node, null, setFieldName(node), 'value:${nativeTypeString(node)}', nativeTypeString(node), setter));
@@ -107,6 +109,8 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 		if (child.cData != null) {
 			method.push('$scope.${child.name.name} = ${child.cData};');
 		}
+        if (child.oneInstance && child.meta != null)
+            Context.warning('unused meta', Context.makePosition(child.model.nodePos));
 		defaultWrite(child, '$scope.${child.name.name}', writer, method, true);
 	}
 

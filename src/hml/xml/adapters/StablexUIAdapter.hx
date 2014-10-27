@@ -9,7 +9,7 @@ import hml.base.MatchLevel;
 import hml.xml.Data;
 
 import hml.xml.adapters.FlashAdapter;
-import hml.xml.adapters.BaseMetaAdapter;
+import hml.xml.adapters.base.BaseMetaAdapter;
 
 import haxe.macro.Expr;
 

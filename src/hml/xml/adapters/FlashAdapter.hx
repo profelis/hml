@@ -7,7 +7,7 @@ import hml.xml.writer.IHaxeWriter;
 import hml.xml.Data;
 import hml.xml.XMLProcessor;
 import hml.base.MatchLevel;
-import hml.xml.adapters.BaseMetaAdapter;
+import hml.xml.adapters.base.BaseMetaAdapter;
 import hml.base.MacroTools;
 
 import haxe.macro.Context;

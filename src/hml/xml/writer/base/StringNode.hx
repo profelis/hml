@@ -18,8 +18,8 @@ class StringNode extends WriteNode<Node> {
 }
 
 class FieldNodeWriter extends StringNode {
-    public function new(node:Node, accessor:String, id:String, ?type:String, ?value:String) {
-        super(node, '${accessor != null ? accessor + " " : ""}var $id${type != null ? ":" + type : ""}${value != null ? " = " + value : ""};');
+    public function new(node:Node, meta:String, accessor:String, id:String, ?type:String, ?value:String) {
+        super(node, '${meta != null ? meta + "\n" : ""}${accessor != null ? accessor + " " : ""}var $id${type != null ? ":" + type : ""}${value != null ? " = " + value : ""};');
     }
 }
 

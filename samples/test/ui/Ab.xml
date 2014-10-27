@@ -4,7 +4,11 @@
 	<name>'testName'</name>
 
 	<!-- <ui:String id="cool">'test'</ui:String> -->
-	<list><ui:String>'as'</ui:String><ui:String id="str2">null</ui:String></list>
+	<list><ui:String>'as'</ui:String><ui:String id="str2">null</ui:String>
+        <haxe:Meta>
+            <![CDATA[@BarMeta]]>
+        </haxe:Meta>
+    </list>
 	
 	<s:Sprite xmlns:s="flash.display" id="sprite" xmlns:text="flash.text.*">
 		<text:TextField id="child1" x="100" y="200" alpha="0.78" text="privateString" textColor="0xFF0000" selectable="false"
@@ -13,14 +17,25 @@
 		<s:Sprite id="child2" visible="false" x="100"/>
 		
 		<s:Sprite id="child3" visible="false" x="100"/>
+        <haxe:Meta>
+            <![CDATA[@FooMeta]]>
+        </haxe:Meta>
 	</s:Sprite>
 
     <haxe:Declarations>
-        <ui:String id="string">"23"</ui:String>
+        <ui:String id="string">"23"
+            <haxe:Meta>
+                <![CDATA[@StringMeta]]>
+            </haxe:Meta>
+        </ui:String>
         <ui:String id="string2">"ab"</ui:String>
     </haxe:Declarations>
 
     <haxe:Private>
         <ui:String id="privateString">'text in private string'</ui:String>
     </haxe:Private>
+
+    <haxe:Meta>
+        <![CDATA[@MagicMeta('foo', "bar")]]>
+    </haxe:Meta>
 </A>

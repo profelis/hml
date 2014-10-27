@@ -43,6 +43,7 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 			var name = pos > -1 ? type.type.substr(pos + 1) : type.type;
 			res += 'package $pack;\n';
 			res += '\n';
+            if (type.meta != null) res += '${type.meta}\n';
 			res += 'class $name extends ${type.superType}';
 			if (type.implementsList != null) {
 				for (i in type.implementsList)

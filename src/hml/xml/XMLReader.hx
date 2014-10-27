@@ -79,20 +79,21 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 		if (nodeParser == null) {
 			#if hml_debug
 			var pos = node.getNodePosition(node.document);
-			Context.warning('ignored node: ${node.document}', Context.makePosition({file:node.path, min:pos.from, max:pos.to}));
+			Context.warning('Ignored node: ${node.document}', Context.makePosition({file:node.path, min:pos.from, max:pos.to}));
 			#end
 			return null;
 		}
 		var res;
+        #if hml_debug
+        res = nodeParser.parse(node, parent, this);
+        #else
 		try {
 			res = nodeParser.parse(node, parent, this);
 		} catch (e:Dynamic) {
-            #if hml_debug
-            trace(e);
-            #end
 			var pos = node.getNodePosition(node.document);
 			Context.error(e, Context.makePosition({min:pos.from, max:pos.to, file:parent.root.nodePos.file}));
 		}
+        #end
 		return res;
 	}
 }

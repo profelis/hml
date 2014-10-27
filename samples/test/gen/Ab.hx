@@ -1,9 +1,11 @@
 package ;
 
+@MagicMeta('foo', "bar")
 class Ab extends test.A implements test.ITools<flash.display.Sprite> {
 
     var string_initialized:Bool = false;
 
+    @StringMeta
     @:isVar public var string(get, set):String;
 
     var string2_initialized:Bool = false;
@@ -20,6 +22,7 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
 
     var sprite_initialized:Bool = false;
 
+    @FooMeta
     @:isVar public var sprite(get, set):flash.display.Sprite;
 
     var child1_initialized:Bool = false;
@@ -40,7 +43,7 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
     }
 
     function get_string():String {
-        /* samples/test/ui/Ab.xml:19 characters: 9-18 */
+        /* samples/test/ui/Ab.xml:26 characters: 9-18 */
         if (string_initialized) return string;
         string_initialized = true;
         var res = "23";
@@ -54,7 +57,7 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
     }
 
     function get_string2():String {
-        /* samples/test/ui/Ab.xml:20 characters: 9-18 */
+        /* samples/test/ui/Ab.xml:31 characters: 9-18 */
         if (string2_initialized) return string2;
         string2_initialized = true;
         var res = "ab";
@@ -68,7 +71,7 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
     }
 
     function get_privateString():String {
-        /* samples/test/ui/Ab.xml:24 characters: 9-18 */
+        /* samples/test/ui/Ab.xml:35 characters: 9-18 */
         if (privateString_initialized) return privateString;
         privateString_initialized = true;
         var res = 'text in private string';
@@ -113,29 +116,29 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
     }
 
     inline function get_field2():flash.events.MouseEvent -> StdTypes.Void {
-        /* samples/test/ui/Ab.xml:11 characters: 4-9 */
+        /* samples/test/ui/Ab.xml:15 characters: 4-9 */
         var res = function (event:flash.events.MouseEvent):StdTypes.Void { trace('click'); this.dispatchEvent(new flash.events.Event('someEvent')); };
         return res;
     }
 
     function get_child1():flash.text.TextField {
-        /* samples/test/ui/Ab.xml:10 characters: 3-17 */
+        /* samples/test/ui/Ab.xml:14 characters: 3-17 */
         if (child1_initialized) return child1;
         child1_initialized = true;
         var res = new flash.text.TextField();
         this.child1 = res;
-        /* samples/test/ui/Ab.xml:10 characters: 47-52 */
+        /* samples/test/ui/Ab.xml:14 characters: 47-52 */
         res.alpha = 0.78;
-        /* samples/test/ui/Ab.xml:10 characters: 81-90 */
+        /* samples/test/ui/Ab.xml:14 characters: 81-90 */
         res.textColor = 0xFF0000;
-        /* samples/test/ui/Ab.xml:10 characters: 60-64 */
+        /* samples/test/ui/Ab.xml:14 characters: 60-64 */
         res.text = privateString;
-        /* samples/test/ui/Ab.xml:10 characters: 102-112 */
+        /* samples/test/ui/Ab.xml:14 characters: 102-112 */
         res.selectable = false;
         res.addEventListener(flash.events.MouseEvent.CLICK, get_field2());
-        /* samples/test/ui/Ab.xml:10 characters: 31-32 */
+        /* samples/test/ui/Ab.xml:14 characters: 31-32 */
         res.x = 100;
-        /* samples/test/ui/Ab.xml:10 characters: 39-40 */
+        /* samples/test/ui/Ab.xml:14 characters: 39-40 */
         res.y = 200;
         return res;
     }
@@ -146,14 +149,14 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
     }
 
     function get_child2():flash.display.Sprite {
-        /* samples/test/ui/Ab.xml:13 characters: 3-11 */
+        /* samples/test/ui/Ab.xml:17 characters: 3-11 */
         if (child2_initialized) return child2;
         child2_initialized = true;
         var res = new flash.display.Sprite();
         this.child2 = res;
-        /* samples/test/ui/Ab.xml:13 characters: 41-42 */
+        /* samples/test/ui/Ab.xml:17 characters: 41-42 */
         res.x = 100;
-        /* samples/test/ui/Ab.xml:13 characters: 25-32 */
+        /* samples/test/ui/Ab.xml:17 characters: 25-32 */
         res.visible = false;
         return res;
     }
@@ -164,20 +167,20 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
     }
 
     function get_child3():flash.display.Sprite {
-        /* samples/test/ui/Ab.xml:15 characters: 3-11 */
+        /* samples/test/ui/Ab.xml:19 characters: 3-11 */
         if (child3_initialized) return child3;
         child3_initialized = true;
         var res = new flash.display.Sprite();
         this.child3 = res;
-        /* samples/test/ui/Ab.xml:15 characters: 41-42 */
+        /* samples/test/ui/Ab.xml:19 characters: 41-42 */
         res.x = 100;
-        /* samples/test/ui/Ab.xml:15 characters: 25-32 */
+        /* samples/test/ui/Ab.xml:19 characters: 25-32 */
         res.visible = false;
         return res;
     }
 
     function get_sprite():flash.display.Sprite {
-        /* samples/test/ui/Ab.xml:9 characters: 2-10 */
+        /* samples/test/ui/Ab.xml:13 characters: 2-10 */
         if (sprite_initialized) return sprite;
         sprite_initialized = true;
         var res = new flash.display.Sprite();

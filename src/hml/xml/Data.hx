@@ -2,8 +2,6 @@ package hml.xml;
 
 import haxe.ds.HashMap;
 import haxe.macro.Expr.Position;
-import haxe.macro.Context;
-import hml.base.Strings;
 import hml.base.MacroTools;
 
 using Reflect;
@@ -131,6 +129,8 @@ class Node {
 
 	public var extra:Map<String, Dynamic> = new Map();
 
+    public var meta:Null<String> = null;
+
     public var publicAccess = true;
 
 	public function new() {}
@@ -145,6 +145,7 @@ class Node {
 			nodes: [for (n in nodes) n.toValue()],
 			children: [for (n in children) n.toValue()],
 			unresolved: [for (n in unresolvedNodes) n.toValue()],
+            meta: meta,
 			cData: cData
 		}
 	}
