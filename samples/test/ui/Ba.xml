@@ -4,10 +4,22 @@
 	</ui:Ab>
 
     <haxe:Script><![CDATA[
+
+        // comment
+        import flash.display.Sprite;
+
+        using StringTools;
+
+        // comment 2
         var t = true;
         function n() {
             trace(t);
+            trace("a".trim());
         }
+
+        /**
+           comment 3
+        **/
     ]]></haxe:Script>
 
 	<!-- <ui:String id="cool">'test'</ui:String> -->

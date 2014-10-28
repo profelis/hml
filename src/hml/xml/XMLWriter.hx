@@ -38,11 +38,25 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 
 			var res = new Strings();
 
+            var imports:Null<String> = null;
+            var script:Null<String> = null;
+            if (type.script != null) {
+                var importsEReg = ~/^\s*(import|using)\s[\w.]+.*/gm;
+
+                script = importsEReg.map(type.script, function (e) {
+                    if (imports == null) imports = "";
+                    imports += e.matched(0).trim() + "\n";
+                    return "";
+                });
+            }
+
 			var pos = type.type.lastIndexOf(".");
 			var pack = pos > -1 ? type.type.substr(0, pos) : "";
 			var name = pos > -1 ? type.type.substr(pos + 1) : type.type;
 			res += 'package $pack;\n';
 			res += '\n';
+
+            if (imports != null) res += '$imports\n';
             if (type.meta != null) res += '${type.meta}\n';
 			res += 'class $name extends ${type.superType}';
 			if (type.implementsList != null) {
@@ -57,8 +71,9 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 			}
 			for (f in fields) writeNode(f);
 			for (f in methods) writeNode(f);
-            if (type.script != null)
-                res += '\n${TAB}${type.script}\n';
+            if (script != null) {
+                res += '\n${TAB}${script}\n';
+            }
 			res += '}\n';
 
 			var path = '${output.path}/${type.type.replace(".", "/")}';

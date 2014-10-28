@@ -1,5 +1,8 @@
 package ;
 
+import flash.display.Sprite;
+using StringTools;
+
 class Ba extends test.B {
 
     var test2_initialized:Bool = false;
@@ -28,8 +31,18 @@ class Ba extends test.B {
         get_test2();
     }
 
-    var t = true;
+    // comment
+
+
+
+        // comment 2
+        var t = true;
         function n() {
             trace(t);
+            trace("a".trim());
         }
+
+        /**
+           comment 3
+        **/
 }
