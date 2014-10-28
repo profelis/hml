@@ -92,6 +92,8 @@ class Type extends Node {
 	public var implementsList:Array<TypeString> = null;
     public var declarations:Array<Node> = [];
 
+    public var script:Null<String> = null;
+
 	public var rootModel:XMLDataRoot;
 
 	override function toValue():Dynamic {

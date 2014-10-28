@@ -44,20 +44,20 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 
     function processSpecificNamespace(name:XMLQName, node:Node, ?child:Node, ?cData:String, pos:XMLDataPos):Bool {
         inline function data() return child != null ? child.cData : cData;
-        var res = false;
+        var res = true;
         switch (node.model.resolveNamespace(name.ns)) {
             case HAXE_NAMESPACE:
                 switch (name.name) {
-                    case "generic":
+                    case "Generic":
                         node.generic = data().stringToTypes();
-                        res = true;
                     case "Meta":
                         node.meta = if (node.meta == null) data(); else node.meta + '\n' + data();
-                        res = true;
                     case _:
                         Context.error('unknown specific haxe attribute "${name}"', Context.makePosition(pos));
+                        res = false;
                 }
             case _:
+                res = false;
         }
         return res;
     }

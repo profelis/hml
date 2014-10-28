@@ -27,4 +27,9 @@ class Ba extends test.B {
         super();
         get_test2();
     }
+
+    var t = true;
+        function n() {
+            trace(t);
+        }
 }

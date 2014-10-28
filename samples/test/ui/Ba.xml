@@ -1,7 +1,14 @@
-<B xmlns="test" xmlns:ui="">
+<B xmlns="test" xmlns:ui="" xmlns:haxe="http://haxe.org/">
 	<ui:Ab id="test2">
 		<ui:name>'foo'</ui:name>
 	</ui:Ab>
+
+    <haxe:Script><![CDATA[
+        var t = true;
+        function n() {
+            trace(t);
+        }
+    ]]></haxe:Script>
 
 	<!-- <ui:String id="cool">'test'</ui:String> -->
 </B>

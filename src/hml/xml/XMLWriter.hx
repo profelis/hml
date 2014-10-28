@@ -57,6 +57,8 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 			}
 			for (f in fields) writeNode(f);
 			for (f in methods) writeNode(f);
+            if (type.script != null)
+                res += '\n${TAB}${type.script}\n';
 			res += '}\n';
 
 			var path = '${output.path}/${type.type.replace(".", "/")}';

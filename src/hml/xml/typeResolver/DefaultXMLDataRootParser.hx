@@ -15,29 +15,32 @@ class DefaultXMLDataRootParser extends DefaultXMLDataParser implements IXMLDataN
     override function processSpecificNamespace(name:XMLQName, node:Node, ?child:Node, ?cData:String, pos:XMLDataPos):Bool {
         inline function data() return child != null ? child.cData : cData;
 
-        var res = false;
+        var res = true;
         switch (node.model.resolveNamespace(name.ns)) {
             case DefaultXMLDataParser.HAXE_NAMESPACE:
-            switch (name.name) {
-                case "implements":
-                    var type:Type = cast node;
-                    var imps = data().stringToTypes();
-                    if (type.implementsList == null)
-                        type.implementsList = imps;
-                    else
-                        for (t in imps) type.implementsList.push(t);
-                    res = true;
-                case "Declarations" | "Private":
-                    var type:Type = cast node;
-                    var publicAccess = name.name == "Declarations";
-                    for (c in child.unresolvedNodes) {
-                        c.publicAccess = publicAccess;
-                        type.declarations.push(c);
-                    }
-                    res = true;
-                case _:
-            }
+                switch (name.name) {
+                    case "Implements":
+                        var type:Type = cast node;
+                        var imps = data().stringToTypes();
+                        if (type.implementsList == null)
+                            type.implementsList = imps;
+                        else
+                            for (t in imps) type.implementsList.push(t);
+                    case "Declarations" | "Private":
+                        var type:Type = cast node;
+                        var publicAccess = name.name == "Declarations";
+                        for (c in child.unresolvedNodes) {
+                            c.publicAccess = publicAccess;
+                            type.declarations.push(c);
+                        }
+                    case "Script":
+                        var type:Type = cast node;
+                        type.script = type.script == null ? data() : type.script + '\n' + data();
+                    case _:
+                        res = false;
+                }
             case _:
+                res = false;
         }
 
         return res ? res : super.processSpecificNamespace(name, node, child, cData, pos);
