@@ -64,7 +64,9 @@ class Hml {
 			if (processor != null) {
 				processor.read(path, pos, root);
 			}
+            #if hml_warn
 			else Context.warning('Ignored', Context.makePosition({file:path, min:0, max:0}));
+            #end
 		}
 	}
 

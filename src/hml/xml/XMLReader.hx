@@ -77,7 +77,7 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 			Context.error(e, Context.currentPos());
 		}
 		if (nodeParser == null) {
-			#if hml_debug
+			#if hml_warn
 			var pos = node.getNodePosition(node.document);
 			Context.warning('Ignored node: ${node.document}', Context.makePosition({file:node.path, min:pos.from, max:pos.to}));
 			#end

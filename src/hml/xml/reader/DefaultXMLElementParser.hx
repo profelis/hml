@@ -27,7 +27,7 @@ class DefaultXMLElementParser implements IXMLNodeParser<XMLData> {
         inline function getLinePos(pos:Int) {
             var s = raw.substr(0, pos).split("\r\n").join("\n").split("\r").join("\n");
             var lines = ~/[\r\n]/g.split(s);
-            return {line:lines.length, pos:lines[lines.length-1].length};
+            return {line:lines.length, pos:lines[lines.length - 1].length};
         }
         return {
             from: getLinePos(pos.from),
@@ -45,10 +45,11 @@ class DefaultXMLElementParser implements IXMLNodeParser<XMLData> {
         res.parent = parent;
         res.root = parent != null ? parent.root : null;
 
+        inline function formatNS(value:String) return if (value.endsWith(".*")) value.substr(0, -2) else value;
+
         for (a in node.attributes()) {
             var qName = a.toXMLQName();
             var value = node.get(a);
-            inline function formatNS(value:String) return if (value.endsWith(".*")) value.substr(0, -2) else value;
             switch ({name:qName.name, ns:qName.ns}) {
                 case {name:"xmlns", ns:null}: res.namespaces["*"] = formatNS(value);
                 case {name:n, ns:"xmlns"}: res.namespaces[n] = formatNS(value);
@@ -63,7 +64,7 @@ class DefaultXMLElementParser implements IXMLNodeParser<XMLData> {
                 case Xml.PCData, Xml.CData:
                     var data = c.nodeValue.trim();
                     if (data.length > 0)
-                        res.cData = res.cData == null ? data : res.cData + data;
+                        res.cData = res.cData == null ? data : res.cData + "\n" + data;
 
                 default:
                     var node = parser.parse(xmlNode.sub(c), res);
