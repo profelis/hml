@@ -1,8 +1,11 @@
 package hml;
 
+import hml.base.IFileProcessor;
 #if macro
 import haxe.macro.Context;
 import haxe.macro.Expr;
+
+import hml.base.Output;
 
 using sys.FileSystem;
 using Reflect;
@@ -10,13 +13,6 @@ using StringTools;
 using Lambda;
 
 #end
-
-typedef Output = {
-	path:String, // output folder path
-	?autoClear:Bool, // empty output folder before generate output: default true
-	?autoCreate:Bool, // create output folder if expected: default true
-	?allowOverride:Bool // allow override files in output folder: default false
-}
 
 class Hml {
 

@@ -1,6 +1,6 @@
-package hml;
+package hml.base;
 
-import hml.Hml.Output;
+import hml.base.Output;
 import haxe.macro.Expr.Position;
 
 interface IFileProcessor {

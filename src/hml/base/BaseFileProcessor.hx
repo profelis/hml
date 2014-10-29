@@ -3,9 +3,8 @@ package hml.base;
 import hml.base.fileProcessor.IWriter;
 import hml.base.fileProcessor.ITypeResolver;
 import hml.base.fileProcessor.IReader;
-import hml.IFileProcessor;
 import haxe.macro.Expr.Position;
-import hml.Hml.Output;
+import hml.base.Output;
 
 class BaseFileProcessor<B, T> implements IFileProcessor {
 

@@ -1,10 +1,11 @@
 package hml.xml;
 
+import hml.base.Output;
 import hml.xml.writer.IHaxeWriter;
 import hml.base.fileProcessor.IWriter;
 import haxe.macro.Context;
 import hml.base.Strings;
-import hml.Hml.Output;
+import hml.base.Output;
 import haxe.io.Path;
 import hml.xml.Data;
 import hml.base.MatchLevel;
