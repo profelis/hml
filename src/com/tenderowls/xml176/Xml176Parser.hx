@@ -72,8 +72,8 @@ class Xml176Document {
         return aPosInfos.get(node).get(attr);
     }
 
-    inline public function sub(xml:Xml):Xml176Document {
-    	return new Xml176Document(xml, rawData, ePosInfos, aPosInfos, path);
+    inline public function sub(node:Xml):Xml176Document {
+    	return new Xml176Document(node, rawData, ePosInfos, aPosInfos, path);
     }
 }
 
@@ -91,6 +91,17 @@ class XmlParserError {
 
 class Xml176Parser
 {
+    static var escapes = {
+        var h = new haxe.ds.StringMap();
+        h.set("lt", "<");
+        h.set("gt", ">");
+        h.set("amp", "&");
+        h.set("quot", '"');
+        h.set("apos", "'");
+        h.set("nbsp", String.fromCharCode(160));
+        h;
+    }
+
 	static public function parse(str:String, path:String)
 	{
 		var xmlDoc = Xml.createDocument();
@@ -390,17 +401,6 @@ class Xml176Parser
 	static inline function isValidChar(c) {
 		return (c >= 'a'.code && c <= 'z'.code) || (c >= 'A'.code && c <= 'Z'.code) || (c >= '0'.code && c <= '9'.code) || c == ':'.code || c == '.'.code || c == '_'.code || c == '-'.code;
 	}
-
-    static var escapes = {
-        var h = new haxe.ds.StringMap();
-        h.set("lt", "<");
-        h.set("gt", ">");
-        h.set("amp", "&");
-        h.set("quot", '"');
-        h.set("apos", "'");
-        h.set("nbsp", String.fromCharCode(160));
-        h;
-    }
 }
 
 typedef Pos = { from:Int, to:Int }
