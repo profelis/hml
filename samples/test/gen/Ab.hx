@@ -12,6 +12,10 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
 
     @:isVar public var string2(get, set):String;
 
+    var publicB_initialized:Bool = false;
+
+    @:isVar public var publicB(get, set):Ba;
+
     var privateString_initialized:Bool = false;
 
     @:isVar var privateString(get, set):String;
@@ -65,13 +69,27 @@ class Ab extends test.A implements test.ITools<flash.display.Sprite> {
         return res;
     }
 
+    function set_publicB(value:Ba):Ba {
+        publicB_initialized = true;
+        return publicB = value;
+    }
+
+    function get_publicB():Ba {
+        /* samples/test/ui/Ab.xml:32 characters: 9-14 */
+        if (publicB_initialized) return publicB;
+        publicB_initialized = true;
+        var res = new Ba();
+        this.publicB = res;
+        return res;
+    }
+
     function set_privateString(value:String):String {
         privateString_initialized = true;
         return privateString = value;
     }
 
     function get_privateString():String {
-        /* samples/test/ui/Ab.xml:35 characters: 9-18 */
+        /* samples/test/ui/Ab.xml:36 characters: 9-18 */
         if (privateString_initialized) return privateString;
         privateString_initialized = true;
         var res = 'text in private string';

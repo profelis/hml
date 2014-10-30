@@ -29,6 +29,7 @@
             </haxe:Meta>
         </ui:String>
         <ui:String id="string2">"ab"</ui:String>
+        <ui:Ba id="publicB" />
     </haxe:Declarations>
 
     <haxe:Private>

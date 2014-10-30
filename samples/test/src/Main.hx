@@ -9,6 +9,9 @@ class Main{
 		trace(a.sprite.numChildren);
 		var c = new sub.C();
 		trace(c.name);
+        trace(a.publicB.intMap);
+        trace(a.publicB.stringMap);
+        trace(a.publicB.objectMap);
 
 		var tools:test.ITools<flash.display.Sprite> = a;
 		trace(tools.sprite);

@@ -28,6 +28,12 @@ class Ba extends test.B {
     public function new() {
         /* samples/test/ui/Ba.xml:1 characters: 1-2 */
         super();
+        /* samples/test/ui/Ba.xml:25 characters: 5-14 */
+        this.stringMap = ["1"=>'${this.test2.name}'];
+        /* samples/test/ui/Ba.xml:26 characters: 5-11 */
+        this.intMap = [for (i in 1...10) i=>'$i'];
+        /* samples/test/ui/Ba.xml:27 characters: 5-14 */
+        this.objectMap = [Date.now() => "today"];
         get_test2();
     }
 

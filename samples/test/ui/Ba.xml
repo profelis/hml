@@ -22,5 +22,8 @@
         **/
     ]]></haxe:Script>
 
+    <stringMap>["1"=>'${this.test2.name}']</stringMap>
+    <intMap>[for (i in 1...10) i=>'$i']</intMap>
+    <objectMap>[Date.now() => "today"]</objectMap>
 	<!-- <ui:String id="cool">'test'</ui:String> -->
 </B>
