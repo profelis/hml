@@ -1,0 +1,9 @@
+-cp src
+-cp samples/test/src
+-cp samples/test/gen
+-js samples/test/bin/empty.js
+--no-output
+-main GenHx
+--macro allowPackage('flash')
+--no-inline
+# -D hml_debug
