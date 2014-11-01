@@ -2,7 +2,9 @@
 -cp gen
 -swf bin/hml.swf
 -main Main
+-lib buddy
+
+-D fdb
 -debug
-# -D fdb
 #-D dump=pretty
---times
+#--times

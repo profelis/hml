@@ -3,7 +3,7 @@ package ;
 import flash.display.Sprite;
 using StringTools;
 
-class Ba extends test.B {
+class Ba extends data.B {
 
     var test2_initialized:Bool = false;
 
@@ -15,24 +15,24 @@ class Ba extends test.B {
     }
 
     function get_test2():Ab {
-        /* samples/test/ui/Ba.xml:2 characters: 2-7 */
+        /* ui/Ba.xml:2 characters: 2-7 */
         if (test2_initialized) return test2;
         test2_initialized = true;
         var res = new Ab();
         this.test2 = res;
-        /* samples/test/ui/Ba.xml:3 characters: 3-10 */
+        /* ui/Ba.xml:3 characters: 3-10 */
         res.name = 'foo';
         return res;
     }
 
     public function new() {
-        /* samples/test/ui/Ba.xml:1 characters: 1-2 */
+        /* ui/Ba.xml:1 characters: 1-2 */
         super();
-        /* samples/test/ui/Ba.xml:25 characters: 5-14 */
+        /* ui/Ba.xml:25 characters: 5-14 */
         this.stringMap = ["1"=>'${this.test2.name}'];
-        /* samples/test/ui/Ba.xml:26 characters: 5-11 */
+        /* ui/Ba.xml:26 characters: 5-11 */
         this.intMap = [for (i in 1...10) i=>'$i'];
-        /* samples/test/ui/Ba.xml:27 characters: 5-14 */
+        /* ui/Ba.xml:27 characters: 5-14 */
         this.objectMap = [Date.now() => "today"];
         get_test2();
     }

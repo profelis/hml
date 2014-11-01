@@ -1,0 +1,4 @@
+-cmd haxe gen.hxml
+--next
+
+-cmd haxe build.hxml

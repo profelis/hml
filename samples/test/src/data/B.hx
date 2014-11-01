@@ -1,4 +1,4 @@
-package test;
+package data;
 
 class B {
 	public function new() {

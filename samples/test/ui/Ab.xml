@@ -1,5 +1,5 @@
-<A xmlns="test" xmlns:ui="" xmlns:haxe="http://haxe.org/" someEvent="trace('some event meta magic');">
-	<haxe:Implements><![CDATA[test.ITools<flash.display.Sprite>]]></haxe:Implements>
+<A xmlns="data" xmlns:ui="" xmlns:haxe="http://haxe.org/" someEvent="trace('some event meta magic');">
+	<haxe:Implements><![CDATA[data.ITools<flash.display.Sprite>]]></haxe:Implements>
 	<!-- <ui:Ba id="fa" /> -->
 	<name>'testName'</name>
 

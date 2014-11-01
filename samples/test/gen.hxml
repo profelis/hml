@@ -1,5 +1,6 @@
 -cp ../../src
 -cp src
+-cp hml
 -js bin/empty.js
 --no-output
 -main GenHx
