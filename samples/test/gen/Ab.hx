@@ -1,6 +1,7 @@
 package ;
 
 @MagicMeta('foo', "bar")
+        @:rtti
 class Ab extends data.A implements data.ITools<flash.display.Sprite> {
 
     var string_initialized:Bool = false;
@@ -212,6 +213,8 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
     public function new() {
         /* ui/Ab.xml:1 characters: 1-2 */
         super();
+        /* ui/Ab.xml:1 characters: 103-108 */
+        this.alpha = 0.5;
         this.addEventListener("someEvent", get_field0());
         /* ui/Ab.xml:4 characters: 2-6 */
         this.name = 'testName';

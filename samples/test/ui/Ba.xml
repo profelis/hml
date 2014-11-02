@@ -1,8 +1,15 @@
 <B xmlns="data" xmlns:ui="" xmlns:haxe="http://haxe.org/">
-	<ui:Ab id="test2">
-		<ui:name>'foo'</ui:name>
-	</ui:Ab>
-
+    <haxe:Implements><![CDATA[data.IEmptyInterface<haxe.Timer>]]></haxe:Implements>
+    <haxe:Meta>
+        <![CDATA[@:rtti]]>
+    </haxe:Meta>
+    
+    <haxe:Declarations>
+        <ui:Ab id="test2">
+            <ui:name>'foo'</ui:name>
+        </ui:Ab>
+    </haxe:Declarations>
+    
     <haxe:Script><![CDATA[
 
         // comment

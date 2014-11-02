@@ -3,7 +3,8 @@ package ;
 import flash.display.Sprite;
 using StringTools;
 
-class Ba extends data.B {
+@:rtti
+class Ba extends data.B implements data.IEmptyInterface<haxe.Timer> {
 
     var test2_initialized:Bool = false;
 
@@ -15,12 +16,12 @@ class Ba extends data.B {
     }
 
     function get_test2():Ab {
-        /* ui/Ba.xml:2 characters: 2-7 */
+        /* ui/Ba.xml:8 characters: 9-14 */
         if (test2_initialized) return test2;
         test2_initialized = true;
         var res = new Ab();
         this.test2 = res;
-        /* ui/Ba.xml:3 characters: 3-10 */
+        /* ui/Ba.xml:9 characters: 13-20 */
         res.name = 'foo';
         return res;
     }
@@ -28,13 +29,12 @@ class Ba extends data.B {
     public function new() {
         /* ui/Ba.xml:1 characters: 1-2 */
         super();
-        /* ui/Ba.xml:25 characters: 5-14 */
+        /* ui/Ba.xml:32 characters: 5-14 */
         this.stringMap = ["1"=>'${this.test2.name}'];
-        /* ui/Ba.xml:26 characters: 5-11 */
+        /* ui/Ba.xml:33 characters: 5-11 */
         this.intMap = [for (i in 1...10) i=>'$i'];
-        /* ui/Ba.xml:27 characters: 5-14 */
+        /* ui/Ba.xml:34 characters: 5-14 */
         this.objectMap = [Date.now() => "today"];
-        get_test2();
     }
 
     // comment
