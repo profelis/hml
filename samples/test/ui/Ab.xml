@@ -18,7 +18,7 @@
 		
 		<s:Sprite id="child3" visible="false" x="100"/>
         <haxe:Meta>
-            <![CDATA[@FooMeta]]>
+            <![CDATA[@FooMeta(12)]]>
         </haxe:Meta>
 	</s:Sprite>
 

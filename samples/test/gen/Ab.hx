@@ -27,7 +27,7 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
 
     var sprite_initialized:Bool = false;
 
-    @FooMeta
+    @FooMeta(12)
     @:isVar public var sprite(get, set):flash.display.Sprite;
 
     var child1_initialized:Bool = false;

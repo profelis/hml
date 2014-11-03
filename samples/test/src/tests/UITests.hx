@@ -45,15 +45,7 @@ class UITests extends BuddySuite implements Buddy  {
             });
             
             it("hml should fill arrays", {
-                a.list.length.should.be(2);
-                a.list[0].should.be("as");
-                a.list[1].should.be(null);
                 a.list.should.containExactly(["as", null]);
-            });
-            
-            after({
-                a = null;
-                b = null;
             });
         });
         
@@ -98,11 +90,6 @@ class UITests extends BuddySuite implements Buddy  {
                     case _:
                 }
             });
-            
-            after({
-                a = null;
-                b = null;
-            });
         });
         
         describe("hml magic declarations", {
@@ -127,7 +114,6 @@ class UITests extends BuddySuite implements Buddy  {
                 // child1.text == privateString;
                 a.child1.text.should.be("text in private string");
             });
-            
         });
         
         describe("hml magic meta", {
@@ -135,18 +121,29 @@ class UITests extends BuddySuite implements Buddy  {
             var a:Ab;
             var b:Ba;
             
-            before({
+            before( {
                 a = new Ab();
                 b = Type.createInstance(Ba, []);
             });
             
-            it("hml should generate meta", {
+            it("hml should generate class meta", {
                 var typeMeta = Meta.getType(Ab);
                 var m:Array<String> = typeMeta.field("MagicMeta");
                 m.should.not.be(null);
                 m.should.containExactly(["foo", "bar"]);
             });
             
+            it("hml should generate fields meta", {
+                var fieldsMeta = Meta.getFields(Ab);
+                // @FooMeta(12)
+                var spriteMeta:Dynamic<String> = fieldsMeta.field("sprite");
+                spriteMeta.fields().should.containExactly(["FooMeta"]);
+                (spriteMeta.field("FooMeta") == "12").should.be(true);
+                // @StringMeta
+                var stringMeta:Dynamic<String> = fieldsMeta.field("string");
+                stringMeta.fields().should.containExactly(["StringMeta"]);
+                (stringMeta.field("StringMeta") == null).should.be(true);
+            });
         });
     }
 }
