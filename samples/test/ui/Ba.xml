@@ -18,10 +18,9 @@
         using StringTools;
 
         // comment 2
-        var t = true;
-        function n() {
-            trace(t);
-            trace("a".trim());
+        public var t = true;
+        public function n() {
+            return Std.parseInt(" 32 ".trim());
         }
 
         /**

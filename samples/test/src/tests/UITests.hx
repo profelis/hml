@@ -159,5 +159,19 @@ class UITests extends BuddySuite implements Buddy  {
                 a.child1.text.should.be("text in private string");
             });
         });
+        
+        describe("hml magic script", {
+            
+            var b:Ba;
+            
+            before({
+                b = new Ba();
+            });
+            
+            it("hml should inject scripts", {
+                b.t.should.be(true);
+                b.n().should.be(32);
+            });
+        });
     }
 }

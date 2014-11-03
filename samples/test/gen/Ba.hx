@@ -29,11 +29,11 @@ class Ba extends data.B implements data.IEmptyInterface<haxe.Timer> {
     public function new() {
         /* ui/Ba.xml:1 characters: 1-2 */
         super();
-        /* ui/Ba.xml:32 characters: 5-14 */
+        /* ui/Ba.xml:31 characters: 5-14 */
         this.stringMap = ["1"=>'${this.test2.name}'];
-        /* ui/Ba.xml:33 characters: 5-11 */
+        /* ui/Ba.xml:32 characters: 5-11 */
         this.intMap = [for (i in 1...10) i=>'$i'];
-        /* ui/Ba.xml:34 characters: 5-14 */
+        /* ui/Ba.xml:33 characters: 5-14 */
         this.objectMap = [Date.now() => "today"];
     }
 
@@ -42,10 +42,9 @@ class Ba extends data.B implements data.IEmptyInterface<haxe.Timer> {
 
 
         // comment 2
-        var t = true;
-        function n() {
-            trace(t);
-            trace("a".trim());
+        public var t = true;
+        public function n() {
+            return Std.parseInt(" 32 ".trim());
         }
 
         /**
