@@ -13,6 +13,7 @@ import haxe.rtti.CType;
 using buddy.Should;
 using haxe.rtti.Meta;
 using Lambda;
+using Reflect;
 
 class UITests extends BuddySuite implements Buddy  {
     public function new() {
@@ -116,14 +117,34 @@ class UITests extends BuddySuite implements Buddy  {
             
             it("hml should generate public declarations", {
                 a.string.should.be("23");
-                
                 a.string2.should.be("ab");
-                
-                // child1.text == privateString;
-                a.child1.text.should.be("text in private string");
-                
+
                 b.test2.should.not.be(null);
                 b.test2.name.should.be("foo");
+            });
+            
+            it("hml should generate public declarations", {
+                // child1.text == privateString;
+                a.child1.text.should.be("text in private string");
+            });
+            
+        });
+        
+        describe("hml magic meta", {
+            
+            var a:Ab;
+            var b:Ba;
+            
+            before({
+                a = new Ab();
+                b = Type.createInstance(Ba, []);
+            });
+            
+            it("hml should generate meta", {
+                var typeMeta = Meta.getType(Ab);
+                var m:Array<String> = typeMeta.field("MagicMeta");
+                m.should.not.be(null);
+                m.should.containExactly(["foo", "bar"]);
             });
             
         });
