@@ -49,6 +49,50 @@ class UITests extends BuddySuite implements Buddy  {
             });
         });
         
+        describe("hml magic meta", {
+            
+            var a:Ab;
+            var b:Ba;
+            
+            before( {
+                a = Type.createInstance(Ab, []);
+                b = Type.createInstance(Ba, []);
+            });
+            
+            it("hml should generate class meta", {
+                var typeMeta = Meta.getType(Ab);
+                var m:Array<String> = typeMeta.field("MagicMeta");
+                m.should.not.be(null);
+                m.should.containExactly(["foo", "bar"]);
+            });
+            
+            it("hml should generate fields meta", {
+                var fieldsMeta = Meta.getFields(Ab);
+                // @FooMeta(12)
+                var spriteMeta:Dynamic<String> = fieldsMeta.field("sprite");
+                spriteMeta.fields().should.containExactly(["FooMeta"]);
+                (spriteMeta.field("FooMeta") == "12").should.be(true);
+                // @StringMeta
+                var stringMeta:Dynamic<String> = fieldsMeta.field("string");
+                stringMeta.fields().should.containExactly(["StringMeta"]);
+                (stringMeta.field("StringMeta") == null).should.be(true);
+            });
+            
+            it("hml should generate @: meta", {
+                var artti:String = untyped Ab.__rtti;
+                var brtti:String = untyped Ba.__rtti;
+                artti.should.not.be(null);
+                brtti.should.not.be(null);
+                try {
+                    Xml.parse(artti);
+                    Xml.parse(brtti);
+                }
+                catch (e:Dynamic) {
+                    fail("rtti data isn't valid xml");
+                }
+            });
+        });
+        
         describe("hml magic namespace", {
             
             var a:Ab;
@@ -99,7 +143,7 @@ class UITests extends BuddySuite implements Buddy  {
             
             before({
                 a = new Ab();
-                b = Type.createInstance(Ba, []);
+                b = new Ba();
             });
             
             it("hml should generate public declarations", {
@@ -113,36 +157,6 @@ class UITests extends BuddySuite implements Buddy  {
             it("hml should generate public declarations", {
                 // child1.text == privateString;
                 a.child1.text.should.be("text in private string");
-            });
-        });
-        
-        describe("hml magic meta", {
-            
-            var a:Ab;
-            var b:Ba;
-            
-            before( {
-                a = new Ab();
-                b = Type.createInstance(Ba, []);
-            });
-            
-            it("hml should generate class meta", {
-                var typeMeta = Meta.getType(Ab);
-                var m:Array<String> = typeMeta.field("MagicMeta");
-                m.should.not.be(null);
-                m.should.containExactly(["foo", "bar"]);
-            });
-            
-            it("hml should generate fields meta", {
-                var fieldsMeta = Meta.getFields(Ab);
-                // @FooMeta(12)
-                var spriteMeta:Dynamic<String> = fieldsMeta.field("sprite");
-                spriteMeta.fields().should.containExactly(["FooMeta"]);
-                (spriteMeta.field("FooMeta") == "12").should.be(true);
-                // @StringMeta
-                var stringMeta:Dynamic<String> = fieldsMeta.field("string");
-                stringMeta.fields().should.containExactly(["StringMeta"]);
-                (stringMeta.field("StringMeta") == null).should.be(true);
             });
         });
     }
