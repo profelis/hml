@@ -2,6 +2,8 @@ package tests;
 
 import buddy.Buddy;
 import buddy.BuddySuite;
+import data.A;
+import data.B;
 import data.IEmptyInterface;
 import data.ITools;
 import flash.text.TextField;
@@ -27,6 +29,11 @@ class UITests extends BuddySuite implements Buddy  {
             before({
                 a = new Ab();
                 b = Type.createInstance(Ba, []);
+            });
+            
+            it("hml should extend base classes", {
+                Std.is(a, A).should.be(true);
+                Std.is(b, B).should.be(true);
             });
             
             it("hml should support parse attributes", {

@@ -4,6 +4,7 @@
 -main Main
 -lib buddy
 -lib utest
+-swf-header 800:600:30:FFFFFF
 
 -D fdb
 -debug
