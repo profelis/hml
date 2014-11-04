@@ -3,8 +3,10 @@
 -swf bin/hml.swf
 -main Main
 -lib buddy
+-lib utest
 
 -D fdb
 -debug
+-dce no
 #-D dump=pretty
 #--times

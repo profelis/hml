@@ -14,6 +14,7 @@ using buddy.Should;
 using haxe.rtti.Meta;
 using Lambda;
 using Reflect;
+using utest.Assert;
 
 class UITests extends BuddySuite implements Buddy  {
     public function new() {
@@ -34,29 +35,21 @@ class UITests extends BuddySuite implements Buddy  {
             });
             
             it("hml should support maps", {
-                [for (k in b.stringMap.keys()) k].should.containExactly(["1"]);
-                b.stringMap.get("1").should.be(b.test2.name);
+                b.stringMap.same(["1" => b.test2.name]);
+                b.intMap.same([for (i in 1...10) i => '$i']);
                 
-                var intMap = [for (i in 1...10) i => '$i'];
-                for (k in b.intMap.keys()) {
-                    b.intMap.get(k).should.be(intMap.get(k));
-                }
-                
-                for (k in b.objectMap.keys()) {
+                var objMap = b.objectMap;
+                for (k in objMap.keys()) {
                     Std.is(k, Date).should.be(true);
-                    b.objectMap.get(k).should.be("today");
+                    objMap.get(k).should.be("today");
                 }
             });
             
             it("hml should support childrens", {
                 a.numChildren.should.be(1);
-                
                 a.sprite.numChildren.should.be(3);
-                var tf:TextField = cast(a.sprite.getChildAt(0), TextField);
-                tf.should.not.be(null);
-                
-                var ch2 = cast(a.sprite.getChildAt(1), Sprite);
-                ch2.should.not.be(null);
+                Std.is(a.sprite.getChildAt(0), TextField).should.be(true);
+                Std.is(a.sprite.getChildAt(1), Sprite).should.be(true);
             });
             
             it("hml should fill arrays", {
@@ -77,20 +70,18 @@ class UITests extends BuddySuite implements Buddy  {
             it("hml should generate class meta", {
                 var typeMeta = Meta.getType(Ab);
                 var m:Array<String> = typeMeta.field("MagicMeta");
-                m.should.not.be(null);
                 m.should.containExactly(["foo", "bar"]);
             });
             
             it("hml should generate fields meta", {
                 var fieldsMeta = Meta.getFields(Ab);
-                // @FooMeta(12)
+                fieldsMeta.should.not.be(null);
+                
                 var spriteMeta:Dynamic<String> = fieldsMeta.field("sprite");
-                spriteMeta.fields().should.containExactly(["FooMeta"]);
-                (spriteMeta.field("FooMeta") == "12").should.be(true);
-                // @StringMeta
+                spriteMeta.same( { "FooMeta": [12] } ); // @FooMeta(12)
+                
                 var stringMeta:Dynamic<String> = fieldsMeta.field("string");
-                stringMeta.fields().should.containExactly(["StringMeta"]);
-                (stringMeta.field("StringMeta") == null).should.be(true);
+                stringMeta.same( { "StringMeta" : null } ); // @StringMeta
             });
             
             it("hml should generate @: meta", {
