@@ -100,7 +100,7 @@ class Type extends Node {
 		var res = super.toValue();
 		Reflect.setField(res, "file", '$file');
 		Reflect.setField(res, "implementsList", '$implementsList');
-		Reflect.setField(res, "declarations", '$declarations');
+		Reflect.setField(res, "declarations", '${declarations.join("\n")}');
 		return res;
 	}
 }

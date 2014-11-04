@@ -51,10 +51,10 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 
 	function resolveTypes(resolveMethod:Node->Bool, n = 10):Bool {
 		var i = 0;
-		var flag = false;
-		while (!flag && i++ < n) {
-			flag = true;
+		var flag = true;
+		while (i++ < n) {
 			for (t in types) flag = flag && resolveMethod(t);
+            if (flag) break;
 		}
 		#if hml_debug
 		trace("iterations: " + i);
@@ -63,10 +63,13 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 	}
 
 	function throwResolveError(t:Node) {
-		for (n in t.unresolvedNodes)
-			Context.error('can\'t resolve node "${n.name}". Can\'t find haxe type or field with same name.', Context.makePosition(n.model.nodePos));
+        for (n in t.unresolvedNodes)
+                Context.error('can\'t resolve node "${n.name}". Can\'t find haxe type or field with same name.', Context.makePosition(n.model.nodePos));
+        
+        if (Std.is(t, Type))  cast(t, Type).declarations.iter(throwResolveError);
 		t.children.iter(throwResolveError);
 		t.nodes.iter(throwResolveError);
+        
 	}
 
 	function resolveNode(t:Node):Bool {
@@ -99,7 +102,11 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 
 			iterNodes(n.children);
 			iterNodes(n.nodes);
-            if (Std.is(n, Type)) iterNodes(cast(n, Type).declarations);
+            if (Std.is(n, Type)) 
+                for (d in (cast(n, Type).declarations)) {
+                    if (d.nativeType == null) d.nativeType = getNativeType(d);
+                    res = res && recursiveResolve(d);
+                }
 			return res;
 		}
 		return false;

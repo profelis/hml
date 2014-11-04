@@ -152,6 +152,9 @@ class UITests extends BuddySuite implements Buddy  {
 
                 b.test2.should.not.be(null);
                 b.test2.name.should.be("foo");
+                
+                a.publicB.should.not.be(null);
+                a.publicB.test2.should.be(null);
             });
             
             it("hml should generate public declarations", {
