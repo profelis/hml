@@ -33,6 +33,21 @@ class UITests extends BuddySuite implements Buddy  {
                 a.alpha.should.be(0.5);
             });
             
+            it("hml should support maps", {
+                [for (k in b.stringMap.keys()) k].should.containExactly(["1"]);
+                b.stringMap.get("1").should.be(b.test2.name);
+                
+                var intMap = [for (i in 1...10) i => '$i'];
+                for (k in b.intMap.keys()) {
+                    b.intMap.get(k).should.be(intMap.get(k));
+                }
+                
+                for (k in b.objectMap.keys()) {
+                    Std.is(k, Date).should.be(true);
+                    b.objectMap.get(k).should.be("today");
+                }
+            });
+            
             it("hml should support childrens", {
                 a.numChildren.should.be(1);
                 
