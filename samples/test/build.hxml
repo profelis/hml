@@ -8,6 +8,5 @@
 
 -D fdb
 -debug
--dce no
 #-D dump=pretty
 #--times
