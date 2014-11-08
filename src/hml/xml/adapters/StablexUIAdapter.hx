@@ -119,37 +119,37 @@ class DefaultWidgetWithMetaWriter extends DisplayObjectWithMetaWriter {
 	}
 
 	override function predInit(node:Node, method) {
-        // defaults only for core widgets
-        if (node.superType.startsWith("ru.stablex.ui.widgets."))
-            writeDefaults("res", node, method);
+        writeDefaults("res", node, method);
 	}
 
 	override function predCtorInit(node:Node, method) {
-		writeDefaults("this", node, method);
+        writeDefaults("this", node, method);
 	}
     
-    inline function writeDefaults(scope:String, node:Node, method)
-    {
-        var defaults = node.nodes.find(function (it) return it.name.name == "defaults" && it.name.ns == null);
-		var defs = defaults != null ? defaults.cData.trim() : "Default";
-		if (defs.startsWith("'") && defs.endsWith("'")) defs = defs.substr(1, defs.length - 2);
-		if (defs.length > 0) {
-			if (defaults != null) {
-				defaults.cData = '\'$defs\'';
-			}
-			if (defs.endsWith("'")) defs = defs.substr(0, defs.length - 1);
-			var defs = '["${defs.split(",").map(function (s) return s.trim()).join('", "')}"]';
-			var typeName = node.superType;
-            var pos = typeName.lastIndexOf(".");
-            if (pos > -1) typeName = typeName.substr(pos + 1);
-			method.push('if(ru.stablex.ui.UIBuilder.defaults.exists("$typeName")) {');
-			method.push('\tvar defFns = ru.stablex.ui.UIBuilder.defaults.get("$typeName");');
-			method.push('\tfor(def in $defs) {');
-			method.push('\t\tvar defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);');
-			method.push('\t\tif(defaultsFn != null) defaultsFn($scope);');
-			method.push('\t}');
-			method.push('}');
-	    }
+    inline function writeDefaults(scope:String, node:Node, method) {
+        // defaults only for core widgets
+        if (node.superType.startsWith("ru.stablex.ui.widgets.")) {
+            var defaults = node.nodes.find(function (it) return it.name.name == "defaults" && it.name.ns == null);
+            var defs = defaults != null ? defaults.cData.trim() : "Default";
+            if (defs.startsWith("'") && defs.endsWith("'")) defs = defs.substr(1, defs.length - 2);
+            if (defs.length > 0) {
+                if (defaults != null) {
+                    defaults.cData = '\'$defs\'';
+                }
+                if (defs.endsWith("'")) defs = defs.substr(0, defs.length - 1);
+                var defs = '["${defs.split(",").map(function (s) return s.trim()).join('", "')}"]';
+                var typeName = node.superType;
+                var pos = typeName.lastIndexOf(".");
+                if (pos > -1) typeName = typeName.substr(pos + 1);
+                method.push('if(ru.stablex.ui.UIBuilder.defaults.exists("$typeName")) {');
+                method.push('\tvar defFns = ru.stablex.ui.UIBuilder.defaults.get("$typeName");');
+                method.push('\tfor(def in $defs) {');
+                method.push('\t\tvar defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);');
+                method.push('\t\tif(defaultsFn != null) defaultsFn($scope);');
+                method.push('\t}');
+                method.push('}');
+            }
+        }
     }
 }
 

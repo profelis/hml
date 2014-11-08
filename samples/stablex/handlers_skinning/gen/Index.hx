@@ -369,13 +369,6 @@ class Index extends Main {
     public function new() {
         /* assets/ui/Index.xml:4 characters: 1-10 */
         super();
-        if(ru.stablex.ui.UIBuilder.defaults.exists("Main")) {
-            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Main");
-            for(def in ["Default"]) {
-                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-                if(defaultsFn != null) defaultsFn(this);
-            }
-        }
         /* assets/ui/Index.xml:11 characters: 7-15 */
         this.skinName = 'winxp';
         /* assets/ui/Index.xml:10 characters: 14-15 */
