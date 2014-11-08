@@ -75,7 +75,7 @@ class Hml {
 		if (path.exists() && !path.isDirectory())
 			Context.fatalError('output path "$path" already exist', Context.currentPos());
 
-		if (output.autoClear != false && path.exists()) rmDir(path);
+		if (output.autoClear != false && path.exists()) rmDirContent(path);
 		if (output.autoCreate != false && !path.exists())
 			try {
 				path.createDirectory();
@@ -100,6 +100,13 @@ class Hml {
 			Context.fatalError('Can\'t read directory "$path"', Context.currentPos());
 		}
 	}
+    
+    static function rmDirContent(path:String) {
+        if (path.isDirectory()) {
+			var dir = readDir(path);
+			for (p in dir) rmDir('$path/$p');
+		}
+    }
 
 	static function rmDir(path:String) {
 		if (!path.exists()) return;
