@@ -2,7 +2,7 @@ package ;
 
 class Index extends ru.stablex.ui.widgets.VBox {
 
-    inline function get_field0():ru.stablex.ui.skins.Paint {
+    inline function get_paint__0():ru.stablex.ui.skins.Paint {
         /* ui/Index.xml:6 characters: 4-14 */
         var res = new ru.stablex.ui.skins.Paint();
         /* ui/Index.xml:6 characters: 16-21 */
@@ -16,7 +16,7 @@ class Index extends ru.stablex.ui.widgets.VBox {
         return res;
     }
 
-    inline function get_field1():ru.stablex.ui.widgets.Text {
+    inline function get_text__0():ru.stablex.ui.widgets.Text {
         /* ui/Index.xml:8 characters: 5-9 */
         var res = new ru.stablex.ui.widgets.Text();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Text")) {
@@ -35,7 +35,7 @@ class Index extends ru.stablex.ui.widgets.VBox {
         return res;
     }
 
-    inline function get_field2():ru.stablex.ui.widgets.Text {
+    inline function get_text__1():ru.stablex.ui.widgets.Text {
         /* ui/Index.xml:9 characters: 5-9 */
         var res = new ru.stablex.ui.widgets.Text();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Text")) {
@@ -52,7 +52,7 @@ class Index extends ru.stablex.ui.widgets.VBox {
         return res;
     }
 
-    inline function get_field3():ru.stablex.ui.widgets.Text {
+    inline function get_text__2():ru.stablex.ui.widgets.Text {
         /* ui/Index.xml:10 characters: 5-9 */
         var res = new ru.stablex.ui.widgets.Text();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Text")) {
@@ -69,7 +69,7 @@ class Index extends ru.stablex.ui.widgets.VBox {
         return res;
     }
 
-    inline function get_field4():ru.stablex.ui.widgets.Button {
+    inline function get_button__0():ru.stablex.ui.widgets.Button {
         /* ui/Index.xml:11 characters: 5-11 */
         var res = new ru.stablex.ui.widgets.Button();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
@@ -86,7 +86,7 @@ class Index extends ru.stablex.ui.widgets.VBox {
         return res;
     }
 
-    inline function get_field5():ru.stablex.ui.widgets.Button {
+    inline function get_button__1():ru.stablex.ui.widgets.Button {
         /* ui/Index.xml:12 characters: 5-11 */
         var res = new ru.stablex.ui.widgets.Button();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
@@ -105,7 +105,7 @@ class Index extends ru.stablex.ui.widgets.VBox {
         return res;
     }
 
-    inline function get_field6():ru.stablex.ui.widgets.Button {
+    inline function get_button__2():ru.stablex.ui.widgets.Button {
         /* ui/Index.xml:13 characters: 5-11 */
         var res = new ru.stablex.ui.widgets.Button();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
@@ -143,14 +143,14 @@ class Index extends ru.stablex.ui.widgets.VBox {
         /* ui/Index.xml:4 characters: 20-21 */
         this.w = 800;
         /* ui/Index.xml:5 characters: 3-7 */
-        this.skin = get_field0();
+        this.skin = get_paint__0();
         this._onInitialize();
-        this.addChild(get_field1());
-        this.addChild(get_field2());
-        this.addChild(get_field3());
-        this.addChild(get_field4());
-        this.addChild(get_field5());
-        this.addChild(get_field6());
+        this.addChild(get_text__0());
+        this.addChild(get_text__1());
+        this.addChild(get_text__2());
+        this.addChild(get_button__0());
+        this.addChild(get_button__1());
+        this.addChild(get_button__2());
         this._onCreate();
     }
 }

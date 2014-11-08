@@ -19,7 +19,7 @@ class Clock extends ru.stablex.ui.widgets.VBox {
         return clock1 = value;
     }
 
-    inline function get_field0():flash.events.Event -> StdTypes.Void {
+    inline function get_display__0():flash.events.Event -> StdTypes.Void {
         /* ui/Clock.xml:7 characters: 91-98 */
         var res = function (event:flash.events.Event):StdTypes.Void { clock1.run(); };
         return res;
@@ -38,7 +38,7 @@ class Clock extends ru.stablex.ui.widgets.VBox {
         		if(defaultsFn != null) defaultsFn(res);
         	}
         }
-        res.addEventListener(flash.events.Event.ADDED_TO_STAGE, get_field0());
+        res.addEventListener(flash.events.Event.ADDED_TO_STAGE, get_display__0());
         /* ui/Clock.xml:7 characters: 63-70 */
         res.forward = false;
         /* ui/Clock.xml:7 characters: 12-17 */
@@ -55,7 +55,7 @@ class Clock extends ru.stablex.ui.widgets.VBox {
         return clock2 = value;
     }
 
-    inline function get_field1():flash.events.Event -> StdTypes.Void {
+    inline function get_display__1():flash.events.Event -> StdTypes.Void {
         /* ui/Clock.xml:10 characters: 24-31 */
         var res = function (event:flash.events.Event):StdTypes.Void { this.clock2.run(); };
         return res;
@@ -74,13 +74,13 @@ class Clock extends ru.stablex.ui.widgets.VBox {
         		if(defaultsFn != null) defaultsFn(res);
         	}
         }
-        res.addEventListener(flash.events.Event.ADDED_TO_STAGE, get_field1());
+        res.addEventListener(flash.events.Event.ADDED_TO_STAGE, get_display__1());
         res._onInitialize();
         res._onCreate();
         return res;
     }
 
-    inline function get_field2():ru.stablex.ui.widgets.Clock {
+    inline function get_clock__0():ru.stablex.ui.widgets.Clock {
         /* ui/Clock.xml:13 characters: 5-10 */
         var res = new ru.stablex.ui.widgets.Clock();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Clock")) {
@@ -104,13 +104,13 @@ class Clock extends ru.stablex.ui.widgets.VBox {
         return clock3 = value;
     }
 
-    inline function get_field3():flash.events.Event -> StdTypes.Void {
+    inline function get_display__2():flash.events.Event -> StdTypes.Void {
         /* ui/Clock.xml:17 characters: 9-16 */
         var res = function (event:flash.events.Event):StdTypes.Void { clock3.run(); };
         return res;
     }
 
-    inline function get_field4():ru.stablex.ui.events.WidgetEvent -> StdTypes.Void {
+    inline function get_widgetChange__0():ru.stablex.ui.events.WidgetEvent -> StdTypes.Void {
         /* ui/Clock.xml:18 characters: 9-21 */
         var res = function (event:ru.stablex.ui.events.WidgetEvent):StdTypes.Void {  if( clock3.value == 0 ) clock3.free(); };
         return res;
@@ -129,12 +129,12 @@ class Clock extends ru.stablex.ui.widgets.VBox {
         		if(defaultsFn != null) defaultsFn(res);
         	}
         }
-        res.addEventListener(flash.events.Event.ADDED_TO_STAGE, get_field3());
+        res.addEventListener(flash.events.Event.ADDED_TO_STAGE, get_display__2());
         /* ui/Clock.xml:16 characters: 73-80 */
         res.forward = false;
         /* ui/Clock.xml:16 characters: 89-94 */
         res.value = 60;
-        res.addEventListener(ru.stablex.ui.events.WidgetEvent.CHANGE, get_field4());
+        res.addEventListener(ru.stablex.ui.events.WidgetEvent.CHANGE, get_widgetChange__0());
         /* ui/Clock.xml:16 characters: 24-34 */
         res.timeFormat = 'Self destruction in %s seconds...';
         res._onInitialize();
@@ -161,7 +161,7 @@ class Clock extends ru.stablex.ui.widgets.VBox {
         this._onInitialize();
         this.addChild(clock1);
         this.addChild(clock2);
-        this.addChild(get_field2());
+        this.addChild(get_clock__0());
         this.addChild(clock3);
         this._onCreate();
     }

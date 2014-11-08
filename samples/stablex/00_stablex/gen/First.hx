@@ -10,7 +10,7 @@ class First extends ru.stablex.ui.widgets.Widget {
 
     @:isVar public var text2(get, set):ru.stablex.ui.widgets.Text;
 
-    inline function get_field0():ru.stablex.ui.skins.Paint {
+    inline function get_paint__0():ru.stablex.ui.skins.Paint {
         /* ui/First.xml:5 characters: 3-13 */
         var res = new ru.stablex.ui.skins.Paint();
         /* ui/First.xml:5 characters: 15-20 */
@@ -36,7 +36,7 @@ class First extends ru.stablex.ui.widgets.Widget {
         return res;
     }
 
-    inline function get_field1():ru.stablex.ui.skins.Paint {
+    inline function get_paint__1():ru.stablex.ui.skins.Paint {
         /* ui/First.xml:10 characters: 4-14 */
         var res = new ru.stablex.ui.skins.Paint();
         /* ui/First.xml:10 characters: 16-21 */
@@ -48,7 +48,7 @@ class First extends ru.stablex.ui.widgets.Widget {
         return res;
     }
 
-    inline function get_field2():ru.stablex.ui.widgets.Button {
+    inline function get_button__0():ru.stablex.ui.widgets.Button {
         /* ui/First.xml:7 characters: 2-8 */
         var res = new ru.stablex.ui.widgets.Button();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
@@ -68,7 +68,7 @@ class First extends ru.stablex.ui.widgets.Widget {
         res.widthPt = 70;
         res.addEventListener(flash.events.MouseEvent.CLICK, clickHandler);
         /* ui/First.xml:9 characters: 3-7 */
-        res.skin = get_field1();
+        res.skin = get_paint__1();
         res._onInitialize();
         res._onCreate();
         return res;
@@ -103,13 +103,13 @@ class First extends ru.stablex.ui.widgets.Widget {
         return res;
     }
 
-    inline function get_field3():flash.events.MouseEvent -> StdTypes.Void {
+    inline function get_click__0():flash.events.MouseEvent -> StdTypes.Void {
         /* ui/First.xml:14 characters: 83-88 */
         var res = function (event:flash.events.MouseEvent):StdTypes.Void { trace('green button click'); };
         return res;
     }
 
-    inline function get_field4():GreenButton {
+    inline function get_greenButton__0():GreenButton {
         /* ui/First.xml:14 characters: 2-16 */
         var res = new GreenButton();
         /* ui/First.xml:14 characters: 30-35 */
@@ -118,7 +118,7 @@ class First extends ru.stablex.ui.widgets.Widget {
         res.text = 'Green Button';
         /* ui/First.xml:14 characters: 41-47 */
         res.bottom = 10;
-        res.addEventListener(flash.events.MouseEvent.CLICK, get_field3());
+        res.addEventListener(flash.events.MouseEvent.CLICK, get_click__0());
         /* ui/First.xml:14 characters: 53-54 */
         res.w = 200;
         res._onInitialize();
@@ -141,11 +141,11 @@ class First extends ru.stablex.ui.widgets.Widget {
         /* ui/First.xml:3 characters: 72-73 */
         this.w = 400;
         /* ui/First.xml:4 characters: 2-6 */
-        this.skin = get_field0();
+        this.skin = get_paint__0();
         this._onInitialize();
-        this.addChild(get_field2());
+        this.addChild(get_button__0());
         this.addChild(text2);
-        this.addChild(get_field4());
+        this.addChild(get_greenButton__0());
         this._onCreate();
     }
 }

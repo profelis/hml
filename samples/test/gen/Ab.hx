@@ -100,13 +100,13 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         return res;
     }
 
-    inline function get_field0():flash.events.Event -> StdTypes.Void {
+    inline function get_someEvent__0():flash.events.Event -> StdTypes.Void {
         /* ui/Ab.xml:1 characters: 59-68 */
         var res = function (event:flash.events.Event):StdTypes.Void { trace('some event meta magic'); };
         return res;
     }
 
-    inline function get_field1():String {
+    inline function get_string__0():String {
         /* ui/Ab.xml:7 characters: 8-17 */
         var res = 'as';
         return res;
@@ -136,7 +136,7 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         return child1 = value;
     }
 
-    inline function get_field2():flash.events.MouseEvent -> StdTypes.Void {
+    inline function get_click__0():flash.events.MouseEvent -> StdTypes.Void {
         /* ui/Ab.xml:15 characters: 4-9 */
         var res = function (event:flash.events.MouseEvent):StdTypes.Void { trace('click'); this.dispatchEvent(new flash.events.Event('someEvent')); };
         return res;
@@ -156,7 +156,7 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         res.text = privateString;
         /* ui/Ab.xml:14 characters: 102-112 */
         res.selectable = false;
-        res.addEventListener(flash.events.MouseEvent.CLICK, get_field2());
+        res.addEventListener(flash.events.MouseEvent.CLICK, get_click__0());
         /* ui/Ab.xml:14 characters: 31-32 */
         res.x = 100;
         /* ui/Ab.xml:14 characters: 39-40 */
@@ -217,11 +217,11 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         super();
         /* ui/Ab.xml:1 characters: 103-108 */
         this.alpha = 0.5;
-        this.addEventListener("someEvent", get_field0());
+        this.addEventListener("someEvent", get_someEvent__0());
         /* ui/Ab.xml:4 characters: 2-6 */
         this.name = 'testName';
         /* ui/Ab.xml:7 characters: 2-6 */
-        this.list.push(get_field1());
+        this.list.push(get_string__0());
         this.list.push(str2);
         this.addChild(sprite);
     }

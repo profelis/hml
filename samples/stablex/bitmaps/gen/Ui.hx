@@ -2,7 +2,7 @@ package ;
 
 class Ui extends ru.stablex.ui.widgets.VBox {
 
-    inline function get_field0():ru.stablex.ui.skins.Paint {
+    inline function get_paint__0():ru.stablex.ui.skins.Paint {
         /* ui/Ui.xml:8 characters: 13-23 */
         var res = new ru.stablex.ui.skins.Paint();
         /* ui/Ui.xml:8 characters: 25-30 */
@@ -10,7 +10,7 @@ class Ui extends ru.stablex.ui.widgets.VBox {
         return res;
     }
 
-    inline function get_field1():ru.stablex.ui.widgets.Bmp {
+    inline function get_bmp__0():ru.stablex.ui.widgets.Bmp {
         /* ui/Ui.xml:12 characters: 9-12 */
         var res = new ru.stablex.ui.widgets.Bmp();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Bmp")) {
@@ -27,7 +27,7 @@ class Ui extends ru.stablex.ui.widgets.VBox {
         return res;
     }
 
-    inline function get_field2():ru.stablex.ui.widgets.Bmp {
+    inline function get_bmp__1():ru.stablex.ui.widgets.Bmp {
         /* ui/Ui.xml:15 characters: 9-12 */
         var res = new ru.stablex.ui.widgets.Bmp();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Bmp")) {
@@ -52,7 +52,7 @@ class Ui extends ru.stablex.ui.widgets.VBox {
         return res;
     }
 
-    inline function get_field3():ru.stablex.ui.widgets.Bmp {
+    inline function get_bmp__2():ru.stablex.ui.widgets.Bmp {
         /* ui/Ui.xml:18 characters: 9-12 */
         var res = new ru.stablex.ui.widgets.Bmp();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Bmp")) {
@@ -77,7 +77,7 @@ class Ui extends ru.stablex.ui.widgets.VBox {
         return res;
     }
 
-    inline function get_field4():ru.stablex.ui.widgets.HBox {
+    inline function get_hBox__0():ru.stablex.ui.widgets.HBox {
         /* ui/Ui.xml:6 characters: 5-9 */
         var res = new ru.stablex.ui.widgets.HBox();
         if(ru.stablex.ui.UIBuilder.defaults.exists("HBox")) {
@@ -94,16 +94,16 @@ class Ui extends ru.stablex.ui.widgets.VBox {
         /* ui/Ui.xml:6 characters: 42-43 */
         res.widthPt = 100;
         /* ui/Ui.xml:7 characters: 9-13 */
-        res.skin = get_field0();
+        res.skin = get_paint__0();
         res._onInitialize();
-        res.addChild(get_field1());
-        res.addChild(get_field2());
-        res.addChild(get_field3());
+        res.addChild(get_bmp__0());
+        res.addChild(get_bmp__1());
+        res.addChild(get_bmp__2());
         res._onCreate();
         return res;
     }
 
-    inline function get_field5():ru.stablex.ui.skins.Paint {
+    inline function get_paint__1():ru.stablex.ui.skins.Paint {
         /* ui/Ui.xml:24 characters: 13-23 */
         var res = new ru.stablex.ui.skins.Paint();
         /* ui/Ui.xml:24 characters: 25-30 */
@@ -111,7 +111,7 @@ class Ui extends ru.stablex.ui.widgets.VBox {
         return res;
     }
 
-    inline function get_field6():ru.stablex.ui.widgets.Bmp {
+    inline function get_bmp__3():ru.stablex.ui.widgets.Bmp {
         /* ui/Ui.xml:27 characters: 9-12 */
         var res = new ru.stablex.ui.widgets.Bmp();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Bmp")) {
@@ -132,7 +132,7 @@ class Ui extends ru.stablex.ui.widgets.VBox {
         return res;
     }
 
-    inline function get_field7():ru.stablex.ui.widgets.Bmp {
+    inline function get_bmp__4():ru.stablex.ui.widgets.Bmp {
         /* ui/Ui.xml:29 characters: 9-12 */
         var res = new ru.stablex.ui.widgets.Bmp();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Bmp")) {
@@ -153,7 +153,7 @@ class Ui extends ru.stablex.ui.widgets.VBox {
         return res;
     }
 
-    inline function get_field8():ru.stablex.ui.widgets.HBox {
+    inline function get_hBox__1():ru.stablex.ui.widgets.HBox {
         /* ui/Ui.xml:22 characters: 5-9 */
         var res = new ru.stablex.ui.widgets.HBox();
         if(ru.stablex.ui.UIBuilder.defaults.exists("HBox")) {
@@ -170,10 +170,10 @@ class Ui extends ru.stablex.ui.widgets.VBox {
         /* ui/Ui.xml:22 characters: 42-43 */
         res.widthPt = 100;
         /* ui/Ui.xml:23 characters: 9-13 */
-        res.skin = get_field5();
+        res.skin = get_paint__1();
         res._onInitialize();
-        res.addChild(get_field6());
-        res.addChild(get_field7());
+        res.addChild(get_bmp__3());
+        res.addChild(get_bmp__4());
         res._onCreate();
         return res;
     }
@@ -193,8 +193,8 @@ class Ui extends ru.stablex.ui.widgets.VBox {
         /* ui/Ui.xml:3 characters: 70-71 */
         this.w = flash.Lib.current.stage.stageWidth;
         this._onInitialize();
-        this.addChild(get_field4());
-        this.addChild(get_field8());
+        this.addChild(get_hBox__0());
+        this.addChild(get_hBox__1());
         this._onCreate();
     }
 }

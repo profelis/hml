@@ -141,7 +141,7 @@ class DefaultWidgetWithMetaWriter extends DisplayObjectWithMetaWriter {
 			var defs = '["${defs.split(",").map(function (s) return s.trim()).join('", "')}"]';
 			var typeName = node.superType;
             var pos = typeName.lastIndexOf(".");
-            if (pos > 0) typeName = typeName.substr(pos + 1);
+            if (pos > -1) typeName = typeName.substr(pos + 1);
 			method.push('if(ru.stablex.ui.UIBuilder.defaults.exists("$typeName")) {');
 			method.push('\tvar defFns = ru.stablex.ui.UIBuilder.defaults.get("$typeName");');
 			method.push('\tfor(def in $defs) {');

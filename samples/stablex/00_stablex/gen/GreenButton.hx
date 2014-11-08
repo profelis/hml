@@ -2,7 +2,7 @@ package ;
 
 class GreenButton extends ru.stablex.ui.widgets.Button {
 
-    inline function get_field0():ru.stablex.ui.skins.Paint {
+    inline function get_paint__0():ru.stablex.ui.skins.Paint {
         /* ui/GreenButton.xml:5 characters: 3-13 */
         var res = new ru.stablex.ui.skins.Paint();
         /* ui/GreenButton.xml:5 characters: 15-20 */
@@ -29,7 +29,7 @@ class GreenButton extends ru.stablex.ui.widgets.Button {
         /* ui/GreenButton.xml:3 characters: 96-106 */
         this.id = 'testId';
         /* ui/GreenButton.xml:4 characters: 2-14 */
-        this.skin = get_field0();
+        this.skin = get_paint__0();
         this._onInitialize();
         this._onCreate();
     }

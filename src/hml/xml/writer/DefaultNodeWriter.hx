@@ -13,7 +13,7 @@ using haxe.macro.Tools;
 
 class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 
-	static var nodeIds:Map<Node, Int> = new Map();
+	static var nodeIds:Map<String, Int> = new Map();
 
 	public var printer:Printer = new Printer("");
 
@@ -28,10 +28,13 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 	}
 
 	function initNodeId(n:Node):Void {
+        var name = n.name.name;
+        name = name.charAt(0).toLowerCase() + name.substr(1);
+        var key = n.root.file + name;
 		if (n.id == null) {
-			var i = nodeIds.exists(n.root) ? nodeIds.get(n.root) : 0;
-			n.id = "field" + (i++);
-			nodeIds[n.root] = i;
+			var i = nodeIds.exists(key) ? nodeIds[key] : 0;
+            n.id =  '${name}__$i';
+			nodeIds[key] = i + 1;
 		}
 	}
 

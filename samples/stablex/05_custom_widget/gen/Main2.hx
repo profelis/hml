@@ -28,7 +28,7 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         return res;
     }
 
-    inline function get_field0():flash.events.MouseEvent -> StdTypes.Void {
+    inline function get_click__0():flash.events.MouseEvent -> StdTypes.Void {
         /* ui/Main2.xml:5 characters: 39-44 */
         var res = function (event:flash.events.MouseEvent):StdTypes.Void { 
             custom.color = Std.random(0xFFFFFF);
@@ -37,7 +37,7 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         return res;
     }
 
-    inline function get_field1():ru.stablex.ui.skins.Paint {
+    inline function get_paint__0():ru.stablex.ui.skins.Paint {
         /* ui/Main2.xml:9 characters: 11-21 */
         var res = new ru.stablex.ui.skins.Paint();
         /* ui/Main2.xml:9 characters: 23-28 */
@@ -45,7 +45,7 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         return res;
     }
 
-    inline function get_field2():ru.stablex.ui.widgets.Button {
+    inline function get_button__0():ru.stablex.ui.widgets.Button {
         /* ui/Main2.xml:5 characters: 5-11 */
         var res = new ru.stablex.ui.widgets.Button();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
@@ -57,9 +57,9 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         }
         /* ui/Main2.xml:5 characters: 13-17 */
         res.text = 'set random color';
-        res.addEventListener(flash.events.MouseEvent.CLICK, get_field0());
+        res.addEventListener(flash.events.MouseEvent.CLICK, get_click__0());
         /* ui/Main2.xml:9 characters: 5-9 */
-        res.skin = get_field1();
+        res.skin = get_paint__0();
         res._onInitialize();
         res._onCreate();
         return res;
@@ -81,7 +81,7 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         this.padding = 20;
         this._onInitialize();
         this.addChild(custom);
-        this.addChild(get_field2());
+        this.addChild(get_button__0());
         this._onCreate();
     }
 }

@@ -11,7 +11,7 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         return input = value;
     }
 
-    inline function get_field0():ru.stablex.ui.skins.Paint {
+    inline function get_paint__0():ru.stablex.ui.skins.Paint {
         /* ui/Main2.xml:5 characters: 12-22 */
         var res = new ru.stablex.ui.skins.Paint();
         /* ui/Main2.xml:5 characters: 35-40 */
@@ -41,13 +41,13 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         /* ui/Main2.xml:4 characters: 27-28 */
         res.w = 150;
         /* ui/Main2.xml:5 characters: 6-10 */
-        res.skin = get_field0();
+        res.skin = get_paint__0();
         res._onInitialize();
         res._onCreate();
         return res;
     }
 
-    inline function get_field1():flash.events.MouseEvent -> StdTypes.Void {
+    inline function get_click__0():flash.events.MouseEvent -> StdTypes.Void {
         /* ui/Main2.xml:9 characters: 48-53 */
         var res = function (event:flash.events.MouseEvent):StdTypes.Void { 
             flash.Lib.current.addChild(
@@ -61,7 +61,7 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         return res;
     }
 
-    inline function get_field2():ru.stablex.ui.skins.Paint {
+    inline function get_paint__1():ru.stablex.ui.skins.Paint {
         /* ui/Main2.xml:18 characters: 12-22 */
         var res = new ru.stablex.ui.skins.Paint();
         /* ui/Main2.xml:18 characters: 35-40 */
@@ -71,7 +71,7 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         return res;
     }
 
-    inline function get_field3():ru.stablex.ui.widgets.Button {
+    inline function get_button__0():ru.stablex.ui.widgets.Button {
         /* ui/Main2.xml:9 characters: 5-11 */
         var res = new ru.stablex.ui.widgets.Button();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
@@ -85,9 +85,9 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         res.text = 'Show me the alert!';
         /* ui/Main2.xml:9 characters: 13-14 */
         res.h = 20;
-        res.addEventListener(flash.events.MouseEvent.CLICK, get_field1());
+        res.addEventListener(flash.events.MouseEvent.CLICK, get_click__0());
         /* ui/Main2.xml:18 characters: 6-10 */
-        res.skin = get_field2();
+        res.skin = get_paint__1();
         res._onInitialize();
         res._onCreate();
         return res;
@@ -109,7 +109,7 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         this.padding = 10;
         this._onInitialize();
         this.addChild(input);
-        this.addChild(get_field3());
+        this.addChild(get_button__0());
         this._onCreate();
     }
 }

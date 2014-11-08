@@ -27,7 +27,7 @@ class Index extends Main {
         return box = value;
     }
 
-    inline function get_field0():flash.events.MouseEvent -> StdTypes.Void {
+    inline function get_mouseDown__0():flash.events.MouseEvent -> StdTypes.Void {
         /* assets/ui/Index.xml:14 characters: 89-98 */
         var res = function (event:flash.events.MouseEvent):StdTypes.Void { 
             nme.tween(
@@ -44,7 +44,7 @@ class Index extends Main {
         return nme = value;
     }
 
-    inline function get_field1():ru.stablex.ui.widgets.Bmp {
+    inline function get_bmp__0():ru.stablex.ui.widgets.Bmp {
         /* assets/ui/Index.xml:22 characters: 13-16 */
         var res = new ru.stablex.ui.widgets.Bmp();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Bmp")) {
@@ -83,12 +83,12 @@ class Index extends Main {
         /* assets/ui/Index.xml:21 characters: 23-24 */
         res.w = 80;
         res._onInitialize();
-        res.addChild(get_field1());
+        res.addChild(get_bmp__0());
         res._onCreate();
         return res;
     }
 
-    inline function get_field2():flash.text.TextFormat {
+    inline function get_textFormat__0():flash.text.TextFormat {
         /* assets/ui/Index.xml:25 characters: 21-36 */
         var res = new flash.text.TextFormat();
         /* assets/ui/Index.xml:25 characters: 38-42 */
@@ -96,7 +96,7 @@ class Index extends Main {
         return res;
     }
 
-    inline function get_field3():ru.stablex.ui.widgets.Text {
+    inline function get_text__0():ru.stablex.ui.widgets.Text {
         /* assets/ui/Index.xml:24 characters: 9-13 */
         var res = new ru.stablex.ui.widgets.Text();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Text")) {
@@ -109,7 +109,7 @@ class Index extends Main {
         /* assets/ui/Index.xml:24 characters: 15-19 */
         res.text = 'Click anywhere in this box';
         /* assets/ui/Index.xml:25 characters: 13-19 */
-        res.format = get_field2();
+        res.format = get_textFormat__0();
         res._onInitialize();
         res._onCreate();
         return res;
@@ -138,10 +138,10 @@ class Index extends Main {
         res.bottom = 10;
         /* assets/ui/Index.xml:14 characters: 43-50 */
         res.widthPt = 90;
-        res.addEventListener(flash.events.MouseEvent.MOUSE_DOWN, get_field0());
+        res.addEventListener(flash.events.MouseEvent.MOUSE_DOWN, get_mouseDown__0());
         res._onInitialize();
         res.addChild(nme);
-        res.addChild(get_field3());
+        res.addChild(get_text__0());
         res._onCreate();
         return res;
     }
@@ -151,7 +151,7 @@ class Index extends Main {
         return buttons = value;
     }
 
-    inline function get_field4():flash.events.MouseEvent -> StdTypes.Void {
+    inline function get_click__0():flash.events.MouseEvent -> StdTypes.Void {
         /* assets/ui/Index.xml:31 characters: 75-80 */
         var res = function (event:flash.events.MouseEvent):StdTypes.Void { 
                 nme.tween(
@@ -163,7 +163,7 @@ class Index extends Main {
         return res;
     }
 
-    inline function get_field5():ru.stablex.ui.widgets.Button {
+    inline function get_button__0():ru.stablex.ui.widgets.Button {
         /* assets/ui/Index.xml:31 characters: 9-15 */
         var res = new ru.stablex.ui.widgets.Button();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
@@ -179,7 +179,7 @@ class Index extends Main {
         res.text = 'Move nme. logo';
         /* assets/ui/Index.xml:31 characters: 44-45 */
         res.h = 40;
-        res.addEventListener(flash.events.MouseEvent.CLICK, get_field4());
+        res.addEventListener(flash.events.MouseEvent.CLICK, get_click__0());
         /* assets/ui/Index.xml:31 characters: 36-37 */
         res.w = 100;
         res._onInitialize();
@@ -192,7 +192,7 @@ class Index extends Main {
         return btn1 = value;
     }
 
-    inline function get_field6():flash.events.MouseEvent -> StdTypes.Void {
+    inline function get_click__1():flash.events.MouseEvent -> StdTypes.Void {
         /* assets/ui/Index.xml:39 characters: 82-87 */
         var res = function (event:flash.events.MouseEvent):StdTypes.Void { 
                 var box = this.box;
@@ -239,7 +239,7 @@ class Index extends Main {
         res.text = 'Make it red';
         /* assets/ui/Index.xml:39 characters: 44-45 */
         res.h = 40;
-        res.addEventListener(flash.events.MouseEvent.CLICK, get_field6());
+        res.addEventListener(flash.events.MouseEvent.CLICK, get_click__1());
         /* assets/ui/Index.xml:39 characters: 36-37 */
         res.w = 100;
         res._onInitialize();
@@ -252,7 +252,7 @@ class Index extends Main {
         return btn2 = value;
     }
 
-    inline function get_field7():flash.events.MouseEvent -> StdTypes.Void {
+    inline function get_click__2():flash.events.MouseEvent -> StdTypes.Void {
         /* assets/ui/Index.xml:63 characters: 85-90 */
         var res = function (event:flash.events.MouseEvent):StdTypes.Void { 
                 var root = this;
@@ -294,7 +294,7 @@ class Index extends Main {
         res.text = 'Make it Ubuntu';
         /* assets/ui/Index.xml:63 characters: 54-55 */
         res.h = 40;
-        res.addEventListener(flash.events.MouseEvent.CLICK, get_field7());
+        res.addEventListener(flash.events.MouseEvent.CLICK, get_click__2());
         /* assets/ui/Index.xml:63 characters: 46-47 */
         res.w = 100;
         res._onInitialize();
@@ -302,7 +302,7 @@ class Index extends Main {
         return res;
     }
 
-    inline function get_field8():flash.events.MouseEvent -> StdTypes.Void {
+    inline function get_click__3():flash.events.MouseEvent -> StdTypes.Void {
         /* assets/ui/Index.xml:82 characters: 74-79 */
         var res = function (event:flash.events.MouseEvent):StdTypes.Void { 
                 resize(500 + Std.random(291), 400 + Std.random(191));
@@ -310,7 +310,7 @@ class Index extends Main {
         return res;
     }
 
-    inline function get_field9():ru.stablex.ui.widgets.Button {
+    inline function get_button__1():ru.stablex.ui.widgets.Button {
         /* assets/ui/Index.xml:82 characters: 9-15 */
         var res = new ru.stablex.ui.widgets.Button();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
@@ -326,7 +326,7 @@ class Index extends Main {
         res.text = 'Random resize';
         /* assets/ui/Index.xml:82 characters: 44-45 */
         res.h = 40;
-        res.addEventListener(flash.events.MouseEvent.CLICK, get_field8());
+        res.addEventListener(flash.events.MouseEvent.CLICK, get_click__3());
         /* assets/ui/Index.xml:82 characters: 36-37 */
         res.w = 100;
         res._onInitialize();
@@ -358,10 +358,10 @@ class Index extends Main {
         /* assets/ui/Index.xml:30 characters: 33-40 */
         res.widthPt = 100;
         res._onInitialize();
-        res.addChild(get_field5());
+        res.addChild(get_button__0());
         res.addChild(btn1);
         res.addChild(btn2);
-        res.addChild(get_field9());
+        res.addChild(get_button__1());
         res._onCreate();
         return res;
     }

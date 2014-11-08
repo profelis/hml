@@ -6,7 +6,7 @@ class Alert extends ru.stablex.ui.widgets.VBox {
 
     @:isVar public var message(get, set):ru.stablex.ui.widgets.Text;
 
-    inline function get_field0():ru.stablex.ui.skins.Paint {
+    inline function get_paint__0():ru.stablex.ui.skins.Paint {
         /* ui/Alert.xml:6 characters: 8-18 */
         var res = new ru.stablex.ui.skins.Paint();
         /* ui/Alert.xml:6 characters: 31-36 */
@@ -39,13 +39,13 @@ class Alert extends ru.stablex.ui.widgets.VBox {
         return res;
     }
 
-    inline function get_field1():flash.events.MouseEvent -> StdTypes.Void {
+    inline function get_click__0():flash.events.MouseEvent -> StdTypes.Void {
         /* ui/Alert.xml:9 characters: 28-33 */
         var res = function (event:flash.events.MouseEvent):StdTypes.Void { this.free(); };
         return res;
     }
 
-    inline function get_field2():ru.stablex.ui.skins.Paint {
+    inline function get_paint__1():ru.stablex.ui.skins.Paint {
         /* ui/Alert.xml:10 characters: 12-22 */
         var res = new ru.stablex.ui.skins.Paint();
         /* ui/Alert.xml:10 characters: 35-40 */
@@ -55,7 +55,7 @@ class Alert extends ru.stablex.ui.widgets.VBox {
         return res;
     }
 
-    inline function get_field3():ru.stablex.ui.widgets.Button {
+    inline function get_button__0():ru.stablex.ui.widgets.Button {
         /* ui/Alert.xml:9 characters: 5-11 */
         var res = new ru.stablex.ui.widgets.Button();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
@@ -67,9 +67,9 @@ class Alert extends ru.stablex.ui.widgets.VBox {
         }
         /* ui/Alert.xml:9 characters: 13-17 */
         res.text = 'close';
-        res.addEventListener(flash.events.MouseEvent.CLICK, get_field1());
+        res.addEventListener(flash.events.MouseEvent.CLICK, get_click__0());
         /* ui/Alert.xml:10 characters: 6-10 */
-        res.skin = get_field2();
+        res.skin = get_paint__1();
         res._onInitialize();
         res._onCreate();
         return res;
@@ -94,10 +94,10 @@ class Alert extends ru.stablex.ui.widgets.VBox {
         /* ui/Alert.xml:4 characters: 2-6 */
         this.left = 100;
         /* ui/Alert.xml:6 characters: 2-6 */
-        this.skin = get_field0();
+        this.skin = get_paint__0();
         this._onInitialize();
         this.addChild(message);
-        this.addChild(get_field3());
+        this.addChild(get_button__0());
         this._onCreate();
     }
 }
