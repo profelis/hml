@@ -105,7 +105,6 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 	public function writeAttribute(node:Node, scope:String, child:Node, method:Array<String>):Void {
 		var writer;
         #if hml_debug
-        trace(child);
         writer = writers.findMatch(function (p) return p.match(child));
         #else
 		try {

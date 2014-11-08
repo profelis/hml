@@ -40,7 +40,8 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 			types[type.type] = type;
 		}
 
-		if (!(resolveTypes(resolveNode) && resolveTypes(recursiveResolve)))
+        resolveTypes(resolveNode);
+		if (!resolveTypes(recursiveResolve))
 			types.iter(throwResolveError);
 
 		if (!resolveTypes(postResolve))
@@ -53,11 +54,11 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 		var i = 0;
 		var flag = true;
 		while (i++ < n) {
-			for (t in types) flag = flag && resolveMethod(t);
+			for (t in types) flag = resolveMethod(t) && flag;
             if (flag) break;
 		}
 		#if hml_debug
-		trace("iterations: " + i);
+		trace("iterations: " + i + " flag: " + flag);
 		#end
 		return flag;
 	}
@@ -95,21 +96,19 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 	}
 
 	function recursiveResolve(n:Node):Bool {
-		if (resolveNode(n)) {
-			var res = true;
-			inline function iterNodes(nodes:Array<Node>)
-				for (c in nodes) res = res && recursiveResolve(c);
+		var res = resolveNode(n);
 
-			iterNodes(n.children);
-			iterNodes(n.nodes);
-            if (Std.is(n, Type)) 
-                for (d in (cast(n, Type).declarations)) {
-                    if (d.nativeType == null) d.nativeType = getNativeType(d);
-                    res = res && recursiveResolve(d);
-                }
-			return res;
-		}
-		return false;
+        inline function iterNodes(nodes:Array<Node>)
+            for (c in nodes) res = recursiveResolve(c) && res;
+
+        iterNodes(n.children);
+        iterNodes(n.nodes);
+        if (Std.is(n, Type)) 
+            for (d in (cast(n, Type).declarations)) {
+                if (d.nativeType == null) d.nativeType = getNativeType(d);
+                res = recursiveResolve(d) && res;
+            }
+        return res;
 	}
 
 	function postResolve(n:Node):Bool {
@@ -117,7 +116,7 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 		if (n.nativeType == null) return false;
 		var res = true;
 
-		inline function processNode(node:Node) res = res && postResolve(node);
+		inline function processNode(node:Node) res = postResolve(node) && res;
 		inline function iterNodes(nodes:Array<Node>) for (c in nodes) processNode(c);
 
 		n.oneInstance = n.id == null;
