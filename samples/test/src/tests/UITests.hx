@@ -18,7 +18,7 @@ using Lambda;
 using Reflect;
 using utest.Assert;
 
-class UITests extends BuddySuite implements Buddy  {
+class UITests extends BuddySuite {
     public function new() {
 
         describe("base hml test", {
