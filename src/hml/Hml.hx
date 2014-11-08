@@ -75,7 +75,7 @@ class Hml {
 		if (path.exists() && !path.isDirectory())
 			Context.fatalError('output path "$path" already exist', Context.currentPos());
 
-		if (output.autoClear != false && path.exists()) rmDirContent(path);
+		if (output.autoClear == true && path.exists()) rmDirContent(path);
 		if (output.autoCreate != false && !path.exists())
 			try {
 				path.createDirectory();
@@ -86,11 +86,7 @@ class Hml {
 		if (!path.exists())
 			Context.fatalError('output folder "$path" doesn\'t exist', Context.currentPos());
 
-		if (output.allowOverride != true) {
-			var dir = readDir(path);
-			if (dir.length > 0)
-				Context.fatalError('output folder "$path" is not empty', Context.currentPos());
-		}
+		output.allowOverride = output.allowOverride != false;
 	}
 	
 	static function readDir(path:String):Array<String> {

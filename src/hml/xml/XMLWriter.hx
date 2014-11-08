@@ -81,7 +81,11 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 			var p = new Path(path);
 			if (p.dir != null) p.dir.createDirectory();
 			p.ext = "hx";
-			sys.io.File.saveContent(p.toString(), res);
+            var file = p.toString();
+            if (!output.allowOverride && file.exists())
+                Context.warning('can\'t override file "$file". File already exists. Use allowOverride for change settings.', Context.makePosition({file:file, min:0, max:0}));
+			else
+                sys.io.File.saveContent(p.toString(), res);
 		}
 	}
 
