@@ -112,13 +112,6 @@ class First extends ru.stablex.ui.widgets.Widget {
     inline function get_field4():GreenButton {
         /* ui/First.xml:14 characters: 2-16 */
         var res = new GreenButton();
-        if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
-        }
         /* ui/First.xml:14 characters: 30-35 */
         res.right = 10;
         /* ui/First.xml:14 characters: 61-65 */

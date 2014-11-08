@@ -119,27 +119,18 @@ class DefaultWidgetWithMetaWriter extends DisplayObjectWithMetaWriter {
 	}
 
 	override function predInit(node:Node, method) {
-		var defaults = node.nodes.find(function (it) return it.name.name == "defaults" && it.name.ns == null);
-		var defs = defaults != null ? defaults.cData.trim() : "Default";
-		if (defs.startsWith("'") && defs.endsWith("'")) defs = defs.substr(1, defs.length - 2);
-		if (defs.length > 0) {
-			if (defaults != null) {
-				defaults.cData = '\'$defs\'';
-			}
-			var defs = '["${defs.split(",").map(function (s) return s.trim()).join('", "')}"]';
-			var typeName = switch (node.nativeType) { case haxe.macro.Type.TInst(_.get() => a, _): a.name; case _: null;};
-			method.push('if(ru.stablex.ui.UIBuilder.defaults.exists("$typeName")) {');
-			method.push('\tvar defFns = ru.stablex.ui.UIBuilder.defaults.get("$typeName");');
-			method.push('\tfor(def in $defs) {');
-			method.push('\t\tvar defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);');
-			method.push('\t\tif(defaultsFn != null) defaultsFn(res);');
-			method.push('\t}');
-			method.push('}');
-	    }
+        // defaults only for core widgets
+        if (node.superType.startsWith("ru.stablex.ui.widgets."))
+            writeDefaults("res", node, method);
 	}
 
 	override function predCtorInit(node:Node, method) {
-		var defaults = node.nodes.find(function (it) return it.name.name == "defaults" && it.name.ns == null);
+		writeDefaults("this", node, method);
+	}
+    
+    inline function writeDefaults(scope:String, node:Node, method)
+    {
+        var defaults = node.nodes.find(function (it) return it.name.name == "defaults" && it.name.ns == null);
 		var defs = defaults != null ? defaults.cData.trim() : "Default";
 		if (defs.startsWith("'") && defs.endsWith("'")) defs = defs.substr(1, defs.length - 2);
 		if (defs.length > 0) {
@@ -148,16 +139,18 @@ class DefaultWidgetWithMetaWriter extends DisplayObjectWithMetaWriter {
 			}
 			if (defs.endsWith("'")) defs = defs.substr(0, defs.length - 1);
 			var defs = '["${defs.split(",").map(function (s) return s.trim()).join('", "')}"]';
-			var typeName = switch (node.nativeType) { case haxe.macro.Type.TInst(_.get() => a, _): a.name; case _: null;};
+			var typeName = node.superType;
+            var pos = typeName.lastIndexOf(".");
+            if (pos > 0) typeName = typeName.substr(pos + 1);
 			method.push('if(ru.stablex.ui.UIBuilder.defaults.exists("$typeName")) {');
 			method.push('\tvar defFns = ru.stablex.ui.UIBuilder.defaults.get("$typeName");');
 			method.push('\tfor(def in $defs) {');
 			method.push('\t\tvar defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);');
-			method.push('\t\tif(defaultsFn != null) defaultsFn(this);');
+			method.push('\t\tif(defaultsFn != null) defaultsFn($scope);');
 			method.push('\t}');
 			method.push('}');
 	    }
-	}
+    }
 }
 
 class DefaultSkinWriter extends DefaultNodeWriter {

@@ -17,13 +17,6 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         custom_initialized = true;
         var res = new ColorWidget();
         this.custom = res;
-        if(ru.stablex.ui.UIBuilder.defaults.exists("ColorWidget")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("ColorWidget");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
-        }
         /* ui/Main2.xml:4 characters: 55-60 */
         res.color = 0x0000FF;
         /* ui/Main2.xml:4 characters: 47-48 */
