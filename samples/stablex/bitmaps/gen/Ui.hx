@@ -14,11 +14,11 @@ class Ui extends ru.stablex.ui.widgets.VBox {
         /* ui/Ui.xml:12 characters: 9-12 */
         var res = new ru.stablex.ui.widgets.Bmp();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Bmp")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Bmp");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Bmp");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* ui/Ui.xml:12 characters: 14-17 */
         res.src = 'assets/haxe.png';
@@ -31,11 +31,11 @@ class Ui extends ru.stablex.ui.widgets.VBox {
         /* ui/Ui.xml:15 characters: 9-12 */
         var res = new ru.stablex.ui.widgets.Bmp();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Bmp")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Bmp");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Bmp");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* ui/Ui.xml:15 characters: 14-17 */
         res.src = 'assets/haxe.png';
@@ -56,11 +56,11 @@ class Ui extends ru.stablex.ui.widgets.VBox {
         /* ui/Ui.xml:18 characters: 9-12 */
         var res = new ru.stablex.ui.widgets.Bmp();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Bmp")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Bmp");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Bmp");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* ui/Ui.xml:18 characters: 62-71 */
         res.autoWidth = true;
@@ -81,11 +81,11 @@ class Ui extends ru.stablex.ui.widgets.VBox {
         /* ui/Ui.xml:6 characters: 5-9 */
         var res = new ru.stablex.ui.widgets.HBox();
         if(ru.stablex.ui.UIBuilder.defaults.exists("HBox")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("HBox");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("HBox");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* ui/Ui.xml:6 characters: 24-36 */
         res.childPadding = 30;
@@ -115,11 +115,11 @@ class Ui extends ru.stablex.ui.widgets.VBox {
         /* ui/Ui.xml:27 characters: 9-12 */
         var res = new ru.stablex.ui.widgets.Bmp();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Bmp")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Bmp");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Bmp");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* ui/Ui.xml:27 characters: 14-17 */
         res.src = 'assets/haxe.png';
@@ -136,11 +136,11 @@ class Ui extends ru.stablex.ui.widgets.VBox {
         /* ui/Ui.xml:29 characters: 9-12 */
         var res = new ru.stablex.ui.widgets.Bmp();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Bmp")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Bmp");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Bmp");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* ui/Ui.xml:29 characters: 14-17 */
         res.src = 'assets/haxe.png';
@@ -157,11 +157,11 @@ class Ui extends ru.stablex.ui.widgets.VBox {
         /* ui/Ui.xml:22 characters: 5-9 */
         var res = new ru.stablex.ui.widgets.HBox();
         if(ru.stablex.ui.UIBuilder.defaults.exists("HBox")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("HBox");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("HBox");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* ui/Ui.xml:22 characters: 24-36 */
         res.childPadding = 30;
@@ -182,11 +182,11 @@ class Ui extends ru.stablex.ui.widgets.VBox {
         /* ui/Ui.xml:3 characters: 1-5 */
         super();
         if(ru.stablex.ui.UIBuilder.defaults.exists("VBox")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("VBox");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(this);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("VBox");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(this);
+            }
         }
         /* ui/Ui.xml:3 characters: 109-110 */
         this.h = flash.Lib.current.stage.stageHeight;

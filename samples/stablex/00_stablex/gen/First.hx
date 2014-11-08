@@ -52,11 +52,11 @@ class First extends ru.stablex.ui.widgets.Widget {
         /* ui/First.xml:7 characters: 2-8 */
         var res = new ru.stablex.ui.widgets.Button();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* ui/First.xml:7 characters: 20-23 */
         res.top = 100;
@@ -86,11 +86,11 @@ class First extends ru.stablex.ui.widgets.Widget {
         var res = new ru.stablex.ui.widgets.Text();
         this.text2 = res;
         if(ru.stablex.ui.UIBuilder.defaults.exists("Text")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Text");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Text");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* ui/First.xml:13 characters: 29-32 */
         res.topPt = 45;
@@ -130,11 +130,11 @@ class First extends ru.stablex.ui.widgets.Widget {
         /* ui/First.xml:3 characters: 1-7 */
         super();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Widget")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Widget");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(this);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Widget");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(this);
+            }
         }
         /* ui/First.xml:3 characters: 80-81 */
         this.h = 300;

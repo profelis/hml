@@ -18,11 +18,11 @@ class Main2 extends ru.stablex.ui.widgets.Widget {
         /* ui/Main2.xml:3 characters: 1-7 */
         super();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Widget")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Widget");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(this);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Widget");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(this);
+            }
         }
         /* ui/Main2.xml:3 characters: 61-62 */
         this.h = 200;

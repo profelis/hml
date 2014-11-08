@@ -6,11 +6,11 @@ class First extends ru.stablex.ui.widgets.Text {
         /* ui/First.xml:3 characters: 1-5 */
         super();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Text")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Text");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(this);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Text");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(this);
+            }
         }
         /* ui/First.xml:3 characters: 49-52 */
         this.top = 100;

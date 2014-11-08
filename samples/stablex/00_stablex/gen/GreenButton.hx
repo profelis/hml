@@ -18,11 +18,11 @@ class GreenButton extends ru.stablex.ui.widgets.Button {
         /* ui/GreenButton.xml:3 characters: 1-15 */
         super();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(this);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(this);
+            }
         }
         /* ui/GreenButton.xml:3 characters: 88-89 */
         this.heightPt = 15;

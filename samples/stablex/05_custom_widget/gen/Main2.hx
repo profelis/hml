@@ -49,11 +49,11 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         /* ui/Main2.xml:5 characters: 5-11 */
         var res = new ru.stablex.ui.widgets.Button();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* ui/Main2.xml:5 characters: 13-17 */
         res.text = 'set random color';
@@ -69,11 +69,11 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         /* ui/Main2.xml:3 characters: 1-5 */
         super();
         if(ru.stablex.ui.UIBuilder.defaults.exists("HBox")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("HBox");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(this);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("HBox");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(this);
+            }
         }
         /* ui/Main2.xml:3 characters: 20-32 */
         this.childPadding = 20;

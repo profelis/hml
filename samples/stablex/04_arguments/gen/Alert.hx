@@ -28,11 +28,11 @@ class Alert extends ru.stablex.ui.widgets.VBox {
         var res = new ru.stablex.ui.widgets.Text();
         this.message = res;
         if(ru.stablex.ui.UIBuilder.defaults.exists("Text")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Text");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Text");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         res._onInitialize();
         res._onCreate();
@@ -59,11 +59,11 @@ class Alert extends ru.stablex.ui.widgets.VBox {
         /* ui/Alert.xml:9 characters: 5-11 */
         var res = new ru.stablex.ui.widgets.Button();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* ui/Alert.xml:9 characters: 13-17 */
         res.text = 'close';
@@ -79,11 +79,11 @@ class Alert extends ru.stablex.ui.widgets.VBox {
         /* ui/Alert.xml:3 characters: 1-5 */
         super();
         if(ru.stablex.ui.UIBuilder.defaults.exists("VBox")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("VBox");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(this);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("VBox");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(this);
+            }
         }
         /* ui/Alert.xml:4 characters: 13-16 */
         this.top = 100;

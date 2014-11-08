@@ -20,11 +20,11 @@ class Index extends ru.stablex.ui.widgets.VBox {
         /* ui/Index.xml:8 characters: 5-9 */
         var res = new ru.stablex.ui.widgets.Text();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Text")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Text");
-        	for(def in ["Title"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Text");
+            for(def in ["Title"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* ui/Index.xml:8 characters: 30-34 */
         res.text = 'This text is using `Title` defaults';
@@ -39,11 +39,11 @@ class Index extends ru.stablex.ui.widgets.VBox {
         /* ui/Index.xml:9 characters: 5-9 */
         var res = new ru.stablex.ui.widgets.Text();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Text")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Text");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Text");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* ui/Index.xml:9 characters: 11-15 */
         res.text = 'This is text with no defaults specified. And `Default` section for Text tag is not defined in defaults.xml';
@@ -56,11 +56,11 @@ class Index extends ru.stablex.ui.widgets.VBox {
         /* ui/Index.xml:10 characters: 5-9 */
         var res = new ru.stablex.ui.widgets.Text();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Text")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Text");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Text");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* ui/Index.xml:10 characters: 11-15 */
         res.text = 'So this text looks like it was just `new flash.text.TextField()` ';
@@ -73,11 +73,11 @@ class Index extends ru.stablex.ui.widgets.VBox {
         /* ui/Index.xml:11 characters: 5-11 */
         var res = new ru.stablex.ui.widgets.Button();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* ui/Index.xml:11 characters: 13-17 */
         res.text = 'this is button with no defaults specified. But `Default` section for buttons does exist in defaults.xml';
@@ -90,11 +90,11 @@ class Index extends ru.stablex.ui.widgets.VBox {
         /* ui/Index.xml:12 characters: 5-11 */
         var res = new ru.stablex.ui.widgets.Button();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
-        	for(def in ["Red"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+            for(def in ["Red"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* ui/Index.xml:12 characters: 28-32 */
         res.text = 'this button is using `Red` section for buttons in defaults.xml';
@@ -109,11 +109,11 @@ class Index extends ru.stablex.ui.widgets.VBox {
         /* ui/Index.xml:13 characters: 5-11 */
         var res = new ru.stablex.ui.widgets.Button();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
-        	for(def in ["Red", "AnotherFormat"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+            for(def in ["Red", "AnotherFormat"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* ui/Index.xml:13 characters: 43-47 */
         res.text = 'this button is using `Red` and `AnotherFormat` sections for buttons in defaults.xml';
@@ -128,11 +128,11 @@ class Index extends ru.stablex.ui.widgets.VBox {
         /* ui/Index.xml:4 characters: 1-5 */
         super();
         if(ru.stablex.ui.UIBuilder.defaults.exists("VBox")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("VBox");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(this);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("VBox");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(this);
+            }
         }
         /* ui/Index.xml:4 characters: 7-11 */
         this.name = 'top';

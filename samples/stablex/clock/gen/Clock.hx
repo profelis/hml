@@ -32,11 +32,11 @@ class Clock extends ru.stablex.ui.widgets.VBox {
         var res = new ru.stablex.ui.widgets.Clock();
         this.clock1 = res;
         if(ru.stablex.ui.UIBuilder.defaults.exists("Clock")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Clock");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Clock");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         res.addEventListener(flash.events.Event.ADDED_TO_STAGE, get_display__0());
         /* ui/Clock.xml:7 characters: 63-70 */
@@ -68,11 +68,11 @@ class Clock extends ru.stablex.ui.widgets.VBox {
         var res = new ru.stablex.ui.widgets.Clock();
         this.clock2 = res;
         if(ru.stablex.ui.UIBuilder.defaults.exists("Clock")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Clock");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Clock");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         res.addEventListener(flash.events.Event.ADDED_TO_STAGE, get_display__1());
         res._onInitialize();
@@ -84,11 +84,11 @@ class Clock extends ru.stablex.ui.widgets.VBox {
         /* ui/Clock.xml:13 characters: 5-10 */
         var res = new ru.stablex.ui.widgets.Clock();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Clock")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Clock");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Clock");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* ui/Clock.xml:13 characters: 12-17 */
         res.value = Std.int(60*90);
@@ -123,11 +123,11 @@ class Clock extends ru.stablex.ui.widgets.VBox {
         var res = new ru.stablex.ui.widgets.Clock();
         this.clock3 = res;
         if(ru.stablex.ui.UIBuilder.defaults.exists("Clock")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Clock");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Clock");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         res.addEventListener(flash.events.Event.ADDED_TO_STAGE, get_display__2());
         /* ui/Clock.xml:16 characters: 73-80 */
@@ -146,11 +146,11 @@ class Clock extends ru.stablex.ui.widgets.VBox {
         /* ui/Clock.xml:3 characters: 1-5 */
         super();
         if(ru.stablex.ui.UIBuilder.defaults.exists("VBox")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("VBox");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(this);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("VBox");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(this);
+            }
         }
         /* ui/Clock.xml:4 characters: 84-96 */
         this.childPadding = 20;

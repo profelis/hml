@@ -28,11 +28,11 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         var res = new ru.stablex.ui.widgets.InputText();
         this.input = res;
         if(ru.stablex.ui.UIBuilder.defaults.exists("InputText")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("InputText");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("InputText");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* ui/Main2.xml:4 characters: 42-46 */
         res.text = 'type any message here';
@@ -52,9 +52,9 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         var res = function (event:flash.events.MouseEvent):StdTypes.Void { 
             flash.Lib.current.addChild(
                 {
-                	var alert = new Alert();
-                	alert.message.text = input.text;
-                	alert;
+                    var alert = new Alert();
+                    alert.message.text = input.text;
+                    alert;
                 }
             );
          };
@@ -75,11 +75,11 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         /* ui/Main2.xml:9 characters: 5-11 */
         var res = new ru.stablex.ui.widgets.Button();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* ui/Main2.xml:9 characters: 20-24 */
         res.text = 'Show me the alert!';
@@ -97,11 +97,11 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         /* ui/Main2.xml:3 characters: 1-5 */
         super();
         if(ru.stablex.ui.UIBuilder.defaults.exists("HBox")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("HBox");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(this);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("HBox");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(this);
+            }
         }
         /* ui/Main2.xml:3 characters: 20-32 */
         this.childPadding = 5;

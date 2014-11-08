@@ -67,7 +67,7 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 			res += ' {\n';
 			inline function writeNode(f:WriteNode<Dynamic>) {
 				var s = f.toString();
-				s = '\n${TAB}${s.split("\n").join("\n" + TAB)}\n';
+				s = '\n${TAB}${s.split("\t").join(TAB).split("\n").join("\n" + TAB)}\n';
 				res += s;
 			}
 			for (f in fields) writeNode(f);
