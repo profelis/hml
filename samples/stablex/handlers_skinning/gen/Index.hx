@@ -48,11 +48,11 @@ class Index extends Main {
         /* assets/ui/Index.xml:22 characters: 13-16 */
         var res = new ru.stablex.ui.widgets.Bmp();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Bmp")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Bmp");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Bmp");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* assets/ui/Index.xml:22 characters: 32-35 */
         res.src = 'assets/img/nme.png';
@@ -70,11 +70,11 @@ class Index extends Main {
         var res = new ru.stablex.ui.widgets.Box();
         this.nme = res;
         if(ru.stablex.ui.UIBuilder.defaults.exists("Box")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Box");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Box");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* assets/ui/Index.xml:21 characters: 37-45 */
         res.skinName = 'win7';
@@ -100,11 +100,11 @@ class Index extends Main {
         /* assets/ui/Index.xml:24 characters: 9-13 */
         var res = new ru.stablex.ui.widgets.Text();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Text")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Text");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Text");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* assets/ui/Index.xml:24 characters: 15-19 */
         res.text = 'Click anywhere in this box';
@@ -122,11 +122,11 @@ class Index extends Main {
         var res = new ru.stablex.ui.widgets.Box();
         this.box = res;
         if(ru.stablex.ui.UIBuilder.defaults.exists("Box")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Box");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Box");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* assets/ui/Index.xml:14 characters: 70-78 */
         res.skinName = 'green';
@@ -167,11 +167,11 @@ class Index extends Main {
         /* assets/ui/Index.xml:31 characters: 9-15 */
         var res = new ru.stablex.ui.widgets.Button();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* assets/ui/Index.xml:31 characters: 17-25 */
         res.skinName = 'btnxp';
@@ -227,11 +227,11 @@ class Index extends Main {
         var res = new ru.stablex.ui.widgets.Button();
         this.btn1 = res;
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* assets/ui/Index.xml:39 characters: 17-25 */
         res.skinName = 'btnxp';
@@ -282,11 +282,11 @@ class Index extends Main {
         var res = new ru.stablex.ui.widgets.Button();
         this.btn2 = res;
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* assets/ui/Index.xml:63 characters: 27-35 */
         res.skinName = 'btnxp';
@@ -314,11 +314,11 @@ class Index extends Main {
         /* assets/ui/Index.xml:82 characters: 9-15 */
         var res = new ru.stablex.ui.widgets.Button();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* assets/ui/Index.xml:82 characters: 17-25 */
         res.skinName = 'btnxp';
@@ -341,11 +341,11 @@ class Index extends Main {
         var res = new ru.stablex.ui.widgets.HBox();
         this.buttons = res;
         if(ru.stablex.ui.UIBuilder.defaults.exists("HBox")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("HBox");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(res);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("HBox");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(res);
+            }
         }
         /* assets/ui/Index.xml:30 characters: 24-27 */
         res.top = 35;
@@ -370,11 +370,11 @@ class Index extends Main {
         /* assets/ui/Index.xml:4 characters: 1-10 */
         super();
         if(ru.stablex.ui.UIBuilder.defaults.exists("Main")) {
-        	var defFns = ru.stablex.ui.UIBuilder.defaults.get("Main");
-        	for(def in ["Default"]) {
-        		var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
-        		if(defaultsFn != null) defaultsFn(this);
-        	}
+            var defFns = ru.stablex.ui.UIBuilder.defaults.get("Main");
+            for(def in ["Default"]) {
+                var defaultsFn:ru.stablex.ui.widgets.Widget->Void = defFns.get(def);
+                if(defaultsFn != null) defaultsFn(this);
+            }
         }
         /* assets/ui/Index.xml:11 characters: 7-15 */
         this.skinName = 'winxp';
