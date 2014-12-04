@@ -14,6 +14,9 @@ using Lambda;
 
 #end
 
+/* TODO:
+	bindx2 support
+*/
 class Hml {
 
 	#if macro
