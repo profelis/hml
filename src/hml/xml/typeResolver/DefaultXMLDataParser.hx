@@ -6,6 +6,7 @@ import hml.xml.typeResolver.IHaxeTypeResolver;
 import hml.xml.Data;
 
 using hml.base.MacroTools;
+using StringTools;
 
 class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
 
@@ -82,8 +83,22 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
                 n.model.nodePos = data.attributesPos.get(a);
                 n.model.name = n.name;
                 n.model.cData = n.cData;
+                
+                processNode(n);
 
                 node.unresolvedNodes.push(n);
+            }
+        }
+    }
+    
+    function processNode(n:Node) {
+        if (n.cData != null) {   
+            var cData = n.cData;
+            if (cData.startsWith("\\$"))
+                n.cData = "$" + cData.substr(2);
+            else if (cData.startsWith("$")) {
+                n.cData = cData.substr(1);
+                n.bindType = BindType.SIMPLE_BIND;
             }
         }
     }

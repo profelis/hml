@@ -176,7 +176,7 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         var res = new flash.display.Sprite();
         this.child2 = res;
         /* ui/Ab.xml:17 characters: 41-42 */
-        res.x = 100;
+        bindx.BindExt.exprTo(100, res.x);
         /* ui/Ab.xml:17 characters: 25-32 */
         res.visible = false;
         return res;
@@ -194,7 +194,7 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         var res = new flash.display.Sprite();
         this.child3 = res;
         /* ui/Ab.xml:19 characters: 41-42 */
-        res.x = 100;
+        bindx.BindExt.exprTo(200, res.x);
         /* ui/Ab.xml:19 characters: 25-32 */
         res.visible = false;
         return res;

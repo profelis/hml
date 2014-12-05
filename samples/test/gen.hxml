@@ -4,5 +4,6 @@
 -js bin/empty.js
 --no-output
 -main GenHx
+-lib bindx2
 --macro allowPackage('flash')
 #-D hml_debug

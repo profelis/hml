@@ -107,11 +107,20 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 		writeNodes(node, scope, writer, method);
   		writeChildren(node, scope, writer, method, assign);
 	}
+    
+    function assignOrBind(target:String, source:String, bindType:BindType):String {
+        return if (bindType == null)
+            '$target = $source;';
+        else switch (bindType) {
+            case BindType.SIMPLE_BIND:
+                'bindx.BindExt.exprTo($source, $target);';
+        }
+    }
 
 	public function writeAttribute(node:Node, scope:String, child:Node, writer:IHaxeWriter<Node>, method:Array<String>):Void {
 		writeNodePos(child, method);
 		if (child.cData != null) {
-			method.push('$scope.${child.name.name} = ${child.cData};');
+			method.push(assignOrBind('$scope.${child.name.name}', child.cData, child.bindType));
 		}
         if (child.oneInstance && child.meta != null)
             Context.warning('unused meta', Context.makePosition(child.model.nodePos));

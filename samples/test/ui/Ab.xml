@@ -14,9 +14,9 @@
 		<text:TextField id="child1" x="100" y="200" alpha="0.78" text="privateString" textColor="0xFF0000" selectable="false"
 			click="trace('click'); this.dispatchEvent(new flash.events.Event('someEvent'))"/>
 
-		<s:Sprite id="child2" visible="false" x="100"/>
+		<s:Sprite id="child2" visible="false" x="$100"/>
 		
-		<s:Sprite id="child3" visible="false" x="100"/>
+		<s:Sprite id="child3" visible="false" x="$200"/>
         <haxe:Meta>
             <![CDATA[@FooMeta(12)]]>
         </haxe:Meta>

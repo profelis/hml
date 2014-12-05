@@ -7,6 +7,10 @@ import hml.base.MacroTools;
 using Reflect;
 using haxe.Json;
 
+enum BindType {
+	SIMPLE_BIND;
+}
+
 class XMLDataRoot extends XMLData {
 
 	public var type:String;
@@ -134,6 +138,8 @@ class Node {
     public var meta:Null<String> = null;
 
     public var publicAccess = true;
+    
+    public var bindType:Null<BindType>;
 
 	public function new() {}
 
@@ -142,6 +148,7 @@ class Node {
 			name: name.toString(),
 			superType: superType,
 			nativeType: Std.string(nativeType),
+			bindType: bindType,
 			id: id,
             publicAccess: publicAccess,
 			nodes: [for (n in nodes) n.toValue()],

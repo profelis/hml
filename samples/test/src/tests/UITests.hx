@@ -189,5 +189,19 @@ class UITests extends BuddySuite {
                 b.n().should.be(32);
             });
         });
+        
+        describe("hml should support bindx2", {
+        
+            var a:Ab;
+            
+            before({
+                a=  new Ab();
+            });
+            
+            it("bind unbindable expr", {
+                a.child2.x.should.be(100);
+                a.child3.x.should.be(200);
+            });
+        });
     }
 }
