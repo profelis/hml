@@ -51,11 +51,12 @@ install: # setup the target
   - ~/travis-hx/setup.sh
   - travis_retry haxelib install utest
   - travis_retry haxelib install buddy
+  - travis_retry haxelib git bindx2 git://github.com/profelis/bindx2.git
 
 script:
   - cd "$TRAVIS_BUILD_DIR/samples/test"
   - haxe gen.hxml
   # build the target. This will call haxe with the HXFLAGS and HXFLAGS_EXTRA environment variables
-  - HXFLAGS="-cp src -cp gen -main Main -lib buddy -lib utest -D reporter=buddy.reporting.TravisHxReporter" bash -x ~/travis-hx/build.sh
+  - HXFLAGS="-cp src -cp gen -main Main -lib buddy -lib bindx2 -lib utest -D reporter=buddy.reporting.TravisHxReporter" bash -x ~/travis-hx/build.sh
   # run the tests
   - bash -x ~/travis-hx/runtests.sh $FILENAME # this will set the $FILENAME defined on the environment variable to run the tests
