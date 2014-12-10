@@ -94,10 +94,8 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
     function processNode(n:Node) {
         if (n.cData != null) {   
             var cData = n.cData;
-            if (cData.startsWith("\\$"))
-                n.cData = "$" + cData.substr(2);
-            else if (cData.startsWith("$")) {
-                n.cData = cData.substr(1);
+            if (cData.startsWith("@b") && cData.isSpace(2)) {
+                n.cData = cData.substr(3);
                 n.bindType = BindType.SIMPLE_BIND;
             }
         }

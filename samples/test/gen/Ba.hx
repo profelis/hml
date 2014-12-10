@@ -10,6 +10,11 @@ class Ba extends data.B implements data.IEmptyInterface<haxe.Timer> {
 
     @:isVar public var test2(get, set):Ab;
 
+    public function destroyHml():Void {
+        
+    }
+    
+
     function set_test2(value:Ab):Ab {
         test2_initialized = true;
         return test2 = value;

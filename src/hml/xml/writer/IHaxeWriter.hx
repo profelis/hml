@@ -15,6 +15,7 @@ interface IHaxeNodeWriter<T> {
 interface IHaxeWriter<T> {
     public var fields:Array<WriteNode<T>>;
     public var methods:Array<WriteNode<T>>;
+    public var destroyMethod:Array<String>;
     public function writeNode(node:T):Void;
     public function writeAttribute(node:T, scope:String, child:T, method:Array<String>):Void;
 }

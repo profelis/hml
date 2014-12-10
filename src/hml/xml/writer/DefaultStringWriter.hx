@@ -12,9 +12,9 @@ class DefaultStringWriter extends DefaultNodeWriter {
         writeNodePos(child, method);
         if (child.oneInstance && child.children.length > 0 || child.nodes.length > 0) {
             writer.writeNode(child);
-            method.push(assignOrBind('$scope.${child.name.name}', universalGet(child), child.bindType));
+            method.push(assignOrBind(node, scope, child, universalGet(child), writer));
         } else {
-            method.push(assignOrBind('$scope.${child.name.name}', child.cData, child.bindType));
+            method.push(assignOrBind(node, scope, child, child.cData, writer));
         }
     }
 

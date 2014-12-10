@@ -140,7 +140,7 @@ class ClassTypeTools {
 	 * @return type name string
 	 */
 	@:extern public static inline function typeName(type:{pack:Array<String>, name:String}):String 
-		return type.pack.length > 0 ? type.pack.join(".") + ":" + type.name : type.name;
+		return type.pack.length > 0 ? type.pack.join(".") + "." + type.name : type.name;
 
 	/**
 	 * generate type name of ComplexType. Use typeName method

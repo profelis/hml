@@ -1,6 +1,7 @@
 package hml.xml;
 
 import hml.base.Output;
+import hml.xml.writer.base.StringNode;
 import hml.xml.writer.IHaxeWriter;
 import hml.base.fileProcessor.IWriter;
 import haxe.macro.Context;
@@ -15,6 +16,7 @@ using sys.FileSystem;
 using StringTools;
 using haxe.macro.Context;
 using hml.base.MacroTools;
+using haxe.macro.Tools;
 
 class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 
@@ -34,6 +36,7 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 		for (type in types) {
 			fields = [];
 			methods = [];
+            destroyMethod = [];
 
 			writeNode(type);
 
@@ -70,6 +73,12 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 				s = '\n${TAB}${s.split("\t").join(TAB).split("\n").join("\n" + TAB)}\n';
 				res += s;
 			}
+            var callSuper = type.nativeType.toComplexType().getComplexTypeName() != type.superType;
+            
+            fields.push(new StringNode(null, 
+                'public function destroyHml():Void {\n' 
+                    + (callSuper ? '${TAB}super();\n' : "") + TAB + destroyMethod.join('\n$TAB') + 
+                '\n}\n'));
 			for (f in fields) writeNode(f);
 			for (f in methods) writeNode(f);
             if (script != null) {
@@ -91,6 +100,7 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 
 	public var fields:Array<WriteNode<Node>>;
 	public var methods:Array<WriteNode<Node>>;
+    public var destroyMethod:Array<String>;
 
 	public function writeNode(node:Node):Void {
 		var writer;

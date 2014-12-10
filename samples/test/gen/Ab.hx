@@ -38,9 +38,19 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
 
     @:isVar public var child2(get, set):flash.display.Sprite;
 
+    var unbind_child2_x:Void -> Void;
+
     var child3_initialized:Bool = false;
 
     @:isVar public var child3(get, set):flash.display.Sprite;
+
+    var unbind_child3_x:Void -> Void;
+
+    public function destroyHml():Void {
+        try { unbind_child2_x(); } catch (e:Dynamic) {}
+        try { unbind_child3_x(); } catch (e:Dynamic) {}
+    }
+    
 
     function set_string(value:String):String {
         string_initialized = true;
@@ -176,7 +186,7 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         var res = new flash.display.Sprite();
         this.child2 = res;
         /* ui/Ab.xml:17 characters: 41-42 */
-        bindx.BindExt.exprTo(100, res.x);
+        unbind_child2_x = bindx.BindExt.exprTo(100, res.x);
         /* ui/Ab.xml:17 characters: 25-32 */
         res.visible = false;
         return res;
@@ -194,7 +204,7 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         var res = new flash.display.Sprite();
         this.child3 = res;
         /* ui/Ab.xml:19 characters: 41-42 */
-        bindx.BindExt.exprTo(200, res.x);
+        unbind_child3_x = bindx.BindExt.exprTo(200, res.x);
         /* ui/Ab.xml:19 characters: 25-32 */
         res.visible = false;
         return res;

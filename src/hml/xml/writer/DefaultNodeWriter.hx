@@ -10,6 +10,7 @@ import haxe.macro.Context;
 
 using hml.base.MacroTools;
 using haxe.macro.Tools;
+using StringTools;
 
 class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 
@@ -108,19 +109,22 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
   		writeChildren(node, scope, writer, method, assign);
 	}
     
-    function assignOrBind(target:String, source:String, bindType:BindType):String {
-        return if (bindType == null)
-            '$target = $source;';
-        else switch (bindType) {
+    function assignOrBind(node:Node, scope:String, child:Node, source:String, writer:IHaxeWriter<Node>):String {
+        return if (child.bindType == null)
+            '$scope.${child.name.name} = $source;';
+        else switch (child.bindType) {
             case BindType.SIMPLE_BIND:
-                'bindx.BindExt.exprTo($source, $target);';
+                var id = 'unbind_${node.id}_${child.name.name}';
+                writer.destroyMethod.push('try { ${id}(); } catch (e:Dynamic) {}');
+                writer.fields.push(new StringNode(child, 'var ${id}:Void -> Void;'));
+                '${id} = bindx.BindExt.exprTo($source, $scope.${child.name.name});';
         }
     }
 
 	public function writeAttribute(node:Node, scope:String, child:Node, writer:IHaxeWriter<Node>, method:Array<String>):Void {
 		writeNodePos(child, method);
 		if (child.cData != null) {
-			method.push(assignOrBind('$scope.${child.name.name}', child.cData, child.bindType));
+			method.push(assignOrBind(node, scope, child, child.cData, writer));
 		}
         if (child.oneInstance && child.meta != null)
             Context.warning('unused meta', Context.makePosition(child.model.nodePos));
