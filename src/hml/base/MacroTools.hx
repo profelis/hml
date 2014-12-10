@@ -134,13 +134,15 @@ class ClassTypeTools {
 
 	/**
 	 * generate type name using package and type name
-	 * typeName({pack:["flash", "display", "Sprite"], name:"Sprite"}) return flash.display.Sprite.Sprite
+	 * typeName({pack:["flash", "display", "Sprite"], name:"Sprite"}) return flash.display.Sprite
 	 * 
 	 * @param  type struct {pack:Array<String>, name:String}
 	 * @return type name string
 	 */
 	@:extern public static inline function typeName(type:{pack:Array<String>, name:String}):String 
-		return type.pack.length > 0 ? type.pack.join(".") + "." + type.name : type.name;
+     return if (type.pack[type.pack.length - 1] == type.name) type.pack.join(".");
+            else if (type.pack.length > 0) type.pack.join(".") + "." + type.name; 
+            else type.name;
 
 	/**
 	 * generate type name of ComplexType. Use typeName method
