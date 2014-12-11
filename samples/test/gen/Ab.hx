@@ -17,6 +17,10 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
 
     @:isVar public var publicB(get, set):Ba;
 
+    var user_initialized:Bool = false;
+
+    @:isVar public var user(get, set):data.UserModel;
+
     var privateString_initialized:Bool = false;
 
     @:isVar var privateString(get, set):String;
@@ -38,6 +42,8 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
 
     @:isVar public var child2(get, set):flash.display.Sprite;
 
+    var unbind_child2_name:Void -> Void;
+
     var unbind_child2_x:Void -> Void;
 
     var child3_initialized:Bool = false;
@@ -47,6 +53,7 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
     var unbind_child3_x:Void -> Void;
 
     public function destroyHml():Void {
+        try { unbind_child2_name(); } catch (e:Dynamic) {}
         try { unbind_child2_x(); } catch (e:Dynamic) {}
         try { unbind_child3_x(); } catch (e:Dynamic) {}
     }
@@ -96,13 +103,29 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         return res;
     }
 
+    function set_user(value:data.UserModel):data.UserModel {
+        user_initialized = true;
+        return user = value;
+    }
+
+    function get_user():data.UserModel {
+        /* ui/Ab.xml:33 characters: 9-18 */
+        if (user_initialized) return user;
+        user_initialized = true;
+        var res = new data.UserModel();
+        this.user = res;
+        /* ui/Ab.xml:33 characters: 30-34 */
+        res.name = 'user1';
+        return res;
+    }
+
     function set_privateString(value:String):String {
         privateString_initialized = true;
         return privateString = value;
     }
 
     function get_privateString():String {
-        /* ui/Ab.xml:36 characters: 9-18 */
+        /* ui/Ab.xml:37 characters: 9-18 */
         if (privateString_initialized) return privateString;
         privateString_initialized = true;
         var res = 'text in private string';
@@ -185,6 +208,8 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         child2_initialized = true;
         var res = new flash.display.Sprite();
         this.child2 = res;
+        /* ui/Ab.xml:17 characters: 52-56 */
+        unbind_child2_name = bindx.BindExt.exprTo(user.name, res.name);
         /* ui/Ab.xml:17 characters: 41-42 */
         unbind_child2_x = bindx.BindExt.exprTo(100, res.x);
         /* ui/Ab.xml:17 characters: 25-32 */

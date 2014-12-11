@@ -14,7 +14,7 @@
 		<text:TextField id="child1" x="100" y="200" alpha="0.78" text="privateString" textColor="0xFF0000" selectable="false"
 			click="trace('click'); this.dispatchEvent(new flash.events.Event('someEvent'))"/>
 
-		<s:Sprite id="child2" visible="false" x="@b 100"/>
+		<s:Sprite id="child2" visible="false" x="@b 100" name="@b user.name"/>
 		
 		<s:Sprite id="child3" visible="false" x="@b 200"/>
         <haxe:Meta>
@@ -30,6 +30,7 @@
         </ui:String>
         <ui:String id="string2">"ab"</ui:String>
         <ui:Ba id="publicB" test2="null" />
+        <UserModel id="user" name="'user1'"/>
     </haxe:Declarations>
 
     <haxe:Private>

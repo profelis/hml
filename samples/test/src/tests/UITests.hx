@@ -201,6 +201,19 @@ class UITests extends BuddySuite {
             it("bind unbindable expr", {
                 a.child2.x.should.be(100);
                 a.child3.x.should.be(200);
+                
+                a.user.name.should.not.be(null);
+                a.child2.name.should.be(a.user.name);
+                
+                a.user.name = "user2";
+                
+                a.child2.name.should.be(a.user.name);
+                
+                a.destroyHml();
+                
+                a.user.name = "user3";
+                
+                a.child2.name.should.not.be(a.user.name);
             });
         });
     }
