@@ -23,7 +23,7 @@
 	</s:Sprite>
 
     <haxe:Declarations>
-        <ui:String id="string">"23"
+        <ui:String id="string">@b user.name
             <haxe:Meta>
                 <![CDATA[@StringMeta]]>
             </haxe:Meta>

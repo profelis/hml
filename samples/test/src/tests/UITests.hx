@@ -160,7 +160,7 @@ class UITests extends BuddySuite {
             });
             
             it("hml should generate public declarations", {
-                a.string.should.be("23");
+                a.string.should.be(a.user.name);
                 a.string2.should.be("ab");
 
                 b.test2.should.not.be(null);
@@ -204,16 +204,19 @@ class UITests extends BuddySuite {
                 
                 a.user.name.should.not.be(null);
                 a.child2.name.should.be(a.user.name);
+                a.string.should.be(a.user.name);
                 
                 a.user.name = "user2";
                 
                 a.child2.name.should.be(a.user.name);
+                a.string.should.be(a.user.name);
                 
                 a.destroyHml();
                 
                 a.user.name = "user3";
                 
                 a.child2.name.should.not.be(a.user.name);
+                a.string.should.not.be(a.user.name);
             });
         });
     }

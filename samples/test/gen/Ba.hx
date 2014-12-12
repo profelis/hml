@@ -24,8 +24,8 @@ class Ba extends data.B implements data.IEmptyInterface<haxe.Timer> {
         /* ui/Ba.xml:8 characters: 9-14 */
         if (test2_initialized) return test2;
         test2_initialized = true;
-        var res = new Ab();
-        this.test2 = res;
+        this.test2 = new Ab();
+        var res = this.test2;
         /* ui/Ba.xml:9 characters: 13-20 */
         res.name = 'foo';
         return res;

@@ -109,16 +109,20 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
   		writeChildren(node, scope, writer, method, assign);
 	}
     
-    function assignOrBind(node:Node, scope:String, child:Node, source:String, writer:IHaxeWriter<Node>):String {
+    function baseAssignOrBind(node:Node, target:String, child:Node, source:String, writer:IHaxeWriter<Node>):String {
         return if (child.bindType == null)
-            '$scope.${child.name.name} = $source;';
+            '$target = $source;';
         else switch (child.bindType) {
             case BindType.SIMPLE_BIND:
                 var id = 'unbind_${node.id}_${child.name.name}';
                 writer.destroyMethod.push('try { ${id}(); } catch (e:Dynamic) {}');
                 writer.fields.push(new StringNode(child, 'var ${id}:Void -> Void;'));
-                '${id} = bindx.BindExt.exprTo($source, $scope.${child.name.name});';
+                '${id} = bindx.BindExt.exprTo($source, $target);';
         }
+    }
+    
+    inline function assignOrBind(node:Node, scope:String, child:Node, source:String, writer:IHaxeWriter<Node>):String {
+        return baseAssignOrBind(node, '$scope.${child.name.name}', child, source, writer);
     }
 
 	public function writeAttribute(node:Node, scope:String, child:Node, writer:IHaxeWriter<Node>, method:Array<String>):Void {
@@ -142,8 +146,12 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 	  		writer.methods.push(new MethodNodeWriter(node, "public", 'new', null, null, method));
   		} else {
 			writeField(node, method, writer);
-	  		method.push('var res = ${writeFieldCtor(node)};');
-	  		if (!node.oneInstance) method.push('this.${node.id} = res;');
+	  		
+	  		if (!node.oneInstance) {
+                method.push(baseAssignOrBind(node, 'this.${node.id}', node, writeFieldCtor(node), writer));
+                method.push('var res = this.${node.id};');
+            }
+            else method.push('var res = ${writeFieldCtor(node)};');
 	  		predInit(node, method);
 			defaultWrite(node, "res", writer, method);
 			postInit(node, method);

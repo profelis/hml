@@ -38,6 +38,8 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
         node.model = data;
         node.name = data.name;
         node.cData = data.cData;
+        
+        processNode(node);
 
         parseAttributes(node, data, parser);
         parseNodes(node, data, parser);
