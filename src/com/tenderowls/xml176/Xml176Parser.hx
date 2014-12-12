@@ -56,7 +56,7 @@ class Xml176Document {
     var ePosInfos:Map<Xml, Pos>;
     var aPosInfos:Map<Xml, Map<String, Pos>>;
 
-    public function new(doc:Xml, rawData, ePosInfos, aPosInfos, path) {
+    function new(doc:Xml, rawData, ePosInfos, aPosInfos, path) {
         this.document = doc;
         this.rawData = rawData;
         this.ePosInfos = ePosInfos;
@@ -110,7 +110,7 @@ class Xml176Parser
 
 		doParse(str, 0, ePosInfos, aPosInfos, xmlDoc);
 
-		return new Xml176Document(xmlDoc, str, ePosInfos, aPosInfos, path);
+		return @:privateAccess new Xml176Document(xmlDoc, str, ePosInfos, aPosInfos, path);
 	}
 	
 	static function doParse(str:String, p:Int = 0, ePosInfos:Map<Xml, Pos>, aPosInfos:Map<Xml, Map<String, Pos>>, ?parent:Xml):Int

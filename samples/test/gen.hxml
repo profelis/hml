@@ -1,7 +1,7 @@
 -cp ../../src
 -cp src
 -cp hml
--js bin/empty.js
+-swf bin/gen.swf
 --no-output
 -main GenHx
 -lib bindx2

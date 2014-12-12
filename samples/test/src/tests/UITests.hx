@@ -198,7 +198,7 @@ class UITests extends BuddySuite {
                 a=  new Ab();
             });
             
-            it("bind unbindable expr", {
+            it("bind and unbind expr", {
                 a.child2.x.should.be(100);
                 a.child3.x.should.be(200);
                 
