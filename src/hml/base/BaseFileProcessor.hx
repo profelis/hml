@@ -27,9 +27,9 @@ class BaseFileProcessor<B, T> implements IFileProcessor {
 	public function read(file:String, pos:Position, root:String):Void {
 		data.push(reader.read(file, pos, root));
 	}
-	public function write(output:Output):Void {
+	public function write(output:Output):Array<String> {
 		var types = resolver.resolve(data);
-		writer.write(types, output);
+		return writer.write(types, output);
 	}
 
 }

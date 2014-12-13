@@ -30,9 +30,10 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 
 	var output:Output;
 
-	public function write(types:Array<Type>, output:Output):Void {
+	public function write(types:Array<Type>, output:Output):Array<String> {
 		this.output = output;
 
+        var paths = [];
 		for (type in types) {
 			fields = [];
 			methods = [];
@@ -88,14 +89,16 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 
 			var path = '${output.path}/${type.type.replace(".", "/")}';
 			var p = new Path(path);
-			if (p.dir != null) p.dir.createDirectory();
 			p.ext = "hx";
+            if (p.dir != null) p.dir.createDirectory();
             var file = p.toString();
+            paths.push(p.toString().replace('${output.path}/', ""));
             if (!output.allowOverride && file.exists())
                 Context.warning('can\'t override file "$file". File already exists. Use allowOverride for change settings.', Context.makePosition({file:file, min:0, max:0}));
 			else
-                sys.io.File.saveContent(p.toString(), res);
+                sys.io.File.saveContent(file, res);
 		}
+        return paths;
 	}
 
 	public var fields:Array<WriteNode<Node>>;
