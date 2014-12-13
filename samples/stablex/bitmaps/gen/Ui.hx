@@ -2,6 +2,11 @@ package ;
 
 class Ui extends ru.stablex.ui.widgets.VBox {
 
+    public function destroyHml():Void {
+        
+    }
+    
+
     inline function get_paint__0():ru.stablex.ui.skins.Paint {
         /* ui/Ui.xml:8 characters: 13-23 */
         var res = new ru.stablex.ui.skins.Paint();

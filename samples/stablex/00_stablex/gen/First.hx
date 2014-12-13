@@ -10,6 +10,11 @@ class First extends ru.stablex.ui.widgets.Widget {
 
     @:isVar public var text2(get, set):ru.stablex.ui.widgets.Text;
 
+    public function destroyHml():Void {
+        
+    }
+    
+
     inline function get_paint__0():ru.stablex.ui.skins.Paint {
         /* ui/First.xml:5 characters: 3-13 */
         var res = new ru.stablex.ui.skins.Paint();
@@ -31,8 +36,8 @@ class First extends ru.stablex.ui.widgets.Widget {
         /* ui/First.xml:8 characters: 3-8 */
         if (clickHandler_initialized) return clickHandler;
         clickHandler_initialized = true;
-        var res = function (event:flash.events.MouseEvent):StdTypes.Void { trace('Magic: ${text2.text}'); };
-        this.clickHandler = res;
+        this.clickHandler = function (event:flash.events.MouseEvent):StdTypes.Void { trace('Magic: ${text2.text}'); };
+        var res = this.clickHandler;
         return res;
     }
 
@@ -83,8 +88,8 @@ class First extends ru.stablex.ui.widgets.Widget {
         /* ui/First.xml:13 characters: 2-6 */
         if (text2_initialized) return text2;
         text2_initialized = true;
-        var res = new ru.stablex.ui.widgets.Text();
-        this.text2 = res;
+        this.text2 = new ru.stablex.ui.widgets.Text();
+        var res = this.text2;
         if(ru.stablex.ui.UIBuilder.defaults.exists("Text")) {
             var defFns = ru.stablex.ui.UIBuilder.defaults.get("Text");
             for(def in ["Default"]) {

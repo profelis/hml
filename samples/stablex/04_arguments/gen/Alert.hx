@@ -6,6 +6,11 @@ class Alert extends ru.stablex.ui.widgets.VBox {
 
     @:isVar public var message(get, set):ru.stablex.ui.widgets.Text;
 
+    public function destroyHml():Void {
+        
+    }
+    
+
     inline function get_paint__0():ru.stablex.ui.skins.Paint {
         /* ui/Alert.xml:6 characters: 8-18 */
         var res = new ru.stablex.ui.skins.Paint();
@@ -25,8 +30,8 @@ class Alert extends ru.stablex.ui.widgets.VBox {
         /* ui/Alert.xml:8 characters: 5-9 */
         if (message_initialized) return message;
         message_initialized = true;
-        var res = new ru.stablex.ui.widgets.Text();
-        this.message = res;
+        this.message = new ru.stablex.ui.widgets.Text();
+        var res = this.message;
         if(ru.stablex.ui.UIBuilder.defaults.exists("Text")) {
             var defFns = ru.stablex.ui.UIBuilder.defaults.get("Text");
             for(def in ["Default"]) {

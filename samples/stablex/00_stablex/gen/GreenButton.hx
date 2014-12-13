@@ -2,6 +2,11 @@ package ;
 
 class GreenButton extends ru.stablex.ui.widgets.Button {
 
+    public function destroyHml():Void {
+        
+    }
+    
+
     inline function get_paint__0():ru.stablex.ui.skins.Paint {
         /* ui/GreenButton.xml:5 characters: 3-13 */
         var res = new ru.stablex.ui.skins.Paint();

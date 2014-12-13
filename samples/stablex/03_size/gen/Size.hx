@@ -6,6 +6,11 @@ class Size extends ru.stablex.ui.widgets.Widget {
 
     @:isVar public var child(get, set):ru.stablex.ui.widgets.Widget;
 
+    public function destroyHml():Void {
+        
+    }
+    
+
     inline function get_click__0():flash.events.MouseEvent -> StdTypes.Void {
         /* ui/Size.xml:7 characters: 87-92 */
         var res = function (event:flash.events.MouseEvent):StdTypes.Void {  child.w = 50;  };
@@ -222,8 +227,8 @@ class Size extends ru.stablex.ui.widgets.Widget {
         /* ui/Size.xml:25 characters: 9-15 */
         if (child_initialized) return child;
         child_initialized = true;
-        var res = new ru.stablex.ui.widgets.Widget();
-        this.child = res;
+        this.child = new ru.stablex.ui.widgets.Widget();
+        var res = this.child;
         if(ru.stablex.ui.UIBuilder.defaults.exists("Widget")) {
             var defFns = ru.stablex.ui.UIBuilder.defaults.get("Widget");
             for(def in ["Default"]) {

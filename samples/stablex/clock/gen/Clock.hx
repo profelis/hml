@@ -14,6 +14,11 @@ class Clock extends ru.stablex.ui.widgets.VBox {
 
     @:isVar public var clock3(get, set):ru.stablex.ui.widgets.Clock;
 
+    public function destroyHml():Void {
+        
+    }
+    
+
     function set_clock1(value:ru.stablex.ui.widgets.Clock):ru.stablex.ui.widgets.Clock {
         clock1_initialized = true;
         return clock1 = value;
@@ -29,8 +34,8 @@ class Clock extends ru.stablex.ui.widgets.VBox {
         /* ui/Clock.xml:7 characters: 5-10 */
         if (clock1_initialized) return clock1;
         clock1_initialized = true;
-        var res = new ru.stablex.ui.widgets.Clock();
-        this.clock1 = res;
+        this.clock1 = new ru.stablex.ui.widgets.Clock();
+        var res = this.clock1;
         if(ru.stablex.ui.UIBuilder.defaults.exists("Clock")) {
             var defFns = ru.stablex.ui.UIBuilder.defaults.get("Clock");
             for(def in ["Default"]) {
@@ -65,8 +70,8 @@ class Clock extends ru.stablex.ui.widgets.VBox {
         /* ui/Clock.xml:10 characters: 5-10 */
         if (clock2_initialized) return clock2;
         clock2_initialized = true;
-        var res = new ru.stablex.ui.widgets.Clock();
-        this.clock2 = res;
+        this.clock2 = new ru.stablex.ui.widgets.Clock();
+        var res = this.clock2;
         if(ru.stablex.ui.UIBuilder.defaults.exists("Clock")) {
             var defFns = ru.stablex.ui.UIBuilder.defaults.get("Clock");
             for(def in ["Default"]) {
@@ -120,8 +125,8 @@ class Clock extends ru.stablex.ui.widgets.VBox {
         /* ui/Clock.xml:16 characters: 5-10 */
         if (clock3_initialized) return clock3;
         clock3_initialized = true;
-        var res = new ru.stablex.ui.widgets.Clock();
-        this.clock3 = res;
+        this.clock3 = new ru.stablex.ui.widgets.Clock();
+        var res = this.clock3;
         if(ru.stablex.ui.UIBuilder.defaults.exists("Clock")) {
             var defFns = ru.stablex.ui.UIBuilder.defaults.get("Clock");
             for(def in ["Default"]) {

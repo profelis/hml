@@ -2,6 +2,11 @@ package ;
 
 class First extends ru.stablex.ui.widgets.Text {
 
+    public function destroyHml():Void {
+        
+    }
+    
+
     public function new() {
         /* ui/First.xml:3 characters: 1-5 */
         super();

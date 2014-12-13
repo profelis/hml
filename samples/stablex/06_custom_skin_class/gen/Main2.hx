@@ -2,6 +2,11 @@ package ;
 
 class Main2 extends ru.stablex.ui.widgets.Widget {
 
+    public function destroyHml():Void {
+        
+    }
+    
+
     inline function get_fractal__0():Fractal {
         /* ui/Main2.xml:4 characters: 8-20 */
         var res = new Fractal();

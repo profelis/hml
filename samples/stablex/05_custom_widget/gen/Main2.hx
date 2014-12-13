@@ -6,6 +6,11 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
 
     @:isVar public var custom(get, set):ColorWidget;
 
+    public function destroyHml():Void {
+        
+    }
+    
+
     function set_custom(value:ColorWidget):ColorWidget {
         custom_initialized = true;
         return custom = value;
@@ -15,8 +20,8 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         /* ui/Main2.xml:4 characters: 5-16 */
         if (custom_initialized) return custom;
         custom_initialized = true;
-        var res = new ColorWidget();
-        this.custom = res;
+        this.custom = new ColorWidget();
+        var res = this.custom;
         /* ui/Main2.xml:4 characters: 55-60 */
         res.color = 0x0000FF;
         /* ui/Main2.xml:4 characters: 47-48 */

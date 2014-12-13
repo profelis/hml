@@ -22,6 +22,11 @@ class Index extends Main {
 
     @:isVar public var btn2(get, set):ru.stablex.ui.widgets.Button;
 
+    public function destroyHml():Void {
+        
+    }
+    
+
     function set_box(value:ru.stablex.ui.widgets.Box):ru.stablex.ui.widgets.Box {
         box_initialized = true;
         return box = value;
@@ -67,8 +72,8 @@ class Index extends Main {
         /* assets/ui/Index.xml:21 characters: 9-12 */
         if (nme_initialized) return nme;
         nme_initialized = true;
-        var res = new ru.stablex.ui.widgets.Box();
-        this.nme = res;
+        this.nme = new ru.stablex.ui.widgets.Box();
+        var res = this.nme;
         if(ru.stablex.ui.UIBuilder.defaults.exists("Box")) {
             var defFns = ru.stablex.ui.UIBuilder.defaults.get("Box");
             for(def in ["Default"]) {
@@ -119,8 +124,8 @@ class Index extends Main {
         /* assets/ui/Index.xml:14 characters: 5-8 */
         if (box_initialized) return box;
         box_initialized = true;
-        var res = new ru.stablex.ui.widgets.Box();
-        this.box = res;
+        this.box = new ru.stablex.ui.widgets.Box();
+        var res = this.box;
         if(ru.stablex.ui.UIBuilder.defaults.exists("Box")) {
             var defFns = ru.stablex.ui.UIBuilder.defaults.get("Box");
             for(def in ["Default"]) {
@@ -224,8 +229,8 @@ class Index extends Main {
         /* assets/ui/Index.xml:39 characters: 9-15 */
         if (btn1_initialized) return btn1;
         btn1_initialized = true;
-        var res = new ru.stablex.ui.widgets.Button();
-        this.btn1 = res;
+        this.btn1 = new ru.stablex.ui.widgets.Button();
+        var res = this.btn1;
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
             var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
             for(def in ["Default"]) {
@@ -279,8 +284,8 @@ class Index extends Main {
         /* assets/ui/Index.xml:63 characters: 9-15 */
         if (btn2_initialized) return btn2;
         btn2_initialized = true;
-        var res = new ru.stablex.ui.widgets.Button();
-        this.btn2 = res;
+        this.btn2 = new ru.stablex.ui.widgets.Button();
+        var res = this.btn2;
         if(ru.stablex.ui.UIBuilder.defaults.exists("Button")) {
             var defFns = ru.stablex.ui.UIBuilder.defaults.get("Button");
             for(def in ["Default"]) {
@@ -338,8 +343,8 @@ class Index extends Main {
         /* assets/ui/Index.xml:30 characters: 5-9 */
         if (buttons_initialized) return buttons;
         buttons_initialized = true;
-        var res = new ru.stablex.ui.widgets.HBox();
-        this.buttons = res;
+        this.buttons = new ru.stablex.ui.widgets.HBox();
+        var res = this.buttons;
         if(ru.stablex.ui.UIBuilder.defaults.exists("HBox")) {
             var defFns = ru.stablex.ui.UIBuilder.defaults.get("HBox");
             for(def in ["Default"]) {

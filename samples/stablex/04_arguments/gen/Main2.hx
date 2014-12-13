@@ -6,6 +6,11 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
 
     @:isVar public var input(get, set):ru.stablex.ui.widgets.InputText;
 
+    public function destroyHml():Void {
+        
+    }
+    
+
     function set_input(value:ru.stablex.ui.widgets.InputText):ru.stablex.ui.widgets.InputText {
         input_initialized = true;
         return input = value;
@@ -25,8 +30,8 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
         /* ui/Main2.xml:4 characters: 5-14 */
         if (input_initialized) return input;
         input_initialized = true;
-        var res = new ru.stablex.ui.widgets.InputText();
-        this.input = res;
+        this.input = new ru.stablex.ui.widgets.InputText();
+        var res = this.input;
         if(ru.stablex.ui.UIBuilder.defaults.exists("InputText")) {
             var defFns = ru.stablex.ui.UIBuilder.defaults.get("InputText");
             for(def in ["Default"]) {

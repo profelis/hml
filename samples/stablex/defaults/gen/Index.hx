@@ -2,6 +2,11 @@ package ;
 
 class Index extends ru.stablex.ui.widgets.VBox {
 
+    public function destroyHml():Void {
+        
+    }
+    
+
     inline function get_paint__0():ru.stablex.ui.skins.Paint {
         /* ui/Index.xml:6 characters: 4-14 */
         var res = new ru.stablex.ui.skins.Paint();

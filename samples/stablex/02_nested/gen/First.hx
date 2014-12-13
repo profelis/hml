@@ -2,6 +2,11 @@ package ;
 
 class First extends ru.stablex.ui.widgets.Widget {
 
+    public function destroyHml():Void {
+        
+    }
+    
+
     inline function get_paint__0():ru.stablex.ui.skins.Paint {
         /* ui/First.xml:6 characters: 3-13 */
         var res = new ru.stablex.ui.skins.Paint();
