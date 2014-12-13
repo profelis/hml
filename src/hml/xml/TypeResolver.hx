@@ -80,9 +80,10 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 			while (i < t.unresolvedNodes.length) {
 				var n = t.unresolvedNodes[i];
 				if (n.nativeType == null) n.nativeType = getNativeType(n);
-				if (hasField(t, n.name)) {
+				var fieldType = getFieldNativeType(t, n.name);
+				if (fieldType != null) {
 					removeItem(i);
-					n.nativeType = getFieldNativeType(t, n.name);
+					n.nativeType = fieldType;
 					t.nodes.push(n);
 				} else if (isType(n)) {
 					removeItem(i);
@@ -141,14 +142,6 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 	function isType(node:Node):Bool {
 		for (r in resolvers) {
 			var res = r.isType(node);
-			if (res) return true;
-		}
-		return false;
-	}
-
-	function hasField(node:Node, qName:XMLQName):Bool {
-		for (r in resolvers) {
-			var res = r.hasField(node, qName);
 			if (res) return true;
 		}
 		return false;

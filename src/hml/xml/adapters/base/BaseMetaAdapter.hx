@@ -82,21 +82,17 @@ class BaseMetaResolver implements IHaxeTypeResolver<Node, Type> {
 		return false;
 	}
 	
-	public function hasField(node:Node, qName:XMLQName):Bool {
-		if (qName.ns != node.name.ns || !meta.exists(qName.name)) return false;
+	public function getFieldNativeType(node:Node, qName:XMLQName):Null<haxe.macro.Type> {
+		if (qName.ns != node.name.ns || !meta.exists(qName.name)) return null;
 
 		return if (node.nativeType.isChildOf(baseType)) {
 			var key = metaKey(qName);
 			var extra:Map<XMLQName, MetaData> = node.extra[key];
 			if (extra == null) node.extra[key] = extra = new Map();
-			extra.set(qName, meta.get(qName.name));
-			return true;
-		} else false;
-	}
-	
-	public function getFieldNativeType(node:Node, qName:XMLQName):haxe.macro.Type {
-		var extra:Map<XMLQName, MetaData> = node.extra[metaKey(qName)];
-		return extra != null && extra.exists(qName) ? extra.get(qName).type : null;
+			var res = meta.get(qName.name);
+			extra.set(qName, res);
+			return res.type;
+		} else null;
 	}
 }
 

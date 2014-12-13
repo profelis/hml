@@ -48,21 +48,7 @@ class DefaultHaxeTypeResolver implements IHaxeTypeResolver<Node, Type> {
         } catch (e:Dynamic) { false; }
     }
 
-    public function hasField(node:Node, qName:XMLQName):Bool {
-        if (node.name.ns != qName.ns) return false;
-        var type:Type;
-        if ((type = types[node.superType]) != null) {
-            for (n in type.children) if (qName.name == n.id) return true;
-            for (n in type.nodes) if (qName.name == n.id) return true;
-            for (n in type.declarations) if (qName.name == n.id) return true;
-            return hasField(type, new XMLQName(qName.name, type.name.ns));
-        }
-        return try {
-            Context.getType(node.superType).getClass().findField(qName.name, false) != null;
-        } catch (e:Dynamic) { false; }
-    }
-
-    public function getFieldNativeType(node:Node, qName:XMLQName):haxe.macro.Type {
+    public function getFieldNativeType(node:Node, qName:XMLQName):Null<haxe.macro.Type> {
         var type:Type;
         if ((type = types[node.superType]) != null) {
             for (n in type.children) if (qName.name == n.id) return n.nativeType;

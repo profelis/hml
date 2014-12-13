@@ -16,6 +16,5 @@ interface IHaxeTypeResolver<N, T> {
     public var types:Map<String, T>;
     public function getNativeType(node:N):haxe.macro.Type;
     public function isType(node:N):Bool;
-    public function hasField(node:N, qName:XMLQName):Bool;
-    public function getFieldNativeType(node:N, qName:XMLQName):haxe.macro.Type;
+    public function getFieldNativeType(node:N, qName:XMLQName):Null<haxe.macro.Type>;
 }

@@ -120,12 +120,12 @@ class EventMetaResolver extends BaseMetaResolver {
 	}
 
 	static var cache:Map<String, Map<String, MetaData>> = new Map();
+	
+	override public function getFieldNativeType(node:Node, qName:XMLQName):Null<haxe.macro.Type> {
+		if (qName.ns != node.name.ns) return null;
 
-	override public function hasField(node:Node, qName:XMLQName):Bool {
-		if (qName.ns != node.name.ns) return false;
-
-		var res = super.hasField(node, qName);
-		if (res) return res;
+		var res = super.getFieldNativeType(node, qName);
+		if (res != null) return res;
 
 		if (node.nativeType != null && node.nativeType.isChildOf(baseType)) {
 			var clazz = node.nativeType.getClass();
@@ -136,14 +136,15 @@ class EventMetaResolver extends BaseMetaResolver {
 					var key = BaseMetaResolver.metaKey(qName);
 					var extra:Map<XMLQName, MetaData> = node.extra[key];
 					if (extra == null) node.extra[key] = extra = new Map();
-					extra.set(qName, meta.get(qName.name));
-					return true;
+					var res = meta.get(qName.name);
+					extra.set(qName, res);
+					return res.type;
 				}
 				clazz = clazz.superClass != null ? clazz.superClass.t.get() : null;
 			}
 		}
 
-		return false;
+		return null;
 	}
 
 	function getClassMeta(clazz:haxe.macro.Type.ClassType):Map<String, MetaData> {
