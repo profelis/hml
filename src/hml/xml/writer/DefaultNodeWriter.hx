@@ -147,11 +147,13 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
   		} else {
 			writeField(node, method, writer);
 	  		
-	  		if (!node.oneInstance) {
+	  		if (node.oneInstance) {
+                method.push('var res = ${writeFieldCtor(node)};');
+            }
+            else {
                 method.push(baseAssignOrBind(node, 'this.${node.id}', node, writeFieldCtor(node), writer));
                 method.push('var res = this.${node.id};');
             }
-            else method.push('var res = ${writeFieldCtor(node)};');
 	  		predInit(node, method);
 			defaultWrite(node, "res", writer, method);
 			postInit(node, method);

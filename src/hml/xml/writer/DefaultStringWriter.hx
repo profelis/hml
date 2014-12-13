@@ -19,6 +19,6 @@ class DefaultStringWriter extends DefaultNodeWriter {
     }
 
     override function writeFieldCtor(node:Node) {
-        return node.cData != null ? node.cData : '""';
+        return node.cData != null ? node.cData : "\"\"";
     }
 }
