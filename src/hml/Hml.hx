@@ -14,9 +14,6 @@ using Lambda;
 
 #end
 
-/* TODO:
-	bindx2 support
-*/
 class Hml {
 
 	#if macro
@@ -33,7 +30,7 @@ class Hml {
 		if (processors.length == 0)
 			Context.fatalError("register file processors before parse()", Context.currentPos());
 
-		initOutput(output);
+		var initState = initOutput(output);
 		processedPaths = new Map();
 
 		for (p in paths) {
@@ -45,8 +42,14 @@ class Hml {
 			if (!path.isDirectory()) Context.error('"$path" is not a directory', p.pos);
 			process(path, p.pos, path);
 		}
-
-		for (p in processors) p.write(output);
+		
+		var writeState = new Map<String, Bool>();
+		for (p in processors) {
+			var t = p.write(output);
+			for (f in t) writeState.set(f, true);
+		}
+		
+		cleanOutput(initState, writeState, output);
 
 		return macro {};
 	}
@@ -61,7 +64,7 @@ class Hml {
 		processedPaths.set(path, true);
 
 		if (path.isDirectory())
-			for (p in path.readDirectory()) process('$path/$p', pos, root);
+			for (p in readDir(path)) process('$path/$p', pos, root);
 		else {
 			var processor = processors.find(function (p) return p.supportFile(path));
 			if (processor != null) {
@@ -73,12 +76,11 @@ class Hml {
 		}
 	}
 
-	static function initOutput(output:Output):Void {
+	static function initOutput(output:Output):Map<String, Bool> {
 		var path = output.path;
 		if (path.exists() && !path.isDirectory())
-			Context.fatalError('output path "$path" already exist', Context.currentPos());
+			Context.fatalError('output path "$path" already exist.', Context.currentPos());
 
-		if (output.autoClear == true && path.exists()) rmDirContent(path);
 		if (output.autoCreate != false && !path.exists())
 			try {
 				path.createDirectory();
@@ -90,6 +92,59 @@ class Hml {
 			Context.fatalError('output folder "$path" doesn\'t exist', Context.currentPos());
 
 		output.allowOverride = output.allowOverride != false;
+		
+		var res = new Map<String, Bool>();
+		function ls(path:String, root:String):Void {
+			var p = '$root/$path';
+			for (f in readDir(p)) {
+				var fp = '$p/$f';
+				if (fp.isDirectory()) {
+					ls('$path/$f', root);
+				}
+				else if (fp.exists()) {
+					var r = '$path/$f';
+					if (r.startsWith("./")) r = r.substr(2);
+					res.set(r, true);
+				}
+			}
+		}
+		ls(".", path);
+		return res;
+	}
+	
+	static function cleanOutput(initState:Map<String, Bool>, writeState:Map<String, Bool>, output:Output):Void {
+		if (output.autoClear != false) {
+			for (f in writeState.keys())
+				initState.remove(f);
+				
+			for (f in initState.keys()) {
+				var p = '${output.path}/$f';
+				if (p.exists()) try {
+					p.deleteFile();
+				} catch (e:Dynamic) {
+					Context.warning('Can\'t remove un-updated file "$p".', Context.currentPos());
+				}
+			}	
+		}
+		
+		function rmEmptyFolders(path:String) {
+			if (path.exists() && path.isDirectory()) {
+				var files = readDir(path);
+				if (files.length > 0) {
+					for (f in files) rmEmptyFolders('$path/$f');
+					files = readDir(path);
+				}
+				if (files.length == 0) {
+					try {
+						path.deleteDirectory();
+					} catch (e:Dynamic) {
+						Context.warning('Can\'t remove empty folder "$path".', Context.currentPos());
+					}
+				}	
+			}
+		}
+		
+		rmEmptyFolders(output.path);
 	}
 	
 	static function readDir(path:String):Array<String> {
@@ -98,23 +153,6 @@ class Hml {
 		} catch (e:Dynamic) {
 			Context.fatalError('Can\'t read directory "$path"', Context.currentPos());
 		}
-	}
-    
-    static function rmDirContent(path:String) {
-        if (path.isDirectory()) {
-			var dir = readDir(path);
-			for (p in dir) rmDir('$path/$p');
-		}
-    }
-
-	static function rmDir(path:String) {
-		if (!path.exists()) return;
-		if (path.isDirectory()) {
-			var dir = readDir(path);
-			for (p in dir) rmDir('$path/$p');
-			path.deleteDirectory();
-		}
-		else path.deleteFile();
 	}
 	#end
 
