@@ -4,6 +4,7 @@ import hml.base.Output;
 import hml.xml.writer.base.StringNode;
 import hml.xml.writer.IHaxeWriter;
 import hml.base.fileProcessor.IWriter;
+import hml.base.IFileProcessor;
 import haxe.macro.Context;
 import hml.base.Strings;
 import hml.base.Output;
@@ -30,7 +31,7 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 
 	var output:Output;
 
-	public function write(types:Array<Type>, output:Output):Array<String> {
+	public function write(types:Array<Type>, output:Output):WriterResult {
 		this.output = output;
 
         var paths = [];
@@ -98,7 +99,7 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 			else
                 sys.io.File.saveContent(file, res);
 		}
-        return paths;
+        return {savedFiles:paths};
 	}
 
 	public var fields:Array<WriteNode<Node>>;

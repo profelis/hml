@@ -3,6 +3,7 @@ package hml.base;
 import hml.base.fileProcessor.IWriter;
 import hml.base.fileProcessor.ITypeResolver;
 import hml.base.fileProcessor.IReader;
+import hml.base.IFileProcessor;
 import haxe.macro.Expr.Position;
 import hml.base.Output;
 
@@ -27,7 +28,7 @@ class BaseFileProcessor<B, T> implements IFileProcessor {
 	public function read(file:String, pos:Position, root:String):Void {
 		data.push(reader.read(file, pos, root));
 	}
-	public function write(output:Output):Array<String> {
+	public function write(output:Output):WriterResult {
 		var types = resolver.resolve(data);
 		return writer.write(types, output);
 	}

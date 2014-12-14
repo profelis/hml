@@ -46,7 +46,7 @@ class Hml {
 		var writeState = new Map<String, Bool>();
 		for (p in processors) {
 			var t = p.write(output);
-			for (f in t) writeState.set(f, true);
+			for (f in t.savedFiles) writeState.set(f, true);
 		}
 		
 		cleanOutput(initState, writeState, output);
