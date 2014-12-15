@@ -11,6 +11,7 @@ using sys.FileSystem;
 using Reflect;
 using StringTools;
 using Lambda;
+using hml.base.MatchLevel;
 
 #end
 
@@ -66,7 +67,7 @@ class Hml {
 		if (path.isDirectory())
 			for (p in readDir(path)) process('$path/$p', pos, root);
 		else {
-			var processor = processors.find(function (p) return p.supportFile(path));
+			var processor = processors.findMatch(function (p) return p.match(path));
 			if (processor != null) {
 				processor.read(path, pos, root);
 			}

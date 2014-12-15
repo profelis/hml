@@ -8,7 +8,7 @@ typedef WriterResult = {
 }
 
 interface IFileProcessor {
-	public function supportFile(path:String):Bool;
+	public function match(path:String):MatchLevel;
 	public function read(file:String, pos:Position, root:String):Void;
 	public function write(output:Output):WriterResult;
 }

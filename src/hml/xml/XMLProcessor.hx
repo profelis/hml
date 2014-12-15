@@ -25,7 +25,7 @@ class XMLProcessor extends BaseFileProcessor<XMLDataRoot, Type> {
 		);
 	}
 
-	override public function supportFile(file:String):Bool {
-		return XML_EXT.match(file);
+	override public function match(file:String):MatchLevel {
+		return XML_EXT.match(file) ? GlobalLevel : None;
 	}
 }

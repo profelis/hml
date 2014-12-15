@@ -21,7 +21,7 @@ class BaseFileProcessor<B, T> implements IFileProcessor {
 
 	var data:Array<B> = [];
 
-	public function supportFile(path:String):Bool {
+	public function match(path:String):MatchLevel {
 		throw "override me";
 	}
 
