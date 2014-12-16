@@ -85,7 +85,7 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 					removeItem(i);
 					n.nativeType = fieldType;
 					t.nodes.push(n);
-				} else if (isType(n)) {
+				} else if (n.nativeType != null) {
 					removeItem(i);
 					t.children.push(n);
 				} else {
@@ -137,14 +137,6 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 			if (res != null) return res;
 		}
 		return null;
-	}
-
-	function isType(node:Node):Bool {
-		for (r in resolvers) {
-			var res = r.isType(node);
-			if (res) return true;
-		}
-		return false;
 	}
 
 	function getFieldNativeType(node:Node, qName:XMLQName):haxe.macro.Type {

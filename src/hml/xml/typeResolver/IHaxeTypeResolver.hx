@@ -14,7 +14,6 @@ interface IXMLDataNodeParser<B, T, R> {
 
 interface IHaxeTypeResolver<N, T> {
     public var types:Map<String, T>;
-    public function getNativeType(node:N):haxe.macro.Type;
-    public function isType(node:N):Bool;
+    public function getNativeType(node:N):Null<haxe.macro.Type>;
     public function getFieldNativeType(node:N, qName:XMLQName):Null<haxe.macro.Type>;
 }

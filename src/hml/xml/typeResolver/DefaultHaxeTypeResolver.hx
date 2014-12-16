@@ -12,7 +12,7 @@ class DefaultHaxeTypeResolver implements IHaxeTypeResolver<Node, Type> {
 
     public function new() {}
 
-    public function getNativeType(node:Node):haxe.macro.Type {
+    public function getNativeType(node:Node):Null<haxe.macro.Type> {
         var superType = node.superType;
         while (types.exists(superType)) {
             node = types.get(superType);
@@ -39,13 +39,6 @@ class DefaultHaxeTypeResolver implements IHaxeTypeResolver<Node, Type> {
             }
         }
         return type;
-    }
-
-    public function isType(node:Node):Bool {
-        if (types.exists(node.superType)) return true;
-        return try {
-            Context.getType(node.superType) != null;
-        } catch (e:Dynamic) { false; }
     }
 
     public function getFieldNativeType(node:Node, qName:XMLQName):Null<haxe.macro.Type> {
