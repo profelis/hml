@@ -22,7 +22,7 @@ class XMLReader implements IReader<XMLDataRoot> implements IXMLParser<XMLData> {
 	}
 
 	function getTypeName(path:String, root:String):String {
-		var res = path.replace(root, "");
+		var res = new EReg(root, "").replace(path, "");
 		res = ~/[\/\\]/g.replace(res, ".");
 		res = XML_EXT.replace(res, "");
 		if (res.startsWith(".")) res = res.substring(1);
