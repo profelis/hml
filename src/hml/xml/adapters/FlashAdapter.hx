@@ -94,7 +94,11 @@ class DisplayObjectAdapter extends BaseEventDispatcherAdapter {
 
 class DisplayObjectWithMetaWriter extends BaseNodeWithMetaWriter {
 	override function child(node:Node, scope:String, child:Node, method:Array<String>, assign = false):Void {
-		method.push('$scope.addChild(${universalGet(child)});');
+		if (!assign) {
+			method.push('$scope.addChild(${universalGet(child)});');
+		} else {
+			super.child(node, scope, child, method, assign);
+		}
 	}
 }
 
