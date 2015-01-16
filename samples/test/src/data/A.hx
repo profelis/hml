@@ -11,4 +11,6 @@ class A extends flash.display.Sprite {
 	public function data() {
 
 	}
+    
+    public var asset: flash.display.DisplayObject;
 }

@@ -41,4 +41,8 @@
         <![CDATA[@MagicMeta('foo', "bar")
         @:rtti]]>
     </haxe:Meta>
+    
+    <asset xmlns:s="flash.display">
+        <s:Sprite width="50" height="50"/>
+    </asset>
 </A>

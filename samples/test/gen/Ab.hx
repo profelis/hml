@@ -162,6 +162,16 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         return res;
     }
 
+    inline function get_sprite__0():flash.display.Sprite {
+        /* ui/Ab.xml:46 characters: 9-17 */
+        var res = new flash.display.Sprite();
+        /* ui/Ab.xml:46 characters: 19-24 */
+        res.width = 50;
+        /* ui/Ab.xml:46 characters: 30-36 */
+        res.height = 50;
+        return res;
+    }
+
     function set_sprite(value:flash.display.Sprite):flash.display.Sprite {
         sprite_initialized = true;
         return sprite = value;
@@ -261,6 +271,8 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         /* ui/Ab.xml:7 characters: 2-6 */
         this.list.push(get_string__0());
         this.list.push(str2);
+        /* ui/Ab.xml:45 characters: 5-10 */
+        this.asset = get_sprite__0();
         this.addChild(sprite);
     }
 }
