@@ -33,7 +33,6 @@ class DefaultHaxeTypeResolver implements IHaxeTypeResolver<Node, Type> {
                     if (types != null) {
                         while (params.length > 0) params.pop();
                         for (s in types) params.push(s);
-                        node.generic = null;
                     }
                 case _:
             }
