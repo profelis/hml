@@ -87,7 +87,16 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 					t.nodes.push(n);
 				} else if (n.nativeType != null) {
 					removeItem(i);
-					t.children.push(n);
+					var children = t.children;
+					var len = children.length;
+					if (len == 0)
+						children.push(n);
+					else {
+						var pos = 0;
+						var targetIndex = n.model.index;
+						while (pos < len && children[pos].model.index <= targetIndex) pos++;
+						if (pos < len) children.insert(pos, n); else children.push(n);
+					}
 				} else {
 					i++;
 				}

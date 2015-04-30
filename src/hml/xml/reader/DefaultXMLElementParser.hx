@@ -59,6 +59,7 @@ class DefaultXMLElementParser implements IXMLNodeParser<XMLData> {
             }
         }
 
+        var index = 0;
         for (c in node)
             switch (c.nodeType) {
                 case Xml.PCData, Xml.CData:
@@ -67,8 +68,11 @@ class DefaultXMLElementParser implements IXMLNodeParser<XMLData> {
                         res.cData = res.cData == null ? data : res.cData + "\n" + data;
 
                 default:
-                    var node = parser.parse(xmlNode.sub(c), res);
-                    if (node != null) res.nodes.push(node);
+                    var node:XMLData = parser.parse(xmlNode.sub(c), res);
+                    if (node != null) {
+                        node.index = index++;
+                        res.nodes.push(node);
+                    }
             }
 
         return res;

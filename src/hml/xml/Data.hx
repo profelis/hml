@@ -51,6 +51,8 @@ class XMLData {
 
 	public var cData:Null<String> = null;
 
+	public var index:Int = -1;
+
 	public function new() {}
 
 	function toValue():Dynamic {
