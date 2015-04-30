@@ -48,6 +48,7 @@ before_install: # clone travis-hx repo
 install: # setup the target
   - ~/travis-hx/setup.sh
   - travis_retry haxelib install utest
+  - travis_retry haxelib install promhx
   - travis_retry haxelib install buddy
   - travis_retry haxelib git bindx2 git://github.com/profelis/bindx2.git
 
