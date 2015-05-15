@@ -75,12 +75,18 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 				s = '\n${TAB}${s.split("\t").join(TAB).split("\n").join("\n" + TAB)}\n';
 				res += s;
 			}
-            var callSuper = type.nativeType.toComplexType().getComplexTypeName() != type.superType;
-            
-            fields.push(new StringNode(null, 
-                'public function destroyHml():Void {\n' 
-                    + (callSuper ? '${TAB}super();\n' : "") + TAB + destroyMethod.join('\n$TAB') + 
-                '\n}\n'));
+			
+			//Check if any of the ancestors have destroyHml method
+			var superDestroyHml = type.nativeType.getClass().findField("destroyHml");
+			//Check if extending new hml generated class
+			var extendingHmlGeneratedClass = types.map(function (t) return t.type).indexOf(type.superType) != -1;
+			
+			var overrideStr = (extendingHmlGeneratedClass || superDestroyHml != null) ? "override " : "";
+			var superStr = (extendingHmlGeneratedClass || superDestroyHml != null) ? '${TAB}super.destroyHml();\n' : "";
+			fields.push(new StringNode(null,
+				'${overrideStr}public function destroyHml():Void {\n' +
+				superStr + TAB + destroyMethod.join('\n$TAB') + '\n}\n'
+			));
 			for (f in fields) writeNode(f);
 			for (f in methods) writeNode(f);
             if (script != null) {
