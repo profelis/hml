@@ -4,8 +4,8 @@ class C extends Ab {
 
     var unbind_this_name:Void -> Void;
 
-    public function destroyHml():Void {
-        super();
+    override public function destroyHml():Void {
+        super.destroyHml();
         try { unbind_this_name(); } catch (e:Dynamic) {}
     }
     

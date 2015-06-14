@@ -44,8 +44,12 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
 		if (!resolveTypes(recursiveResolve))
 			types.iter(throwResolveError);
 
-		if (!resolveTypes(postResolve))
-			Context.error('can\'t resolve node native types. Please send error report to deep (system.grand<at>gmail.com).', Context.currentPos());
+		var unresolvedTypes:Array<Node> = [];
+		if (!resolveTypes(postResolve.bind(unresolvedTypes))) {
+			for (node in unresolvedTypes) {
+				Context.error('can\'t resolve super type for "${node.name.toString()}"' , Context.makePosition(node.model.nodePos));
+			}
+		}
 
 		return [for (t in types) t];
 	}
@@ -121,12 +125,15 @@ class TypeResolver implements ITypeResolver<XMLDataRoot, Type> implements IXMLDa
         return res;
 	}
 
-	function postResolve(n:Node):Bool {
+	function postResolve(unresolvedTypes:Array<Node>, n:Node):Bool {
 		if (n.nativeType == null) n.nativeType = getNativeType(n);
-		if (n.nativeType == null) return false;
+		if (n.nativeType == null) {
+			unresolvedTypes.push(n);
+			return false;
+		}
 		var res = true;
 
-		inline function processNode(node:Node) res = postResolve(node) && res;
+		inline function processNode(node:Node) res = postResolve(unresolvedTypes, node) && res;
 		inline function iterNodes(nodes:Array<Node>) for (c in nodes) processNode(c);
 
 		n.oneInstance = n.id == null;

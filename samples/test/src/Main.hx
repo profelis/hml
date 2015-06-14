@@ -1,7 +1,6 @@
 package ;
 
-import buddy.*;
-using buddy.Should;
+import buddy.Buddy;
+import tests.UITests;
 
-@:build(buddy.GenerateMain.build(null, ["src"]))
-class Main{}
+class Main implements Buddy<[UITests]> {}
