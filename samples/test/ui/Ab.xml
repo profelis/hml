@@ -9,13 +9,13 @@
             <![CDATA[@BarMeta]]>
         </haxe:Meta>
     </list>
-	
+
 	<s:Sprite xmlns:s="flash.display" id="sprite" xmlns:text="flash.text.*">
 		<text:TextField id="child1" x="100" y="200" alpha="0.78" text="privateString" textColor="0xFF0000" selectable="false"
 			click="trace('click'); this.dispatchEvent(new flash.events.Event('someEvent'))"/>
 
 		<s:Sprite id="child2" visible="false" x="@b 100" name="@b user.name"/>
-		
+
 		<s:Sprite id="child3" visible="false" x="@b 200"/>
         <haxe:Meta>
             <![CDATA[@FooMeta(12)]]>
@@ -43,6 +43,10 @@
     </haxe:Meta>
     
     <asset xmlns:s="flash.display">
-        <s:Sprite width="50" height="50"/>
+        <s:Sprite xmlns="">
+            <s:x><Int>50</Int></s:x>
+            <s:y><Float>50.0</Float></s:y>
+            <s:visible><Bool>true</Bool></s:visible>
+        </s:Sprite>
     </asset>
 </A>

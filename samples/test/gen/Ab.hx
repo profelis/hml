@@ -162,13 +162,33 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         return res;
     }
 
+    inline function get_int__0():Int {
+        /* ui/Ab.xml:47 characters: 18-21 */
+        var res = 50;
+        return res;
+    }
+
+    inline function get_float__0():Float {
+        /* ui/Ab.xml:48 characters: 18-23 */
+        var res = 50.0;
+        return res;
+    }
+
+    inline function get_bool__0():Bool {
+        /* ui/Ab.xml:49 characters: 24-28 */
+        var res = true;
+        return res;
+    }
+
     inline function get_sprite__0():flash.display.Sprite {
         /* ui/Ab.xml:46 characters: 9-17 */
         var res = new flash.display.Sprite();
-        /* ui/Ab.xml:46 characters: 19-24 */
-        res.width = 50;
-        /* ui/Ab.xml:46 characters: 30-36 */
-        res.height = 50;
+        /* ui/Ab.xml:47 characters: 13-16 */
+        res.x = get_int__0();
+        /* ui/Ab.xml:48 characters: 13-16 */
+        res.y = get_float__0();
+        /* ui/Ab.xml:49 characters: 13-22 */
+        res.visible = get_bool__0();
         return res;
     }
 

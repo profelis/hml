@@ -22,6 +22,13 @@ class DefaultXMLAdapter implements IAdapter<XMLData, Node, Type> {
         return [new DefaultHaxeTypeResolver()];
     }
     public function getNodeWriters():Array<IHaxeNodeWriter<Node>> {
-        return [new DefaultArrayWriter(), new DefaultNodeWriter(), new DefaultStringWriter(), new DefaultFunctionWriter()];
+        return [
+            new DefaultArrayWriter(),
+            new DefaultNodeWriter(),
+            new DefaultStringWriter(),
+            new DefaultNumberWriter(),
+            new DefaultBoolWriter(),
+            new DefaultFunctionWriter()
+        ];
     }
 }

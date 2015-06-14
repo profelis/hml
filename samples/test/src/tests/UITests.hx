@@ -21,27 +21,27 @@ using utest.Assert;
 class UITests extends BuddySuite {
     public function new() {
 
-        describe("base hml test", {
+        describe("base hml test", function () {
             
             var a:Ab;
             var b:Ba;
             
-            before({
+            before(function () {
                 a = new Ab();
                 b = Type.createInstance(Ba, []);
             });
             
-            it("hml should extend base classes", {
+            it("hml should extend base classes", function () {
                 Std.is(a, A).should.be(true);
                 Std.is(b, B).should.be(true);
             });
             
-            it("hml should support parse attributes", {
+            it("hml should support parse attributes", function () {
                 a.name.should.be("testName");
                 a.alpha.should.be(0.5);
             });
             
-            it("hml should support maps", {
+            it("hml should support maps", function () {
                 b.stringMap.same(["1" => b.test2.name]);
                 b.intMap.same([for (i in 1...10) i => '$i']);
                 
@@ -52,46 +52,50 @@ class UITests extends BuddySuite {
                 }
             });
             
-            it("hml should support childrens", {
+            it("hml should support childrens", function () {
                 a.numChildren.should.be(1);
                 a.sprite.numChildren.should.be(3);
                 Std.is(a.sprite.getChildAt(0), TextField).should.be(true);
                 Std.is(a.sprite.getChildAt(1), Sprite).should.be(true);
+
+                a.asset.x.should.be(50);
+                a.asset.y.should.be(50.0);
+                a.asset.visible.should.be(true);
             });
             
-            it("hml should fill arrays", {
+            it("hml should fill arrays", function () {
                 a.list.should.containExactly(["as", null]);
             });
         });
         
-        describe("hml magic meta", {
+        describe("hml magic meta", function () {
             
             var a:Ab;
             var b:Ba;
             
-            before( {
+            before(function () {
                 a = Type.createInstance(Ab, []);
                 b = Type.createInstance(Ba, []);
             });
             
-            it("hml should generate class meta", {
+            it("hml should generate class meta", function () {
                 var typeMeta = Meta.getType(Ab);
                 var m:Array<String> = typeMeta.field("MagicMeta");
                 m.should.containExactly(["foo", "bar"]);
             });
             
-            it("hml should generate fields meta", {
+            it("hml should generate fields meta", function () {
                 var fieldsMeta = Meta.getFields(Ab);
                 fieldsMeta.should.not.be(null);
                 
                 var spriteMeta:Dynamic<String> = fieldsMeta.field("sprite");
-                spriteMeta.same( { "FooMeta": [12] } ); // @FooMeta(12)
+                spriteMeta.same( { FooMeta: [12] } ); // @FooMeta(12)
                 
                 var stringMeta:Dynamic<String> = fieldsMeta.field("string");
-                stringMeta.same( { "StringMeta" : null } ); // @StringMeta
+                stringMeta.same( { StringMeta: null } ); // @StringMeta
             });
             
-            it("hml should generate @: meta", {
+            it("hml should generate @: meta", function () {
                 var artti:String = untyped Ab.__rtti;
                 var brtti:String = untyped Ba.__rtti;
                 artti.should.not.be(null);
@@ -106,22 +110,22 @@ class UITests extends BuddySuite {
             });
         });
         
-        describe("hml magic namespace", {
+        describe("hml magic namespace", function () {
             
             var a:Ab;
             var b:Ba;
             
-            before({
+            before(function () {
                 a = new Ab();
                 b = Type.createInstance(Ba, []);
             });
             
-            it("hml should support Implements", {
+            it("hml should support Implements", function () {
                 Std.is(a, ITools).should.be(true);
                 Std.is(b, IEmptyInterface).should.be(true);
             });
             
-            it("hml should support Implements, rtti check", {
+            it("hml should support Implements, rtti check", function () {
                 var artti = untyped Ab.__rtti;
                 var ainfo = new XmlParser().processElement(Xml.parse(artti).firstElement());
                 ainfo.match(TClassdecl(_)).should.be(true);
@@ -149,7 +153,7 @@ class UITests extends BuddySuite {
             });
         });
         
-        describe("hml magic declarations", {
+        describe("hml magic declarations", function () {
             
             var a:Ab;
             var b:Ba;
@@ -159,7 +163,7 @@ class UITests extends BuddySuite {
                 b = new Ba();
             });
             
-            it("hml should generate public declarations", {
+            it("hml should generate public declarations", function () {
                 a.string.should.be(a.user.name);
                 a.string2.should.be("ab");
 
@@ -170,35 +174,35 @@ class UITests extends BuddySuite {
                 a.publicB.test2.should.be(null);
             });
             
-            it("hml should generate public declarations", {
+            it("hml should generate public declarations", function () {
                 // child1.text == privateString;
                 a.child1.text.should.be("text in private string");
             });
         });
         
-        describe("hml magic script", {
+        describe("hml magic script", function () {
             
             var b:Ba;
             
-            before({
+            before(function () {
                 b = new Ba();
             });
             
-            it("hml should inject scripts", {
+            it("hml should inject scripts", function () {
                 b.t.should.be(true);
                 b.n().should.be(32);
             });
         });
         
-        describe("hml should support bindx2", {
+        describe("hml should support bindx2", function () {
         
             var a:Ab;
             
-            before({
+            before(function () {
                 a=  new Ab();
             });
             
-            it("bind and unbind expr", {
+            it("bind and unbind expr", function () {
                 a.child2.x.should.be(100);
                 a.child3.x.should.be(200);
                 

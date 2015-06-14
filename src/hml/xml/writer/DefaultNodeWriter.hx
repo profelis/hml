@@ -76,14 +76,14 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
         for (n in node.declarations) writer.writeNode(n);
     }
 
-	function writeChildren(node:Node, scope:String, writer:IHaxeWriter<Node>, method:Array<String>, assign = false) {
+	function writeChildren(node:Node, scope:String, writer:IHaxeWriter<Node>, method:Array<String>, assign = false):Void {
 		for (n in node.children) {
   			writer.writeNode(n);
   			child(node, scope, n, method, assign);
   		}
 	}
 
-	function child(node:Node, scope:String, child:Node, method:Array<String>, assign = false) {
+	function child(node:Node, scope:String, child:Node, method:Array<String>, assign = false):Void {
         if (!assign) Context.error("Node doesn't support children", Context.makePosition(child.model.nodePos));
 		else method.push('$scope = ${getFieldName(child)}();');
 	}

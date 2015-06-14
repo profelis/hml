@@ -119,7 +119,7 @@ class ClassTypeTools {
 	 * @return          source class is subclass of baseType or implements baseType interface
 	 */
 	static public function isChildOf(clazz:ClassType, baseType:ComplexType):Bool {
-		var name = getComplexTypeName(baseType);
+		var name = ComplexTypeTools.getComplexTypeName(baseType);
 		if (name == null) throw 'unknown type name for ${clazz.module}';
 			
 		while (clazz != null) {
@@ -143,18 +143,20 @@ class ClassTypeTools {
      return if (type.pack[type.pack.length - 1] == type.name) type.pack.join(".");
             else if (type.pack.length > 0) type.pack.join(".") + "." + type.name; 
             else type.name;
+}
 
+class ComplexTypeTools {
 	/**
 	 * generate type name of ComplexType. Use typeName method
 	 * @param  baseType ComplexType
 	 *
 	 * @see typeName
-	 * 
+	 *
 	 * @return          type name string
 	 */
 	static public function getComplexTypeName(baseType:ComplexType) {
 		return switch (baseType) {
-			case TPath(p): typeName(p);
+			case TPath(p): ClassTypeTools.typeName(p);
 			case TParent(ct) | TOptional(ct): getComplexTypeName(ct);
 			case _: null;
 		}
@@ -173,9 +175,39 @@ class TypeTools {
 	 * @return          source type is subclass of target type or implements target interface 
 	 */
 	static public function isChildOf(type:haxe.macro.Type, baseType:ComplexType) {
-		var clazz;
-		try { clazz = type.follow().getClass(); } catch (e:Dynamic) { return false; }
+		var name = ComplexTypeTools.getComplexTypeName(baseType);
+		if (name == null) throw 'unknown type name for ${baseType}';
 
-		return ClassTypeTools.isChildOf(clazz, baseType);
+		return switch type {
+			case TInst(ref, _): ClassTypeTools.isChildOf(ref.get(), baseType);
+			case _:
+				var fullPath = getFullPath(type);
+				fullPath == null ? false : fullPath.join(".") == name;
+		}
+	}
+
+	static public inline function getFullPath(type:haxe.macro.Type):Array<String> {
+		return if (type == null) null;
+		else switch type {
+				case TMono(tp): getFullPath(tp.get());
+				case TEnum(tp, _): BaseTypeTools.baseTypePath(tp.get());
+				case TInst(tp, _): BaseTypeTools.baseTypePath(tp.get());
+				case TType(tp, _): BaseTypeTools.baseTypePath(tp.get());
+				case TFun(_, _): null;
+				case TAnonymous(_): null;
+				case TDynamic(_): null;
+				case TLazy(f): getFullPath(f());
+				case TAbstract(tp, _): BaseTypeTools.baseTypePath(tp.get());
+			}
+	}
+}
+
+class BaseTypeTools {
+
+	static public inline function baseTypePath(t:BaseType):Array<String> {
+		return if (t == null)
+			null;
+		else
+			t.pack.length > 0 ? t.pack.concat([t.name]) : [t.name];
 	}
 }
