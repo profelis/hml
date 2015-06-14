@@ -139,10 +139,11 @@ class ClassTypeTools {
 	 * @param  type struct {pack:Array<String>, name:String}
 	 * @return type name string
 	 */
-	@:extern public static inline function typeName(type:{pack:Array<String>, name:String}):String 
-     return if (type.pack[type.pack.length - 1] == type.name) type.pack.join(".");
+	@:extern public static inline function typeName(type:{pack:Array<String>, name:String}):String {
+        return if (type.pack[type.pack.length - 1] == type.name) type.pack.join(".");
             else if (type.pack.length > 0) type.pack.join(".") + "." + type.name; 
             else type.name;
+	}
 }
 
 class ComplexTypeTools {
@@ -177,12 +178,27 @@ class TypeTools {
 	static public function isChildOf(type:haxe.macro.Type, baseType:ComplexType) {
 		var name = ComplexTypeTools.getComplexTypeName(baseType);
 		if (name == null) throw 'unknown type name for ${baseType}';
+		type = type.follow();
+
+		inline function check(type:haxe.macro.Type) {
+			var fullPath = getFullPath(type);
+			return fullPath != null && fullPath.join(".") == name;
+		}
+
+		inline function checkTypes(types:Array<{t:haxe.macro.Type, field:Null<ClassField>}>) {
+			var canCast = false;
+			for (t in types) if (isChildOf(t.t, baseType)) {
+				canCast = true;
+				break;
+			}
+			return canCast;
+		}
 
 		return switch type {
 			case TInst(ref, _): ClassTypeTools.isChildOf(ref.get(), baseType);
-			case _:
-				var fullPath = getFullPath(type);
-				fullPath == null ? false : fullPath.join(".") == name;
+			case TAbstract(_, _) if (check(type)): true;
+			case TAbstract(_.get() => type, _): checkTypes(type.to) && checkTypes(type.from);
+			case _: check(type);
 		}
 	}
 

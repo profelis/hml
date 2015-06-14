@@ -26,7 +26,8 @@ class DefaultXMLAdapter implements IAdapter<XMLData, Node, Type> {
             new DefaultArrayWriter(),
             new DefaultNodeWriter(),
             new DefaultStringWriter(),
-            new DefaultNumberWriter(),
+            new DefaultIntWriter(),
+            new DefaultFloatWriter(),
             new DefaultBoolWriter(),
             new DefaultFunctionWriter()
         ];

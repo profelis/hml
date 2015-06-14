@@ -5,13 +5,12 @@ import hml.xml.Data;
 
 using hml.base.MacroTools;
 
-class DefaultNumberWriter extends DefaultNodeWriter {
+class DefaultIntWriter extends DefaultNodeWriter {
 
 	override public function match(node:Node):MatchLevel {
-		if (isChildOf(node, macro : Int)) return ClassLevel;
-		if (isChildOf(node, macro : UInt)) return ClassLevel;
-		if (isChildOf(node, macro : Float)) return ClassLevel;
-		if (isChildOf(node, macro : Single)) return ClassLevel;
+		if (isChildOf(node, macro : Int)
+			|| isChildOf(node, macro : UInt)
+			|| isChildOf(node, macro : Single)) return CustomLevel(ClassLevel, 1);
 
 		return None;
 	}
