@@ -162,6 +162,11 @@ class ComplexTypeTools {
 			case _: null;
 		}
 	}
+
+	static public function followComplexType(ct:ComplexType):ComplexType {
+		return ct.toType().follow().toComplexType();
+	}
+
 }
 
 class TypeTools {

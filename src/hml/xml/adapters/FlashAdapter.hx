@@ -1,5 +1,6 @@
 package hml.xml.adapters;
 
+import haxe.macro.TypeTools;
 import hml.xml.writer.DefaultNodeWriter;
 import hml.xml.typeResolver.IHaxeTypeResolver;
 import hml.xml.adapters.base.MergedAdapter;
@@ -49,11 +50,13 @@ class FlashAdapter extends MergedAdapter<XMLData, Node, Type> {
 
 class DisplayObjectAdapter extends BaseEventDispatcherAdapter {
 	public function new(?baseType:ComplexType, ?events:Map<String, MetaData>, ?matchLevel:MatchLevel) {
-		if (baseType == null) baseType = macro : flash.display.DisplayObject;
+		//We need to use resolve `flash` package to actuall `openfl`, `openfl._v2` or `nme` packages.
+		if (baseType == null) baseType = (macro : flash.display.DisplayObject).followComplexType();
 		if (matchLevel == null) matchLevel = CustomLevel(ClassLevel, 10);
 
-		var mouseEventType = (macro : flash.events.MouseEvent -> Void).toType();
-		var eventType = (macro : flash.events.Event -> Void).toType();
+		//Also resolve all `flash` package types.
+		var mouseEventType = (macro : flash.events.MouseEvent -> Void).toType().follow();
+		var eventType = (macro : flash.events.Event -> Void).toType().follow();
 
 		events = events != null ? events : new Map();
 
@@ -104,7 +107,8 @@ class DisplayObjectWithMetaWriter extends BaseNodeWithMetaWriter {
 
 class IEventDispatcherAdapter extends BaseEventDispatcherAdapter {
 	public function new() {
-		super(macro : flash.events.IEventDispatcher, new Map(), ClassLevel);
+		//We need to use resolve `flash` package to actuall `openfl`, `openfl._v2` or `nme` packages.
+		super((macro : flash.events.IEventDispatcher).followComplexType(), new Map(), ClassLevel);
 	}
 }
 
