@@ -163,8 +163,12 @@ class ComplexTypeTools {
 		}
 	}
 
-	static public function followComplexType(ct:ComplexType):ComplexType {
-		return ct.toType().follow().toComplexType();
+	static public function resolve(ct:ComplexType):ComplexType {
+		return TypeTools.resolve(ct.toType()).toComplexType();
+	}
+
+	static public function resolveToType(ct:ComplexType):Type {
+		return TypeTools.resolve(ct.toType());
 	}
 
 }
@@ -220,6 +224,10 @@ class TypeTools {
 				case TLazy(f): getFullPath(f());
 				case TAbstract(tp, _): BaseTypeTools.baseTypePath(tp.get());
 			}
+	}
+
+	static public function resolve(t:Type):Type {
+		return t.follow();
 	}
 }
 

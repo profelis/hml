@@ -6,7 +6,7 @@ import hml.xml.typeResolver.IHaxeTypeResolver;
 import hml.xml.reader.IXMLParser;
 
 class MergedAdapter<B, N, T> implements IAdapter<B, N, T> {
-	public var adapters:Array<IAdapter<B, N, T>>;
+	var adapters:Array<IAdapter<B, N, T>>;
 
 	public function new(adapters:Array<IAdapter<B, N, T>>) {
 		this.adapters = adapters;

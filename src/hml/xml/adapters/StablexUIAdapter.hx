@@ -17,6 +17,7 @@ using haxe.macro.Context;
 using haxe.macro.Tools;
 
 using StringTools;
+using hml.base.MacroTools;
 using Lambda;
 #end
 
@@ -43,10 +44,10 @@ class StablexUIAdapter extends MergedAdapter<XMLData, Node, Type> {
 
 class WidgetAdapter extends DisplayObjectAdapter {
 	public function new() {
-		var eventType = (macro : flash.events.Event -> Void).toType();
-		var widgetEvent = (macro : ru.stablex.ui.events.WidgetEvent -> Void).toType();
-		var dndEvent = (macro : ru.stablex.ui.events.DndEvent -> Void).toType();
-		var scrollEvent = (macro : ru.stablex.ui.events.ScrollEvent -> Void).toType();
+		var eventType = (macro : flash.events.Event -> Void).resolveToType();
+		var widgetEvent = (macro : ru.stablex.ui.events.WidgetEvent -> Void).resolveToType();
+		var dndEvent = (macro : ru.stablex.ui.events.DndEvent -> Void).resolveToType();
+		var scrollEvent = (macro : ru.stablex.ui.events.ScrollEvent -> Void).resolveToType();
 
 		var events:Map<String, MetaData> = new Map();
 		inline function addMeta(data:MetaData):Void {

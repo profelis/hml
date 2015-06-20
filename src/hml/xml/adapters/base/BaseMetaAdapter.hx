@@ -4,7 +4,6 @@ import hml.xml.writer.DefaultNodeWriter;
 import hml.xml.typeResolver.IHaxeTypeResolver;
 import hml.xml.writer.IHaxeWriter;
 import hml.xml.adapters.base.BaseXMLAdapter;
-import hml.base.MacroTools;
 import hml.xml.Data;
 import hml.base.MatchLevel;
 
@@ -91,7 +90,7 @@ class BaseMetaResolver implements IHaxeTypeResolver<Node, Type> {
 			if (extra == null) node.extra[key] = extra = new Map();
 			var res = meta.get(qName.name);
 			extra.set(qName, res);
-			return res.type;
+			res.type;
 		} else null;
 	}
 }
