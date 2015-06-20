@@ -36,7 +36,6 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
             Context.error('can\'t resolve namespace', Context.makePosition(data.nodePos));
 
         if (Hml.rootNamespace != null && node.superType.startsWith(Hml.rootNamespace)) {
-            trace(node.superType);
             node.superType = node.superType.substr(Hml.rootNamespaceLength);
         }
 
