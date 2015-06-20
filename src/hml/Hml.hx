@@ -23,6 +23,8 @@ class Hml {
 
 	static var processors:Array<IFileProcessor> = [];
 
+	static public var rootNamespace:String = null;
+	static public var rootNamespaceLength:Int = -1;
 	#end
 
 	macro static public function parse(output:Output, paths:Array<Expr>):Expr {
@@ -30,6 +32,13 @@ class Hml {
 			Context.fatalError("call parse() method once", Context.currentPos());
 		if (processors.length == 0)
 			Context.fatalError("register file processors before parse()", Context.currentPos());
+
+		rootNamespace = Context.definedValue("hml_root_namespace");
+		if (rootNamespace == null || rootNamespace.length == 0) rootNamespace = null;
+		else {
+			if (!rootNamespace.endsWith(".")) rootNamespace += ".";
+			rootNamespaceLength = rootNamespace.length;
+		}
 
 		var initState = initOutput(output);
 		processedPaths = new Map();

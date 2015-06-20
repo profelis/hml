@@ -137,7 +137,7 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
     }
 
     inline function get_someEvent__0():flash.events.Event -> StdTypes.Void {
-        /* ui/Ab.xml:1 characters: 59-68 */
+        /* ui/Ab.xml:1 characters: 60-69 */
         var res = function (event:flash.events.Event):StdTypes.Void { trace('some event meta magic'); };
         return res;
     }
@@ -283,7 +283,7 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
     public function new() {
         /* ui/Ab.xml:1 characters: 1-2 */
         super();
-        /* ui/Ab.xml:1 characters: 103-108 */
+        /* ui/Ab.xml:1 characters: 104-109 */
         this.alpha = 0.5;
         this.addEventListener("someEvent", get_someEvent__0());
         /* ui/Ab.xml:4 characters: 2-6 */

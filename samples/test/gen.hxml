@@ -6,4 +6,5 @@
 -main GenHx
 -lib bindx2
 --macro allowPackage('flash')
+-D hml_root_namespace=s
 #-D hml_debug
