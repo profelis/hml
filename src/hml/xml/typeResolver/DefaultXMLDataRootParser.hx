@@ -26,9 +26,9 @@ class DefaultXMLDataRootParser extends DefaultXMLDataParser implements IXMLDataN
                             type.implementsList = imps;
                         else
                             for (t in imps) type.implementsList.push(t);
-                    case "Declarations" | "Private":
+                    case "Declarations" | "Private" | "Public":
                         var type:Type = cast node;
-                        var publicAccess = name.name == "Declarations";
+                        var publicAccess = name.name != "Private";
                         for (c in child.unresolvedNodes) {
                             c.publicAccess = publicAccess;
                             type.declarations.push(c);
