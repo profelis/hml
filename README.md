@@ -11,7 +11,7 @@ Root node children
 Tag          | Description   | Example
 ------------ | ------------- | -------------
 `<Implements>` | List of interfaces | `<haxe:Implements><![CDATA[foo.IBar]]></haxe:Implements>`
-`<Declarations> | <Public>` | List of public declarations | `<haxe:Declarations><ui:String id="string2">"ab"</ui:String></haxe:Declarations>`
+`<Declarations>` or `<Public>` | List of public declarations | `<haxe:Declarations><ui:String id="string2">"ab"</ui:String></haxe:Declarations>`
 `<Private>` | List of private declarations | `<haxe:Private><ui:String id="privateString">'text in private string'</ui:String></haxe:Private>`
 `<Script>` | Haxe script block | `<haxe:Script><![CDATA[import flash.display.Sprite;]]></haxe:Script>`
 
