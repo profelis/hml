@@ -1,5 +1,6 @@
 package hml.xml.adapters;
 
+import hml.xml.writer.base.StringNode;
 import haxe.macro.TypeTools;
 import hml.xml.writer.DefaultNodeWriter;
 import hml.xml.typeResolver.IHaxeTypeResolver;
@@ -100,7 +101,7 @@ class DisplayObjectAdapter extends BaseEventDispatcherAdapter {
 class DisplayObjectWithMetaWriter extends BaseNodeWithMetaWriter {
 	override function child(node:Node, scope:String, child:Node, method:Array<String>, assign = false):Void {
 		if (!assign) {
-			method.push('$scope.addChild(${universalGet(child)});');
+			method.push(StringNode.ifCond(child, '$scope.addChild(${universalGet(child)});'));
 		} else {
 			super.child(node, scope, child, method, assign);
 		}
@@ -207,7 +208,7 @@ class EventDispatcherMetaWriter implements IMetaWriter {
 	public function new() {}
 
 	public function writeMeta(node:Node, scope:String, metaData:MetaData, parent:Node, metaWriter:DefaultNodeWriter, writer:IHaxeWriter<Node>, method:Array<String>):Void {
-		method.push('$scope.addEventListener(${metaWriter.printer.printExpr(metaData.getExpr())}, ${metaWriter.universalGet(node)});');
+		method.push(StringNode.ifCond(node, '$scope.addEventListener(${metaWriter.printer.printExpr(metaData.getExpr())}, ${metaWriter.universalGet(node)});'));
 		switch (node.nativeType) {
 			case TFun(t, ret):
 				var body = node.cData;

@@ -59,6 +59,8 @@ class DefaultXMLDataParser implements IXMLDataNodeParser<XMLData, Node, Node> {
                         node.generic = data().stringToTypes();
                     case "Meta":
                         node.meta = if (node.meta == null) data(); else node.meta + '\n' + data();
+                    case "if" if (child == null):
+                        node.ifCond.push('(${cData.htmlUnescape()})');
                     case _:
                         Context.error('unknown specific haxe attribute "${name}"', Context.makePosition(pos));
                         res = false;

@@ -111,13 +111,13 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
     
     function baseAssignOrBind(node:Node, target:String, child:Node, source:String, writer:IHaxeWriter<Node>):String {
         return if (child.bindType == null)
-            '$target = $source;';
+			StringNode.ifCond(child, '$target = $source;');
         else switch (child.bindType) {
             case BindType.SIMPLE_BIND:
-                var id = 'unbind_${node.id}_${child.name.name}';
-                writer.destroyMethod.push('try { ${id}(); } catch (e:Dynamic) {}');
+                var id = 'unbind_${node.id != null ? node.id : ""}_${child.name.name}';
+                writer.destroyMethod.push(StringNode.ifCond(node, 'try { ${id}(); } catch (e:Dynamic) {}'));
                 writer.fields.push(new StringNode(child, 'var ${id}:Void -> Void;'));
-                '${id} = bindx.BindExt.exprTo($source, $target);';
+				StringNode.ifCond(child, '${id} = bindx.BindExt.exprTo($source, $target);');
         }
     }
     

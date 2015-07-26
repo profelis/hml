@@ -143,6 +143,8 @@ class Node {
     
     public var bindType:Null<BindType>;
 
+	public var ifCond:Array<String> = [];
+
 	public function new() {}
 
 	function toValue():Dynamic {
@@ -157,7 +159,8 @@ class Node {
 			children: [for (n in children) n.toValue()],
 			unresolved: [for (n in unresolvedNodes) n.toValue()],
             meta: meta,
-			cData: cData
+			cData: cData,
+			ifCond: ifCond.join(" && "),
 		}
 	}
 
