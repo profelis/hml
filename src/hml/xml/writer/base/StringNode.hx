@@ -17,7 +17,7 @@ class StringNode extends WriteNode<Node> {
     }
 
     inline static public function ifCond(node:Node, str:String) {
-        return '${node.ifCond.length > 0 ? "#if (" + node.ifCond.join(") && (") + ") " : ""}${str}${node.ifCond.length > 0 ? " #end": ""}';
+        return node.ifCond.length > 0 ? '#if (${node.ifCond.join(" && ")}) $str #end' : str;
     }
 }
 

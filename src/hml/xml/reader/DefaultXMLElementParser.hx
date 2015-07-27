@@ -49,7 +49,7 @@ class DefaultXMLElementParser implements IXMLNodeParser<XMLData> {
 
         for (a in node.attributes()) {
             var qName = a.toXMLQName();
-            var value = node.get(a);
+            var value = node.get(a).htmlUnescape();
             switch ({name:qName.name, ns:qName.ns}) {
                 case {name:"xmlns", ns:null}: res.namespaces["*"] = formatNS(value);
                 case {name:n, ns:"xmlns"}: res.namespaces[n] = formatNS(value);

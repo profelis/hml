@@ -29,10 +29,10 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 	}
 
 	function initNodeId(n:Node):Void {
-        var name = n.name.name;
-        name = name.charAt(0).toLowerCase() + name.substr(1);
-        var key = n.root.file + name;
 		if (n.id == null) {
+			var name = n.name.name;
+			name = name.charAt(0).toLowerCase() + name.substr(1);
+			var key = n.root.file + name;
 			var i = nodeIds.exists(key) ? nodeIds[key] : 0;
             n.id =  '${name}__$i';
 			nodeIds[key] = i + 1;
@@ -114,7 +114,8 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 			StringNode.ifCond(child, '$target = $source;');
         else switch (child.bindType) {
             case BindType.SIMPLE_BIND:
-                var id = 'unbind_${node.id != null ? node.id : ""}_${child.name.name}';
+				initNodeId(node);
+                var id = 'unbind_${node.id}_${child.name.name}';
                 writer.destroyMethod.push(StringNode.ifCond(node, 'try { ${id}(); } catch (e:Dynamic) {}'));
                 writer.fields.push(new StringNode(child, 'var ${id}:Void -> Void;'));
 				StringNode.ifCond(child, '${id} = bindx.BindExt.exprTo($source, $target);');
