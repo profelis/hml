@@ -180,10 +180,10 @@ class Index extends Main {
         }
         /* assets/ui/Index.xml:31 characters: 17-25 */
         res.skinName = 'btnxp';
-        /* assets/ui/Index.xml:31 characters: 51-55 */
-        res.text = 'Move nme. logo';
         /* assets/ui/Index.xml:31 characters: 44-45 */
         res.h = 40;
+        /* assets/ui/Index.xml:31 characters: 51-55 */
+        res.text = 'Move nme. logo';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_click__0());
         /* assets/ui/Index.xml:31 characters: 36-37 */
         res.w = 100;
@@ -240,10 +240,10 @@ class Index extends Main {
         }
         /* assets/ui/Index.xml:39 characters: 17-25 */
         res.skinName = 'btnxp';
-        /* assets/ui/Index.xml:39 characters: 51-55 */
-        res.text = 'Make it red';
         /* assets/ui/Index.xml:39 characters: 44-45 */
         res.h = 40;
+        /* assets/ui/Index.xml:39 characters: 51-55 */
+        res.text = 'Make it red';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_click__1());
         /* assets/ui/Index.xml:39 characters: 36-37 */
         res.w = 100;
@@ -295,10 +295,10 @@ class Index extends Main {
         }
         /* assets/ui/Index.xml:63 characters: 27-35 */
         res.skinName = 'btnxp';
-        /* assets/ui/Index.xml:63 characters: 61-65 */
-        res.text = 'Make it Ubuntu';
         /* assets/ui/Index.xml:63 characters: 54-55 */
         res.h = 40;
+        /* assets/ui/Index.xml:63 characters: 61-65 */
+        res.text = 'Make it Ubuntu';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_click__2());
         /* assets/ui/Index.xml:63 characters: 46-47 */
         res.w = 100;
@@ -327,10 +327,10 @@ class Index extends Main {
         }
         /* assets/ui/Index.xml:82 characters: 17-25 */
         res.skinName = 'btnxp';
-        /* assets/ui/Index.xml:82 characters: 51-55 */
-        res.text = 'Random resize';
         /* assets/ui/Index.xml:82 characters: 44-45 */
         res.h = 40;
+        /* assets/ui/Index.xml:82 characters: 51-55 */
+        res.text = 'Random resize';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_click__3());
         /* assets/ui/Index.xml:82 characters: 36-37 */
         res.w = 100;

@@ -14,10 +14,10 @@ class Alert extends ru.stablex.ui.widgets.VBox {
     inline function get_paint__0():ru.stablex.ui.skins.Paint {
         /* ui/Alert.xml:6 characters: 8-18 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Alert.xml:6 characters: 31-36 */
-        res.color = 0xbbbbbb;
         /* ui/Alert.xml:6 characters: 20-26 */
         res.border = 2;
+        /* ui/Alert.xml:6 characters: 31-36 */
+        res.color = 0xbbbbbb;
         return res;
     }
 
@@ -53,10 +53,10 @@ class Alert extends ru.stablex.ui.widgets.VBox {
     inline function get_paint__1():ru.stablex.ui.skins.Paint {
         /* ui/Alert.xml:10 characters: 12-22 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Alert.xml:10 characters: 35-40 */
-        res.color = 0x777777;
         /* ui/Alert.xml:10 characters: 24-30 */
         res.border = 1;
+        /* ui/Alert.xml:10 characters: 35-40 */
+        res.color = 0x777777;
         return res;
     }
 

@@ -18,10 +18,10 @@ class First extends ru.stablex.ui.widgets.Widget {
     inline function get_paint__0():ru.stablex.ui.skins.Paint {
         /* ui/First.xml:5 characters: 3-13 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/First.xml:5 characters: 15-20 */
-        res.color = 0xDDDDDD;
         /* ui/First.xml:5 characters: 32-38 */
         res.border = 2;
+        /* ui/First.xml:5 characters: 15-20 */
+        res.color = 0xDDDDDD;
         /* ui/First.xml:5 characters: 43-50 */
         res.corners = [5];
         return res;
@@ -44,10 +44,10 @@ class First extends ru.stablex.ui.widgets.Widget {
     inline function get_paint__1():ru.stablex.ui.skins.Paint {
         /* ui/First.xml:10 characters: 4-14 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/First.xml:10 characters: 16-21 */
-        res.color = 0xFF0000;
         /* ui/First.xml:10 characters: 33-39 */
         res.border = 2;
+        /* ui/First.xml:10 characters: 16-21 */
+        res.color = 0xFF0000;
         /* ui/First.xml:10 characters: 44-51 */
         res.corners = [20];
         return res;

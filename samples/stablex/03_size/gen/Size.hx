@@ -20,10 +20,10 @@ class Size extends ru.stablex.ui.widgets.Widget {
     inline function get_paint__0():ru.stablex.ui.skins.Paint {
         /* ui/Size.xml:8 characters: 19-29 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Size.xml:8 characters: 42-47 */
-        res.color = 0x00FF00;
         /* ui/Size.xml:8 characters: 31-37 */
         res.border = 1;
+        /* ui/Size.xml:8 characters: 42-47 */
+        res.color = 0x00FF00;
         return res;
     }
 
@@ -40,10 +40,10 @@ class Size extends ru.stablex.ui.widgets.Widget {
         /* ui/Size.xml:7 characters: 25-29 */
         res.text = 'Click here to set \'child.w = 50\'';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_click__0());
-        /* ui/Size.xml:7 characters: 69-79 */
-        res.autoHeight = true;
         /* ui/Size.xml:7 characters: 17-18 */
         res.w = 300;
+        /* ui/Size.xml:7 characters: 69-79 */
+        res.autoHeight = true;
         /* ui/Size.xml:8 characters: 13-17 */
         res.skin = get_paint__0();
         res._onInitialize();
@@ -60,10 +60,10 @@ class Size extends ru.stablex.ui.widgets.Widget {
     inline function get_paint__1():ru.stablex.ui.skins.Paint {
         /* ui/Size.xml:11 characters: 19-29 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Size.xml:11 characters: 42-47 */
-        res.color = 0x00FF00;
         /* ui/Size.xml:11 characters: 31-37 */
         res.border = 1;
+        /* ui/Size.xml:11 characters: 42-47 */
+        res.color = 0x00FF00;
         return res;
     }
 
@@ -80,10 +80,10 @@ class Size extends ru.stablex.ui.widgets.Widget {
         /* ui/Size.xml:10 characters: 25-29 */
         res.text = 'Click here to set \'child.widthPt = 50\'';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_click__1());
-        /* ui/Size.xml:10 characters: 75-85 */
-        res.autoHeight = true;
         /* ui/Size.xml:10 characters: 17-18 */
         res.w = 300;
+        /* ui/Size.xml:10 characters: 75-85 */
+        res.autoHeight = true;
         /* ui/Size.xml:11 characters: 13-17 */
         res.skin = get_paint__1();
         res._onInitialize();
@@ -100,10 +100,10 @@ class Size extends ru.stablex.ui.widgets.Widget {
     inline function get_paint__2():ru.stablex.ui.skins.Paint {
         /* ui/Size.xml:14 characters: 19-29 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Size.xml:14 characters: 42-47 */
-        res.color = 0x00FF00;
         /* ui/Size.xml:14 characters: 31-37 */
         res.border = 1;
+        /* ui/Size.xml:14 characters: 42-47 */
+        res.color = 0x00FF00;
         return res;
     }
 
@@ -120,10 +120,10 @@ class Size extends ru.stablex.ui.widgets.Widget {
         /* ui/Size.xml:13 characters: 25-29 */
         res.text = 'Click here to set \'child.h = 50\'';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_click__2());
-        /* ui/Size.xml:13 characters: 69-79 */
-        res.autoHeight = true;
         /* ui/Size.xml:13 characters: 17-18 */
         res.w = 300;
+        /* ui/Size.xml:13 characters: 69-79 */
+        res.autoHeight = true;
         /* ui/Size.xml:14 characters: 13-17 */
         res.skin = get_paint__2();
         res._onInitialize();
@@ -140,10 +140,10 @@ class Size extends ru.stablex.ui.widgets.Widget {
     inline function get_paint__3():ru.stablex.ui.skins.Paint {
         /* ui/Size.xml:17 characters: 19-29 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Size.xml:17 characters: 42-47 */
-        res.color = 0x00FF00;
         /* ui/Size.xml:17 characters: 31-37 */
         res.border = 1;
+        /* ui/Size.xml:17 characters: 42-47 */
+        res.color = 0x00FF00;
         return res;
     }
 
@@ -160,10 +160,10 @@ class Size extends ru.stablex.ui.widgets.Widget {
         /* ui/Size.xml:16 characters: 25-29 */
         res.text = 'Click here to set \'child.heightPt = 50\'';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_click__3());
-        /* ui/Size.xml:16 characters: 76-86 */
-        res.autoHeight = true;
         /* ui/Size.xml:16 characters: 17-18 */
         res.w = 300;
+        /* ui/Size.xml:16 characters: 76-86 */
+        res.autoHeight = true;
         /* ui/Size.xml:17 characters: 13-17 */
         res.skin = get_paint__3();
         res._onInitialize();
@@ -185,10 +185,10 @@ class Size extends ru.stablex.ui.widgets.Widget {
         res.childPadding = 10;
         /* ui/Size.xml:6 characters: 55-62 */
         res.padding = 10;
-        /* ui/Size.xml:6 characters: 19-29 */
-        res.autoHeight = true;
         /* ui/Size.xml:6 characters: 11-12 */
         res.w = 800;
+        /* ui/Size.xml:6 characters: 19-29 */
+        res.autoHeight = true;
         res._onInitialize();
         res.addChild(get_button__0());
         res.addChild(get_button__1());
@@ -201,10 +201,10 @@ class Size extends ru.stablex.ui.widgets.Widget {
     inline function get_paint__4():ru.stablex.ui.skins.Paint {
         /* ui/Size.xml:23 characters: 15-25 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Size.xml:23 characters: 38-43 */
-        res.color = 0x005500;
         /* ui/Size.xml:23 characters: 27-33 */
         res.border = 1;
+        /* ui/Size.xml:23 characters: 38-43 */
+        res.color = 0x005500;
         return res;
     }
 
@@ -216,10 +216,10 @@ class Size extends ru.stablex.ui.widgets.Widget {
     inline function get_paint__5():ru.stablex.ui.skins.Paint {
         /* ui/Size.xml:26 characters: 19-29 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Size.xml:26 characters: 42-47 */
-        res.color = 0x550000;
         /* ui/Size.xml:26 characters: 31-37 */
         res.border = 1;
+        /* ui/Size.xml:26 characters: 42-47 */
+        res.color = 0x550000;
         return res;
     }
 

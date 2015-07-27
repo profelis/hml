@@ -20,10 +20,10 @@ class Position extends ru.stablex.ui.widgets.Widget {
     inline function get_paint__0():ru.stablex.ui.skins.Paint {
         /* ui/Position.xml:8 characters: 19-29 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Position.xml:8 characters: 42-47 */
-        res.color = 0x00FF00;
         /* ui/Position.xml:8 characters: 31-37 */
         res.border = 1;
+        /* ui/Position.xml:8 characters: 42-47 */
+        res.color = 0x00FF00;
         return res;
     }
 
@@ -40,10 +40,10 @@ class Position extends ru.stablex.ui.widgets.Widget {
         /* ui/Position.xml:7 characters: 25-29 */
         res.text = 'Click here to set \'child.left = 30\'';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_click__0());
-        /* ui/Position.xml:7 characters: 72-82 */
-        res.autoHeight = true;
         /* ui/Position.xml:7 characters: 17-18 */
         res.w = 300;
+        /* ui/Position.xml:7 characters: 72-82 */
+        res.autoHeight = true;
         /* ui/Position.xml:8 characters: 13-17 */
         res.skin = get_paint__0();
         res._onInitialize();
@@ -60,10 +60,10 @@ class Position extends ru.stablex.ui.widgets.Widget {
     inline function get_paint__1():ru.stablex.ui.skins.Paint {
         /* ui/Position.xml:11 characters: 19-29 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Position.xml:11 characters: 42-47 */
-        res.color = 0x00FF00;
         /* ui/Position.xml:11 characters: 31-37 */
         res.border = 1;
+        /* ui/Position.xml:11 characters: 42-47 */
+        res.color = 0x00FF00;
         return res;
     }
 
@@ -80,10 +80,10 @@ class Position extends ru.stablex.ui.widgets.Widget {
         /* ui/Position.xml:10 characters: 25-29 */
         res.text = 'Click here to set \'child.leftPt = 30\'';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_click__1());
-        /* ui/Position.xml:10 characters: 74-84 */
-        res.autoHeight = true;
         /* ui/Position.xml:10 characters: 17-18 */
         res.w = 300;
+        /* ui/Position.xml:10 characters: 74-84 */
+        res.autoHeight = true;
         /* ui/Position.xml:11 characters: 13-17 */
         res.skin = get_paint__1();
         res._onInitialize();
@@ -100,10 +100,10 @@ class Position extends ru.stablex.ui.widgets.Widget {
     inline function get_paint__2():ru.stablex.ui.skins.Paint {
         /* ui/Position.xml:15 characters: 19-29 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Position.xml:15 characters: 42-47 */
-        res.color = 0x00FF00;
         /* ui/Position.xml:15 characters: 31-37 */
         res.border = 1;
+        /* ui/Position.xml:15 characters: 42-47 */
+        res.color = 0x00FF00;
         return res;
     }
 
@@ -120,10 +120,10 @@ class Position extends ru.stablex.ui.widgets.Widget {
         /* ui/Position.xml:13 characters: 25-29 */
         res.text = 'Click here to set \'child.right = 30\'';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_click__2());
-        /* ui/Position.xml:13 characters: 73-83 */
-        res.autoHeight = true;
         /* ui/Position.xml:13 characters: 17-18 */
         res.w = 300;
+        /* ui/Position.xml:13 characters: 73-83 */
+        res.autoHeight = true;
         /* ui/Position.xml:15 characters: 13-17 */
         res.skin = get_paint__2();
         res._onInitialize();
@@ -140,10 +140,10 @@ class Position extends ru.stablex.ui.widgets.Widget {
     inline function get_paint__3():ru.stablex.ui.skins.Paint {
         /* ui/Position.xml:18 characters: 19-29 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Position.xml:18 characters: 42-47 */
-        res.color = 0x00FF00;
         /* ui/Position.xml:18 characters: 31-37 */
         res.border = 1;
+        /* ui/Position.xml:18 characters: 42-47 */
+        res.color = 0x00FF00;
         return res;
     }
 
@@ -160,10 +160,10 @@ class Position extends ru.stablex.ui.widgets.Widget {
         /* ui/Position.xml:17 characters: 25-29 */
         res.text = 'Click here to set \'child.rightPt = 30\'';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_click__3());
-        /* ui/Position.xml:17 characters: 75-85 */
-        res.autoHeight = true;
         /* ui/Position.xml:17 characters: 17-18 */
         res.w = 300;
+        /* ui/Position.xml:17 characters: 75-85 */
+        res.autoHeight = true;
         /* ui/Position.xml:18 characters: 13-17 */
         res.skin = get_paint__3();
         res._onInitialize();
@@ -180,10 +180,10 @@ class Position extends ru.stablex.ui.widgets.Widget {
     inline function get_paint__4():ru.stablex.ui.skins.Paint {
         /* ui/Position.xml:21 characters: 19-29 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Position.xml:21 characters: 42-47 */
-        res.color = 0x00FF00;
         /* ui/Position.xml:21 characters: 31-37 */
         res.border = 1;
+        /* ui/Position.xml:21 characters: 42-47 */
+        res.color = 0x00FF00;
         return res;
     }
 
@@ -200,10 +200,10 @@ class Position extends ru.stablex.ui.widgets.Widget {
         /* ui/Position.xml:20 characters: 25-29 */
         res.text = 'Click here to set \'child.top = 30\'';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_click__4());
-        /* ui/Position.xml:20 characters: 71-81 */
-        res.autoHeight = true;
         /* ui/Position.xml:20 characters: 17-18 */
         res.w = 300;
+        /* ui/Position.xml:20 characters: 71-81 */
+        res.autoHeight = true;
         /* ui/Position.xml:21 characters: 13-17 */
         res.skin = get_paint__4();
         res._onInitialize();
@@ -220,10 +220,10 @@ class Position extends ru.stablex.ui.widgets.Widget {
     inline function get_paint__5():ru.stablex.ui.skins.Paint {
         /* ui/Position.xml:24 characters: 19-29 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Position.xml:24 characters: 42-47 */
-        res.color = 0x00FF00;
         /* ui/Position.xml:24 characters: 31-37 */
         res.border = 1;
+        /* ui/Position.xml:24 characters: 42-47 */
+        res.color = 0x00FF00;
         return res;
     }
 
@@ -240,10 +240,10 @@ class Position extends ru.stablex.ui.widgets.Widget {
         /* ui/Position.xml:23 characters: 25-29 */
         res.text = 'Click here to set \'child.topPt = 30\'';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_click__5());
-        /* ui/Position.xml:23 characters: 73-83 */
-        res.autoHeight = true;
         /* ui/Position.xml:23 characters: 17-18 */
         res.w = 300;
+        /* ui/Position.xml:23 characters: 73-83 */
+        res.autoHeight = true;
         /* ui/Position.xml:24 characters: 13-17 */
         res.skin = get_paint__5();
         res._onInitialize();
@@ -260,10 +260,10 @@ class Position extends ru.stablex.ui.widgets.Widget {
     inline function get_paint__6():ru.stablex.ui.skins.Paint {
         /* ui/Position.xml:27 characters: 19-29 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Position.xml:27 characters: 42-47 */
-        res.color = 0x00FF00;
         /* ui/Position.xml:27 characters: 31-37 */
         res.border = 1;
+        /* ui/Position.xml:27 characters: 42-47 */
+        res.color = 0x00FF00;
         return res;
     }
 
@@ -280,10 +280,10 @@ class Position extends ru.stablex.ui.widgets.Widget {
         /* ui/Position.xml:26 characters: 25-29 */
         res.text = 'Click here to set \'child.bottom = 30\'';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_click__6());
-        /* ui/Position.xml:26 characters: 74-84 */
-        res.autoHeight = true;
         /* ui/Position.xml:26 characters: 17-18 */
         res.w = 300;
+        /* ui/Position.xml:26 characters: 74-84 */
+        res.autoHeight = true;
         /* ui/Position.xml:27 characters: 13-17 */
         res.skin = get_paint__6();
         res._onInitialize();
@@ -300,10 +300,10 @@ class Position extends ru.stablex.ui.widgets.Widget {
     inline function get_paint__7():ru.stablex.ui.skins.Paint {
         /* ui/Position.xml:30 characters: 19-29 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Position.xml:30 characters: 42-47 */
-        res.color = 0x00FF00;
         /* ui/Position.xml:30 characters: 31-37 */
         res.border = 1;
+        /* ui/Position.xml:30 characters: 42-47 */
+        res.color = 0x00FF00;
         return res;
     }
 
@@ -320,10 +320,10 @@ class Position extends ru.stablex.ui.widgets.Widget {
         /* ui/Position.xml:29 characters: 25-29 */
         res.text = 'Click here to set \'child.bottomPt = 30\'';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_click__7());
-        /* ui/Position.xml:29 characters: 76-86 */
-        res.autoHeight = true;
         /* ui/Position.xml:29 characters: 17-18 */
         res.w = 300;
+        /* ui/Position.xml:29 characters: 76-86 */
+        res.autoHeight = true;
         /* ui/Position.xml:30 characters: 13-17 */
         res.skin = get_paint__7();
         res._onInitialize();
@@ -363,10 +363,10 @@ class Position extends ru.stablex.ui.widgets.Widget {
     inline function get_paint__8():ru.stablex.ui.skins.Paint {
         /* ui/Position.xml:36 characters: 15-25 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Position.xml:36 characters: 38-43 */
-        res.color = 0x005500;
         /* ui/Position.xml:36 characters: 27-33 */
         res.border = 1;
+        /* ui/Position.xml:36 characters: 38-43 */
+        res.color = 0x005500;
         return res;
     }
 
@@ -378,10 +378,10 @@ class Position extends ru.stablex.ui.widgets.Widget {
     inline function get_paint__9():ru.stablex.ui.skins.Paint {
         /* ui/Position.xml:39 characters: 19-29 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Position.xml:39 characters: 42-47 */
-        res.color = 0x550000;
         /* ui/Position.xml:39 characters: 31-37 */
         res.border = 1;
+        /* ui/Position.xml:39 characters: 42-47 */
+        res.color = 0x550000;
         return res;
     }
 

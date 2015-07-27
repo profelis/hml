@@ -137,9 +137,9 @@ class Clock extends ru.stablex.ui.widgets.VBox {
         res.addEventListener(flash.events.Event.ADDED_TO_STAGE, get_display__2());
         /* ui/Clock.xml:16 characters: 73-80 */
         res.forward = false;
+        res.addEventListener(ru.stablex.ui.events.WidgetEvent.CHANGE, get_widgetChange__0());
         /* ui/Clock.xml:16 characters: 89-94 */
         res.value = 60;
-        res.addEventListener(ru.stablex.ui.events.WidgetEvent.CHANGE, get_widgetChange__0());
         /* ui/Clock.xml:16 characters: 24-34 */
         res.timeFormat = 'Self destruction in %s seconds...';
         res._onInitialize();

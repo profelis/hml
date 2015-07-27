@@ -243,10 +243,10 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         var res = this.child2;
         /* ui/Ab.xml:17 characters: 52-56 */
         unbind_child2_name = bindx.BindExt.exprTo(user.name, res.name);
-        /* ui/Ab.xml:17 characters: 41-42 */
-        unbind_child2_x = bindx.BindExt.exprTo(100, res.x);
         /* ui/Ab.xml:17 characters: 25-32 */
         res.visible = false;
+        /* ui/Ab.xml:17 characters: 41-42 */
+        unbind_child2_x = bindx.BindExt.exprTo(100, res.x);
         return res;
     }
 
@@ -261,10 +261,10 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         child3_initialized = true;
         this.child3 = new flash.display.Sprite();
         var res = this.child3;
-        /* ui/Ab.xml:19 characters: 41-42 */
-        unbind_child3_x = bindx.BindExt.exprTo(200, res.x);
         /* ui/Ab.xml:19 characters: 25-32 */
         res.visible = false;
+        /* ui/Ab.xml:19 characters: 41-42 */
+        unbind_child3_x = bindx.BindExt.exprTo(200, res.x);
         return res;
     }
 

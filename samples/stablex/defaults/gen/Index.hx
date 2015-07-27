@@ -10,10 +10,10 @@ class Index extends ru.stablex.ui.widgets.VBox {
     inline function get_paint__0():ru.stablex.ui.skins.Paint {
         /* ui/Index.xml:6 characters: 4-14 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Index.xml:6 characters: 16-21 */
-        res.color = 0x005d00;
         /* ui/Index.xml:6 characters: 68-74 */
         res.border = 8;
+        /* ui/Index.xml:6 characters: 16-21 */
+        res.color = 0x005d00;
         /* ui/Index.xml:6 characters: 56-61 */
         res.alpha = 0.8;
         /* ui/Index.xml:6 characters: 33-44 */

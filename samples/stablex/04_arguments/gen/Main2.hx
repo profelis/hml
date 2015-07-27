@@ -19,10 +19,10 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
     inline function get_paint__0():ru.stablex.ui.skins.Paint {
         /* ui/Main2.xml:5 characters: 12-22 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Main2.xml:5 characters: 35-40 */
-        res.color = 0xFFFFFF;
         /* ui/Main2.xml:5 characters: 24-30 */
         res.border = 1;
+        /* ui/Main2.xml:5 characters: 35-40 */
+        res.color = 0xFFFFFF;
         return res;
     }
 
@@ -39,10 +39,10 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
                 if(defaultsFn != null) defaultsFn(res);
             }
         }
-        /* ui/Main2.xml:4 characters: 42-46 */
-        res.text = 'type any message here';
         /* ui/Main2.xml:4 characters: 35-36 */
         res.h = 20;
+        /* ui/Main2.xml:4 characters: 42-46 */
+        res.text = 'type any message here';
         /* ui/Main2.xml:4 characters: 27-28 */
         res.w = 150;
         /* ui/Main2.xml:5 characters: 6-10 */
@@ -69,10 +69,10 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
     inline function get_paint__1():ru.stablex.ui.skins.Paint {
         /* ui/Main2.xml:18 characters: 12-22 */
         var res = new ru.stablex.ui.skins.Paint();
-        /* ui/Main2.xml:18 characters: 35-40 */
-        res.color = 0xbbbbbb;
         /* ui/Main2.xml:18 characters: 24-30 */
         res.border = 1;
+        /* ui/Main2.xml:18 characters: 35-40 */
+        res.color = 0xbbbbbb;
         return res;
     }
 
@@ -86,10 +86,10 @@ class Main2 extends ru.stablex.ui.widgets.HBox {
                 if(defaultsFn != null) defaultsFn(res);
             }
         }
-        /* ui/Main2.xml:9 characters: 20-24 */
-        res.text = 'Show me the alert!';
         /* ui/Main2.xml:9 characters: 13-14 */
         res.h = 20;
+        /* ui/Main2.xml:9 characters: 20-24 */
+        res.text = 'Show me the alert!';
         res.addEventListener(flash.events.MouseEvent.CLICK, get_click__0());
         /* ui/Main2.xml:18 characters: 6-10 */
         res.skin = get_paint__1();
