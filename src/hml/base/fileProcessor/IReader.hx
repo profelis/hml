@@ -1,4 +1,5 @@
 package hml.base.fileProcessor;
+
 import haxe.macro.Expr.Position;
 
 interface IReader<B> {
