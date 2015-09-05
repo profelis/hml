@@ -19,6 +19,7 @@ class DefaultPropertiesReader implements IPropertiesReader<PropertiesData> {
     public function read(data:String, fileName:String, pos:Position):PropertiesData {
         var res = new PropertiesData();
 
+        data = data.split("\r\n").join("\n").split("\r").join("\n");
         var lines = data.split("\n");
         for (l in lines) {
             var arr = l.split("=");
