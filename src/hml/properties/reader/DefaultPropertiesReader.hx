@@ -1,5 +1,6 @@
 package hml.properties.reader;
 
+import hml.base.StringUtils;
 import hml.base.MatchLevel;
 import hml.properties.Data;
 import haxe.macro.Expr.Position;
@@ -19,8 +20,7 @@ class DefaultPropertiesReader implements IPropertiesReader<PropertiesData> {
     public function read(data:String, fileName:String, pos:Position):PropertiesData {
         var res = new PropertiesData();
 
-        data = data.split("\r\n").join("\n").split("\r").join("\n");
-        var lines = data.split("\n");
+        var lines = StringUtils.splitLines(data);
         for (l in lines) {
             var arr = l.split("=");
             if (arr.length < 2) {

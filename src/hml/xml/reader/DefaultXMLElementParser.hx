@@ -1,5 +1,7 @@
 package hml.xml.reader;
 
+import hml.base.StringUtils;
+import hml.base.StringUtils;
 import hml.base.MatchLevel;
 import hml.xml.reader.IXMLParser;
 import com.tenderowls.xml176.Xml176Parser;
@@ -25,8 +27,8 @@ class DefaultXMLElementParser implements IXMLNodeParser<XMLData> {
     function posToXMLDataPos(xml:Xml176Document, pos:Pos):XMLDataPos {
         var raw = xml.rawData;
         inline function getLinePos(pos:Int) {
-            var s = raw.substr(0, pos).split("\r\n").join("\n").split("\r").join("\n");
-            var lines = ~/[\n]/g.split(s);
+            var s = raw.substr(0, pos);
+            var lines = StringUtils.splitLines(s);
             return {line:lines.length, pos:lines[lines.length - 1].length};
         }
         return {
