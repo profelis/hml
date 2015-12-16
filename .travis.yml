@@ -25,7 +25,7 @@ env:
       # optional: FILENAME
     #- TARGET=cpp
       # optional: FILENAME
-    - TARGET=swf
+    - TARGET=swf HAXE_VER=3.2.0
       # optional: FILENAME
     # - TARGET=as3 
       # optional: FILENAME
