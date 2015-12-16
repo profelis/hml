@@ -101,6 +101,8 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         publicB_initialized = true;
         this.publicB = new Ba();
         var res = this.publicB;
+        /* ui/Ab.xml:32 characters: 42-50 */
+        res.sprite.x = 100;
         /* ui/Ab.xml:32 characters: 29-34 */
         res.test2 = null;
         return res;

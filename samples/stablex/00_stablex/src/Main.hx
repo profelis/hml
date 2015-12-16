@@ -19,7 +19,7 @@ class Main extends flash.display.Sprite{
 
         //initialize StablexUI
         UIBuilder.init();
-        
+
 
         //Create UI and attach it to root display object
         Lib.current.addChild(new First());
@@ -27,5 +27,3 @@ class Main extends flash.display.Sprite{
 
 
 }//class Main
-
-

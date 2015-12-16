@@ -30,13 +30,17 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
 
 	function initNodeId(n:Node):Void {
 		if (n.id == null) {
-			var name = n.name.name;
+			var name = sanitiseId(n.name.name);
 			name = name.charAt(0).toLowerCase() + name.substr(1);
 			var key = n.root.file + name;
 			var i = nodeIds.exists(key) ? nodeIds[key] : 0;
             n.id =  '${name}__$i';
 			nodeIds[key] = i + 1;
 		}
+	}
+
+	inline function sanitiseId(str:String):String {
+		return str.replace(".", "_");
 	}
 
 	@:extern public inline function getFieldName(node:Node):String {
@@ -115,7 +119,7 @@ class DefaultNodeWriter implements IHaxeNodeWriter<Node> {
         else switch (child.bindType) {
             case BindType.SIMPLE_BIND:
 				initNodeId(node);
-                var id = 'unbind_${node.id}_${child.name.name}';
+                var id = 'unbind_${node.id}_${sanitiseId(child.name.name)}';
                 writer.destroyMethod.push(StringNode.ifCond(node, 'try { ${id}(); } catch (e:Dynamic) {}'));
                 writer.fields.push(new StringNode(child, 'var ${id}:Void -> Void;'));
 				StringNode.ifCond(child, '${id} = bindx.BindExt.exprTo($source, $target);');

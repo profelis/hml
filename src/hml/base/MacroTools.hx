@@ -155,7 +155,7 @@ class ComplexTypeTools {
 	 *
 	 * @return          type name string
 	 */
-	static public function getComplexTypeName(baseType:ComplexType) {
+	static public function getComplexTypeName(baseType:ComplexType):String {
 		return switch (baseType) {
 			case TPath(p): ClassTypeTools.typeName(p);
 			case TParent(ct) | TOptional(ct): getComplexTypeName(ct);

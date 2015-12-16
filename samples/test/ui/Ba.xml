@@ -5,9 +5,12 @@
     </haxe:Meta>
     
     <haxe:Declarations>
-        <ui:Ab id="test2">
+        <!--child1.text="FooBar"-->
+        <ui:Ab id="test2" child1.text="'FooBar'">
             <ui:name>'foo'</ui:name>
         </ui:Ab>
+
+        <s:Sprite xmlns:s="flash.display" id="sprite"/>
     </haxe:Declarations>
     
     <haxe:Script><![CDATA[

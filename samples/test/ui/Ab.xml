@@ -29,7 +29,7 @@
             </haxe:Meta>
         </ui:String>
         <ui:String id="string2">"ab"</ui:String>
-        <ui:Ba id="publicB" test2="null" />
+        <ui:Ba id="publicB" test2="null" sprite.x="100" />
         <UserModel id="user" name="'user1'"/>
     </haxe:Declarations>
 

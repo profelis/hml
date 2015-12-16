@@ -66,6 +66,11 @@ class UITests extends BuddySuite {
             it("hml should fill arrays", function () {
                 a.list.should.containExactly(["as", null]);
             });
+
+            it("hml should call subfields", function () {
+                a.publicB.sprite.x.should.be(100);
+                b.test2.child1.text.should.be("FooBar");
+            });
         });
         
         describe("hml magic meta", function () {
