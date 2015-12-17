@@ -2,6 +2,7 @@ package hml.xml.typeResolver;
 
 import hml.xml.Data;
 import haxe.macro.Context;
+import haxe.macro.Type.Type in MacroType;
 
 using hml.base.MacroTools;
 using haxe.macro.Tools;
@@ -79,7 +80,13 @@ class DefaultHaxeTypeResolver implements IHaxeTypeResolver<Node, Type> {
             return _getFieldNativeType(type.superType, name);
         }
         return try {
-            Context.getType(superType).getClass().findField(name, false).type;
+            var superTypeEnum = Context.getType(superType);
+            switch (superTypeEnum) {
+                case TAbstract(ref, _):
+                    ref.get().findField(name).type;
+                case _:
+                    superTypeEnum.getClass().findField(name, false).type;
+            }
         } catch (e:Dynamic) { null; }
     }
 

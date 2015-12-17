@@ -19,14 +19,14 @@ typedef TypeString = {
 class TypeStringTools {
 
 	/**
-	 * Convert string "Map<String, Array<Int>>" to TypeString struct 
+	 * Convert string "Map<String, Array<Int>>" to TypeString struct
 	 * {
-	 *    type:Map, 
+	 *    type:Map,
 	 *    params:[
 	 *        {
 	 *            type:String,
 	 *            params:[]
-	 *        }, 
+	 *        },
 	 *        {
 	 *            type:Array,
 	 *            params:
@@ -37,7 +37,7 @@ class TypeStringTools {
 	 *         }
 	 *    ]
 	 * }
-	 * 
+	 *
 	 * @param  str type defenition
 	 * @return     array of TypeString structurs
 	 */
@@ -48,14 +48,14 @@ class TypeStringTools {
 	static function stringToTypesMap(str:String):Array<TypeString> {
 		var reg = ~/\s*([\.\w]*)\s*<(([^<>]*|(?R))*)>/g;
 		var res = [];
-		
+
 		while (reg.match(str)) {
 			for (t in reg.matchedLeft().split(",")) {
 				if (t.trim().length > 0) res.push({type:t.trim(), params:[]});
 			}
 
 			res.push({type:reg.matched(1), params:TypeStringTools.stringToTypesMap(reg.matched(2))});
-			
+
 			str = reg.matchedRight();
 		}
 		if (res.length == 0) {
@@ -68,7 +68,7 @@ class TypeStringTools {
 	/**
 	 * Convert TypeString to valid haxe code string
 	 * {type:String, params:[] } convert to "String"
-	 * 
+	 *
 	 * @param  types<TypeString> array of TypeString structurs
 	 * @return                   valid haxe type name
 	 */
@@ -83,9 +83,9 @@ class TypeStringTools {
 	 * Convert TypeString to haxe.macro.Type, resolving generic params
 	 *
 	 * throws Context.getType errors
-	 * 
+	 *
 	 * @param  types<TypeString> array of TypeString structurs
-	 * @return                   array of haxe.macro.Type 
+	 * @return                   array of haxe.macro.Type
 	 */
 	static public function toTypeArray(types:Array<TypeString>):Array<haxe.macro.Type> {
 		function map(data:Array<TypeString>):Array<haxe.macro.Type> {
@@ -113,7 +113,7 @@ class ClassTypeTools {
 
 	/**
 	 * resolve inheritance
-	 * 
+	 *
 	 * @param  clazz    source ClassType
 	 * @param  baseType target ComplexType (class or interface)
 	 * @return          source class is subclass of baseType or implements baseType interface
@@ -121,7 +121,7 @@ class ClassTypeTools {
 	static public function isChildOf(clazz:ClassType, baseType:ComplexType):Bool {
 		var name = ComplexTypeTools.getComplexTypeName(baseType);
 		if (name == null) throw 'unknown type name for ${clazz.module}';
-			
+
 		while (clazz != null) {
 			if (clazz != null && typeName(clazz) == name) return true;
 			for (i in clazz.interfaces) {
@@ -135,13 +135,13 @@ class ClassTypeTools {
 	/**
 	 * generate type name using package and type name
 	 * typeName({pack:["flash", "display", "Sprite"], name:"Sprite"}) return flash.display.Sprite
-	 * 
+	 *
 	 * @param  type struct {pack:Array<String>, name:String}
 	 * @return type name string
 	 */
 	@:extern public static inline function typeName(type:{pack:Array<String>, name:String}):String {
         return if (type.pack[type.pack.length - 1] == type.name) type.pack.join(".");
-            else if (type.pack.length > 0) type.pack.join(".") + "." + type.name; 
+            else if (type.pack.length > 0) type.pack.join(".") + "." + type.name;
             else type.name;
 	}
 }
@@ -179,10 +179,10 @@ class TypeTools {
 	 * resolve inheritance
 	 *
 	 * @see ClassTypeTools.isChildOf
-	 * 
+	 *
 	 * @param  type     source type haxe.macro.Type
 	 * @param  baseType target type or interface
-	 * @return          source type is subclass of target type or implements target interface 
+	 * @return          source type is subclass of target type or implements target interface
 	 */
 	static public function isChildOf(type:haxe.macro.Type, baseType:ComplexType) {
 		var name = ComplexTypeTools.getComplexTypeName(baseType);
@@ -238,5 +238,44 @@ class BaseTypeTools {
 			null;
 		else
 			t.pack.length > 0 ? t.pack.concat([t.name]) : [t.name];
+	}
+}
+
+
+class AbstractTypeTools {
+
+	static public function findField (c:AbstractType, name:String):Null<ClassField> {
+		//check own abstract fields
+		for (field in c.impl.get().statics.get()) {
+			if (field.name == name) {
+				return field;
+			}
+		}
+
+		//check for forwarded fields
+		for (meta in c.meta.extract(':forward')) {
+			var forwarded = (meta.params == null || meta.params.length == 0);
+			if (!forwarded) {
+				for (expr in meta.params) {
+					switch (expr.expr) {
+						case EConst(CIdent(fieldName)):
+							if (fieldName == name) {
+								forwarded = true;
+								break;
+							}
+						case _:
+					}
+				}
+			}
+
+			if (forwarded) {
+				return switch (c.type) {
+					case TAbstract(ref,_) : findField(ref.get(), name);
+					case _                : c.type.getClass().findField(name, false);
+				}
+			}
+		}
+// Context.error('', Context.currentPos());
+		return null;
 	}
 }

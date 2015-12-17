@@ -23,6 +23,18 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
 
     @:isVar public var user(get, set):data.UserModel;
 
+    var abstractNoForward_initialized:Bool = false;
+
+    @:isVar public var abstractNoForward(get, set):data.AbstractNoForward;
+
+    var abstractForwardSomeFields_initialized:Bool = false;
+
+    @:isVar public var abstractForwardSomeFields(get, set):data.AbstractForwardSomeFields;
+
+    var abstractForwardAllFields_initialized:Bool = false;
+
+    @:isVar public var abstractForwardAllFields(get, set):data.AbstractForwardAllFields;
+
     var privateString_initialized:Bool = false;
 
     @:isVar var privateString(get, set):String;
@@ -124,13 +136,61 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         return res;
     }
 
+    function set_abstractNoForward(value:data.AbstractNoForward):data.AbstractNoForward {
+        abstractNoForward_initialized = true;
+        return abstractNoForward = value;
+    }
+
+    function get_abstractNoForward():data.AbstractNoForward {
+        /* ui/Ab.xml:34 characters: 9-26 */
+        if (abstractNoForward_initialized) return abstractNoForward;
+        abstractNoForward_initialized = true;
+        this.abstractNoForward = new data.AbstractNoForward();
+        var res = this.abstractNoForward;
+        /* ui/Ab.xml:34 characters: 51-64 */
+        res.abstractField = 1;
+        return res;
+    }
+
+    function set_abstractForwardSomeFields(value:data.AbstractForwardSomeFields):data.AbstractForwardSomeFields {
+        abstractForwardSomeFields_initialized = true;
+        return abstractForwardSomeFields = value;
+    }
+
+    function get_abstractForwardSomeFields():data.AbstractForwardSomeFields {
+        /* ui/Ab.xml:35 characters: 9-34 */
+        if (abstractForwardSomeFields_initialized) return abstractForwardSomeFields;
+        abstractForwardSomeFields_initialized = true;
+        this.abstractForwardSomeFields = new data.AbstractForwardSomeFields();
+        var res = this.abstractForwardSomeFields;
+        /* ui/Ab.xml:35 characters: 67-68 */
+        res.b = 2;
+        return res;
+    }
+
+    function set_abstractForwardAllFields(value:data.AbstractForwardAllFields):data.AbstractForwardAllFields {
+        abstractForwardAllFields_initialized = true;
+        return abstractForwardAllFields = value;
+    }
+
+    function get_abstractForwardAllFields():data.AbstractForwardAllFields {
+        /* ui/Ab.xml:36 characters: 9-33 */
+        if (abstractForwardAllFields_initialized) return abstractForwardAllFields;
+        abstractForwardAllFields_initialized = true;
+        this.abstractForwardAllFields = new data.AbstractForwardAllFields();
+        var res = this.abstractForwardAllFields;
+        /* ui/Ab.xml:36 characters: 65-66 */
+        res.b = 3;
+        return res;
+    }
+
     function set_privateString(value:String):String {
         privateString_initialized = true;
         return privateString = value;
     }
 
     function get_privateString():String {
-        /* ui/Ab.xml:37 characters: 9-18 */
+        /* ui/Ab.xml:40 characters: 9-18 */
         if (privateString_initialized) return privateString;
         privateString_initialized = true;
         this.privateString = 'text in private string';
@@ -165,31 +225,31 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
     }
 
     inline function get_int__0():Int {
-        /* ui/Ab.xml:47 characters: 18-21 */
+        /* ui/Ab.xml:50 characters: 18-21 */
         var res = 50;
         return res;
     }
 
     inline function get_float__0():Float {
-        /* ui/Ab.xml:48 characters: 18-23 */
+        /* ui/Ab.xml:51 characters: 18-23 */
         var res = 50.0;
         return res;
     }
 
     inline function get_bool__0():Bool {
-        /* ui/Ab.xml:49 characters: 24-28 */
+        /* ui/Ab.xml:52 characters: 24-28 */
         var res = true;
         return res;
     }
 
     inline function get_sprite__0():flash.display.Sprite {
-        /* ui/Ab.xml:46 characters: 9-17 */
+        /* ui/Ab.xml:49 characters: 9-17 */
         var res = new flash.display.Sprite();
-        /* ui/Ab.xml:47 characters: 13-16 */
+        /* ui/Ab.xml:50 characters: 13-16 */
         res.x = get_int__0();
-        /* ui/Ab.xml:48 characters: 13-16 */
+        /* ui/Ab.xml:51 characters: 13-16 */
         res.y = get_float__0();
-        /* ui/Ab.xml:49 characters: 13-22 */
+        /* ui/Ab.xml:52 characters: 13-22 */
         res.visible = get_bool__0();
         return res;
     }
@@ -293,7 +353,7 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         /* ui/Ab.xml:7 characters: 2-6 */
         this.list.push(get_string__0());
         this.list.push(str2);
-        /* ui/Ab.xml:45 characters: 5-10 */
+        /* ui/Ab.xml:48 characters: 5-10 */
         this.asset = get_sprite__0();
         this.addChild(sprite);
     }
