@@ -31,6 +31,9 @@
         <ui:String id="string2">"ab"</ui:String>
         <ui:Ba id="publicB" test2="null" sprite.x="100" />
         <UserModel id="user" name="'user1'"/>
+        <AbstractNoForward id="abstractNoForward" abstractField="1"/>
+        <AbstractForwardSomeFields id="abstractForwardSomeFields" b="2"/>
+        <AbstractForwardAllFields id="abstractForwardAllFields" b="3"/>
     </haxe:Declarations>
 
     <haxe:Private>
@@ -41,7 +44,7 @@
         <![CDATA[@MagicMeta('foo', "bar")
         @:rtti]]>
     </haxe:Meta>
-    
+
     <asset xmlns:s="flash.display">
         <s:Sprite xmlns="">
             <s:x><Int>50</Int></s:x>
