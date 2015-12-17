@@ -6,7 +6,7 @@
 ===
 ## Magic namespace `xmlns:haxe="http://haxe.org/"`
 
-Root node children
+### Root node children
 
 Tag          | Description   | Example
 ------------ | ------------- | -------------
@@ -15,9 +15,15 @@ Tag          | Description   | Example
 `<Private>` | List of private declarations | `<haxe:Private><ui:String id="privateString">'text in private string'</ui:String></haxe:Private>`
 `<Script>` | Haxe script block | `<haxe:Script><![CDATA[import flash.display.Sprite;]]></haxe:Script>`
 
-All tags
+### All tags
 
 Tag          | Description   | Example
 ------------ | ------------- | -------------
 `<Meta>` | Metadata | `<haxe:Meta><![CDATA[@FooMeta]]></haxe:Meta>`
 `<Generic>` | Type Parameters | `<haxe:Generic><![CDATA[foo.IBar]]></haxe:Generic>`
+
+### Extra attributes
+
+Tag          | Description   | Example
+------------ | ------------- | -------------
+haxe:if      | Conditional Compilation | `<Button text="show debug" haxe:if="debug" />`
