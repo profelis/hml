@@ -24,6 +24,14 @@ Tag          | Description   | Example
 
 ### Extra attributes
 
-Tag          | Description   | Example
+Attribute       | Description   | Example
 ------------ | ------------- | -------------
-haxe:if      | Conditional Compilation | `<Button text="show debug" haxe:if="debug" />`
+`if`      | Conditional Compilation | `<Button text="show debug" haxe:if="debug" />`
+
+### Chaining
+
+`<Text format.size="20" />`
+
+### Binding (use bindx2)
+
+`<Text text="@b model.name" />`
