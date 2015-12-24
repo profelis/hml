@@ -1,5 +1,6 @@
 package hml.xml;
 
+import hml.base.code.Access;
 import hml.base.Output;
 import hml.xml.writer.base.StringNode;
 import hml.xml.writer.IHaxeWriter;
@@ -75,24 +76,9 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
 				s = '\n${TAB}${s.split("\t").join(TAB).split("\n").join("\n" + TAB)}\n';
 				res += s;
 			}
-			
-			var overrideDestroy = false;
 
-			//Check if extending new hml generated class
-			for (t in types) if (t.type == type.superType) {
-				overrideDestroy = true;
-				break;
-			}
-
-			//Check if any of the ancestors have destroyHml method
-			overrideDestroy = overrideDestroy || type.nativeType.getClass().findField("destroyHml") != null;
-
-			var overrideStr = overrideDestroy ? "override " : "";
-			var superStr = overrideDestroy ? '${TAB}super.destroyHml();\n' : "";
-			fields.push(new StringNode(null,
-				'${overrideStr}public function destroyHml():Void {\n' +
-				superStr + TAB + destroyMethod.join('\n$TAB') + '\n}\n'
-			));
+			fields.push(getDestroyHmlNode(type, types));
+            for (node in getAdditionalNodes(type, types)) fields.push(node);
 			for (f in fields) writeNode(f);
 			for (f in methods) writeNode(f);
             if (script != null) {
@@ -145,4 +131,56 @@ class XMLWriter implements IWriter<Type> implements IHaxeWriter<Node> {
         #end
 		writer.writeAttribute(node, scope, child, this, method);
 	}
+
+
+    /**
+     * Get list of access modifiers to use for `destroyHml` method declaration
+     */
+    private function getDestroyHmlAccess (type:Type, allTypes:Array<Type>) : Array<Access>
+    {
+        var access = [APublic];
+
+        var overrideDestroy = false;
+        //Check if extending new hml generated class
+        if (allTypes != null) {
+            for (t in allTypes) if (t.type == type.superType) {
+                overrideDestroy = true;
+                break;
+            }
+        }
+        //Check if any of the ancestors have destroyHml method
+        overrideDestroy = overrideDestroy || type.nativeType.getClass().findField("destroyHml") != null;
+        if (overrideDestroy) {
+            access.push(AOverride);
+        }
+
+        return access;
+    }
+
+
+    /**
+     * Creates node which will be used to generate `destroyHml` method
+     */
+    private function getDestroyHmlNode (type:Type, allTypes:Array<Type>) : WriteNode<Node>
+    {
+        var access = getDestroyHmlAccess(type, allTypes);
+        Access.sort(access);
+
+        var superStr = access.indexOf(AOverride) >= 0 ? '${TAB}super.destroyHml();\n' : "";
+        var accessStr = access.join(' ');
+
+        return new StringNode(null,
+            '${accessStr} function destroyHml():Void {\n' +
+            superStr + TAB + destroyMethod.join('\n$TAB') + '\n}\n'
+        );
+    }
+
+
+    /**
+     * Override this method if you need to automatically add some nodes to generation process
+     */
+    private function getAdditionalNodes (type:Type, allTypes:Array<Type>) : Array<WriteNode<Node>>
+    {
+        return [];
+    }
 }
