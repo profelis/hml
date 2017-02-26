@@ -230,34 +230,21 @@ class TypeTools {
         return t.follow();
     }
 
-    static public function findFieldType(type:Type, name:String):Type {
+    static inline public function findFieldType(type:Type, name:String):Type {
+        var field = findField(type, name);
+        return field == null ? null : field.type;
+    }
+    static public function findField(type:Type, name:String):ClassField {
         if (type == null) return null;
         type = Context.follow(type);
         return switch type {
-            case TAbstract(ref, _): 
-                var res = AbstractTypeTools.findField(ref.get(), name);
-                res == null ? null : res.type;
-
-            case TInst(c, _): 
-                var res = findClassField(c.get(), name);
-                res == null ? null : res.type;
-
-            case TType(t, _): 
-                findFieldType(t.get().type, name);
-
-            case TMono(t): var type = t.get(); 
-                type == null ? null : findFieldType(type, name);
-
-            case TAnonymous(t):
-                for (f in t.get().fields) if (f.name == name) return f.type;
-                null;
-
-            case TDynamic(t): 
-                if (t != null) findFieldType(t, name); else null;
-
-            case TLazy(f): 
-                findFieldType(f(), name);
-
+            case TAbstract(ref, _):  AbstractTypeTools.findField(ref.get(), name);
+            case TInst(c, _):  findClassField(c.get(), name);
+            case TType(t, _): findField(t.get().type, name);
+            case TMono(t): var type = t.get(); type == null ? null : findField(type, name);
+            case TAnonymous(t): for (f in t.get().fields) if (f.name == name) return f; null;
+            case TDynamic(t): t == null ? null : findField(t, name);
+            case TLazy(f): findField(f(), name);
             case _:
                 trace("unknown type " + type);
                 null;
@@ -266,10 +253,8 @@ class TypeTools {
         }
     }
 
-    static public function findClassField(c:ClassType, name:String, isStatic:Bool = false):Null<ClassField> {
-        for (f in c.fields.get()) {
-            if (f.name == name) return f;
-        }
+    static public function findClassField(c:ClassType, name:String, isStatic:Bool = false):ClassField {
+        for (f in c.fields.get()) if (f.name == name) return f;
         for (i in c.interfaces) {
             var f = findClassField(i.t.get(), name, isStatic);
             if (f != null) return f;
