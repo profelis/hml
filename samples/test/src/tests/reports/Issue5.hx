@@ -17,7 +17,7 @@ class Issue5 extends BuddySuite {
 
             var a:Ab;
 
-            before({
+            beforeEach({
                 a = new Ab();
             });
 
@@ -30,7 +30,7 @@ class Issue5 extends BuddySuite {
 
             var a:Ab;
 
-            before({
+            beforeEach({
                 a = new Ab();
             });
 
@@ -43,7 +43,7 @@ class Issue5 extends BuddySuite {
 
             var a:Ab;
 
-            before({
+            beforeEach({
                 a = new Ab();
             });
 

@@ -12,7 +12,7 @@ class PR1 extends BuddySuite {
             
             var a:Ab;
                 
-            before({
+            beforeEach({
                 a = new Ab();     
             });
             

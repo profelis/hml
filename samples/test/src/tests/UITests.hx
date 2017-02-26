@@ -26,7 +26,7 @@ class UITests extends BuddySuite {
             var a:Ab;
             var b:Ba;
             
-            before(function () {
+            beforeEach(function () {
                 a = new Ab();
                 b = Type.createInstance(Ba, []);
             });
@@ -78,7 +78,7 @@ class UITests extends BuddySuite {
             var a:Ab;
             var b:Ba;
             
-            before(function () {
+            beforeEach(function () {
                 a = Type.createInstance(Ab, []);
                 b = Type.createInstance(Ba, []);
             });
@@ -120,7 +120,7 @@ class UITests extends BuddySuite {
             var a:Ab;
             var b:Ba;
             
-            before(function () {
+            beforeEach(function () {
                 a = new Ab();
                 b = Type.createInstance(Ba, []);
             });
@@ -163,7 +163,7 @@ class UITests extends BuddySuite {
             var a:Ab;
             var b:Ba;
             
-            before({
+            beforeEach({
                 a = new Ab();
                 b = new Ba();
             });
@@ -189,7 +189,7 @@ class UITests extends BuddySuite {
             
             var b:Ba;
             
-            before(function () {
+            beforeEach(function () {
                 b = new Ba();
             });
             
@@ -203,7 +203,7 @@ class UITests extends BuddySuite {
         
             var a:Ab;
             
-            before(function () {
+            beforeEach(function () {
                 a=  new Ab();
             });
             
