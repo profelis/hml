@@ -5,8 +5,8 @@
     "tags": ["mxml", "ui", "cross"],
     "description": "Haxe macro-based mxml replacement",
     "classPath": "src",
-    "version": "0.0.2-alpha",
-    "releasenote": "snapshot release",
+    "version": "0.0.3",
+    "releasenote": "haxe 3.4 support, lookup interface fields",
     "contributors": [
         "deep"
     ]
