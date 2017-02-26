@@ -61,6 +61,13 @@ class DefaultHaxeTypeResolver implements IHaxeTypeResolver<Node, Type> {
     function _getFieldNativeType(superType:String, name:String):Null<haxe.macro.Type> {
         var type:Type;
         if ((type = types[superType]) != null) {
+            if (type.implementsList != null) for (i in type.implementsList) {
+                try {
+                    var t = Context.getType(i.type);
+                    var res = t.findFieldType(name);
+                    if (res != null) return res;
+                }
+            }
             for (n in type.children) if (name == n.id) return n.nativeType;
             for (n in type.nodes) if (name == n.id) return n.nativeType;
             for (n in type.declarations) if (name == n.id) return n.nativeType;
@@ -80,14 +87,10 @@ class DefaultHaxeTypeResolver implements IHaxeTypeResolver<Node, Type> {
             return _getFieldNativeType(type.superType, name);
         }
         return try {
-            var superTypeEnum = Context.getType(superType);
-            switch (superTypeEnum) {
-                case TAbstract(ref, _):
-                    ref.get().findField(name).type;
-                case _:
-                    superTypeEnum.getClass().findField(name, false).type;
-            }
-        } catch (e:Dynamic) { null; }
+            var fieldType = Context.getType(superType);
+            return fieldType.findFieldType(name);
+        }
+        catch (e:Dynamic) { null; }
     }
 
     function getNodeById(node:Node, name:String):Node {
