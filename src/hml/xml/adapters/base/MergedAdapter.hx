@@ -13,34 +13,39 @@ class MergedAdapter<B, N, T> implements IAdapter<B, N, T> {
 	}
 
 	public function getXmlNodeParsers():Array<IXMLNodeParser<B>> {
-		return foreach(getXmlNodeParsers);
+		var res = [];
+		for (a in adapters) {
+			var t = a.getXmlNodeParsers();
+			if (t != null) res = res.concat(t);
+		}
+		return res;
 	}
 
 	public function getXmlDataNodeParsers():Array<IXMLDataNodeParser<B, N, N>> {
-		return foreach(getXmlDataNodeParsers);
+		var res = [];
+		for (a in adapters) {
+			var t = a.getXmlDataNodeParsers();
+			if (t != null) res = res.concat(t);
+		}
+		return res;
 	}
 
 	public function getTypeResolvers():Array<IHaxeTypeResolver<N, T>> {
-		return foreach(getTypeResolvers);
+		var res = [];
+		for (a in adapters) {
+			var t = a.getTypeResolvers();
+			if (t != null) res = res.concat(t);
+		}
+		return res;
 	}
 
 	public function getNodeWriters():Array<IHaxeNodeWriter<N>> {
-		return foreach(getNodeWriters);
+		var res = [];
+		for (a in adapters) {
+			var t = a.getNodeWriters();
+			if (t != null) res = res.concat(t);
+		}
+		return res;
 	}
 
-	macro static function foreach(methodExpr:Expr) {
-		var method = switch (methodExpr.expr) {
-			case EField(_, field): field;
-			case EConst(CIdent(id)): id;
-			case _: throw "assert";
-		}
-		return macro {
-			var res = [];
-			for (a in adapters) {
-				var t = a.$method();
-				if (t != null) res = res.concat(t);
-			}
-			res;
-		}
-	}
 }
