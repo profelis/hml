@@ -152,7 +152,7 @@ class UITests extends BuddySuite {
                         var i = c.interfaces.pop();
                         i.path.should.be("data.IEmptyInterface");
                         i.params.length.should.be(1);
-                        i.params.first().match(CClass("haxe.Timer", _)).should.be(true);
+                        i.params[0].match(CClass("haxe.Timer", _)).should.be(true);
                     case _:
                 }
             });

@@ -56,9 +56,9 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
 
     @:isVar public var child2(get, set):flash.display.Sprite;
 
-    var unbind_child2_name:Void -> Void;
-
     var unbind_child2_x:Void -> Void;
+
+    var unbind_child2_name:Void -> Void;
 
     var child3_initialized:Bool = false;
 
@@ -68,8 +68,8 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
 
     public function destroyHml():Void {
         try { unbind_string_String(); } catch (e:Dynamic) {}
-        try { unbind_child2_name(); } catch (e:Dynamic) {}
         try { unbind_child2_x(); } catch (e:Dynamic) {}
+        try { unbind_child2_name(); } catch (e:Dynamic) {}
         try { unbind_child3_x(); } catch (e:Dynamic) {}
     }
     
@@ -113,10 +113,10 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         publicB_initialized = true;
         this.publicB = new Ba();
         var res = this.publicB;
-        /* ui/Ab.xml:32 characters: 42-50 */
-        res.sprite.x = 100;
         /* ui/Ab.xml:32 characters: 29-34 */
         res.test2 = null;
+        /* ui/Ab.xml:32 characters: 42-50 */
+        res.sprite.x = 100;
         return res;
     }
 
@@ -276,19 +276,19 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         child1_initialized = true;
         this.child1 = new flash.text.TextField();
         var res = this.child1;
-        /* ui/Ab.xml:14 characters: 47-52 */
-        res.alpha = 0.78;
-        /* ui/Ab.xml:14 characters: 81-90 */
-        res.textColor = 0xFF0000;
-        /* ui/Ab.xml:14 characters: 60-64 */
-        res.text = privateString;
-        /* ui/Ab.xml:14 characters: 102-112 */
-        res.selectable = false;
-        res.addEventListener(flash.events.MouseEvent.CLICK, get_click__0());
         /* ui/Ab.xml:14 characters: 31-32 */
         res.x = 100;
+        res.addEventListener(flash.events.MouseEvent.CLICK, get_click__0());
+        /* ui/Ab.xml:14 characters: 102-112 */
+        res.selectable = false;
+        /* ui/Ab.xml:14 characters: 81-90 */
+        res.textColor = 0xFF0000;
+        /* ui/Ab.xml:14 characters: 47-52 */
+        res.alpha = 0.78;
         /* ui/Ab.xml:14 characters: 39-40 */
         res.y = 200;
+        /* ui/Ab.xml:14 characters: 60-64 */
+        res.text = privateString;
         return res;
     }
 
@@ -303,12 +303,12 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         child2_initialized = true;
         this.child2 = new flash.display.Sprite();
         var res = this.child2;
-        /* ui/Ab.xml:17 characters: 52-56 */
-        unbind_child2_name = bindx.BindExt.exprTo(user.name, res.name);
-        /* ui/Ab.xml:17 characters: 25-32 */
-        res.visible = false;
         /* ui/Ab.xml:17 characters: 41-42 */
         unbind_child2_x = bindx.BindExt.exprTo(100, res.x);
+        /* ui/Ab.xml:17 characters: 25-32 */
+        res.visible = false;
+        /* ui/Ab.xml:17 characters: 52-56 */
+        unbind_child2_name = bindx.BindExt.exprTo(user.name, res.name);
         return res;
     }
 
@@ -323,10 +323,10 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
         child3_initialized = true;
         this.child3 = new flash.display.Sprite();
         var res = this.child3;
-        /* ui/Ab.xml:19 characters: 25-32 */
-        res.visible = false;
         /* ui/Ab.xml:19 characters: 41-42 */
         unbind_child3_x = bindx.BindExt.exprTo(200, res.x);
+        /* ui/Ab.xml:19 characters: 25-32 */
+        res.visible = false;
         return res;
     }
 
@@ -345,9 +345,9 @@ class Ab extends data.A implements data.ITools<flash.display.Sprite> {
     public function new() {
         /* ui/Ab.xml:1 characters: 1-2 */
         super();
+        this.addEventListener("someEvent", get_someEvent__0());
         /* ui/Ab.xml:1 characters: 104-109 */
         this.alpha = 0.5;
-        this.addEventListener("someEvent", get_someEvent__0());
         /* ui/Ab.xml:4 characters: 2-6 */
         this.name = 'testName';
         /* ui/Ab.xml:7 characters: 2-6 */
